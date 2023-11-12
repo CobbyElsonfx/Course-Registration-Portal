@@ -8,11 +8,12 @@ if (strlen($_SESSION['alogin']) == 0) {
   if (isset($_POST['submit'])) {
     $surname = $_POST['surname'];
     $firstname = $_POST['firstname'];
+    $level = $_POST['level'];
     $programme = $_POST['programme'];
     $studentregno = $_POST['studentregno'];
     $password = md5($_POST['password']);
     $pincode = rand(100000, 999999);
-    $ret = mysqli_query($con, "insert into students(studentregno,surname,firstname,programme,password,pincode) values('$studentregno','$surname','$firstname','$programme','$password','$pincode')");
+    $ret = mysqli_query($con, "insert into students(studentregno,surname,firstname,level,programme,password,pincode) values('$studentregno','$surname','$firstname','$level', '$programme','$password','$pincode')");
     if ($ret) {
       echo '<script>alert("Student Registered Successfully. Pincode is "+"' . $pincode . '")</script>';
       echo '<script>window.location.href=manage-students.php</script>';
@@ -30,7 +31,6 @@ if (strlen($_SESSION['alogin']) == 0) {
     $fileName = basename($_FILES["excelFile"]["name"]);
     $fileType = pathinfo($fileName, PATHINFO_EXTENSION);
 
-    // Sanitize the file name
     $sanitizedFileName = preg_replace("/[^a-zA-Z0-9_-]/", "", $fileName);
 
     // Generate a unique file name
@@ -51,15 +51,12 @@ if (strlen($_SESSION['alogin']) == 0) {
 
         // Loop through rows starting from row 2 (assuming the first row is headers)
         foreach ($worksheet->getRowIterator(2) as $row) {
-          // Get cell values
           $studentregno = $worksheet->getCellByColumnAndRow(1, $row->getRowIndex())->getValue();
           $surname = $worksheet->getCellByColumnAndRow(2, $row->getRowIndex())->getValue();
           $firstname = $worksheet->getCellByColumnAndRow(3, $row->getRowIndex())->getValue();
           $programme = $worksheet->getCellByColumnAndRow(4, $row->getRowIndex())->getValue();
 
-          // ... Add more cell values as needed
 
-          // Insert or update database based on cell values
           $query = "INSERT INTO students (surname, firstname, programme, studentregno) 
                           VALUES ('$surname', '$firstname', '$programme', '$studentregno')
                           ON DUPLICATE KEY UPDATE surname = VALUES(surname), firstname = VALUES(firstname),
@@ -145,9 +142,23 @@ if (strlen($_SESSION['alogin']) == 0) {
                     </div>
                   </div>
                   <div class="form-group">
-                    <label for="programme">Programme</label>
-                    <input type="text" class="form-control" id="programme" name="programme" placeholder="programme"
-                      required />
+                    <label for="level">Level </label>
+                    <input type="text" class="form-control" id="level" name="level" placeholder="level" required />
+                  </div>
+
+                  <div class="form-group">
+                    <label for="Programme">Programme</labele <select class="form-control" name="programme"
+                        required="required">
+                      <option value="">Select Programme</option>
+                      <?php
+                      $sql = mysqli_query($con, "SELECT * FROM programme");
+                      while ($row = mysqli_fetch_array($sql)) {
+                        ?>
+                        <option value="<?php echo htmlentities($row['id']); ?>">
+                          <?php echo htmlentities($row['category'] . ' - ' . $row['program']); ?>
+                        </option>
+                      <?php } ?>
+                      </select>
                   </div>
                   <div class="form-group">
                     <label for="studentregno">Student Index/Ref Number </label>

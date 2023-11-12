@@ -133,21 +133,14 @@ INSERT INTO `department` (`id`, `department`, `creationDate`) VALUES
 --
 -- Table structure for table `level`
 --
-
 CREATE TABLE `level` (
-  `id` int(11) NOT NULL,
-  `level` varchar(255) DEFAULT NULL,
-  `creationDate` timestamp NULL DEFAULT current_timestamp()
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `level` int(11) NOT NULL,
+  `creationDate` timestamp NOT NULL DEFAULT current_timestamp(),
+  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
---
--- Dumping data for table `level`
---
-
-INSERT INTO `level` (`id`, `level`, `creationDate`) VALUES
-(1, '1', '2022-02-11 00:59:02'),
-(2, '2', '2022-02-11 00:59:02'),
-(3, '3', '2022-02-11 00:59:09');
+INSERT INTO `level` (`level`) VALUES (100), (200), (300), (400);
 
 -- --------------------------------------------------------
 
@@ -416,6 +409,16 @@ ALTER TABLE `session`
 ALTER TABLE `userlog`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 COMMIT;
+
+
+-----------------------------------------
+-- Alter Students table to include level col 
+ALTER TABLE students
+ADD COLUMN level INT CHECK (level IN (100, 200, 300, 400));
+
+
+
+-------------------------------------------
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

@@ -16,7 +16,7 @@ if (strlen($_SESSION['login']) == 0) {
 
     if (!empty($courses)) {
       foreach ($courses as $courseId) {
-        
+
         // Insert each selected course into the courseenrolls table
         $ret = mysqli_query($con, "INSERT INTO courseenrolls(studentRegno, session, programme, level, course, semester) VALUES ('$studentregno', '$session', '$progr', '$level', '$courseId', '$sem')");
       }
@@ -33,6 +33,10 @@ if (strlen($_SESSION['login']) == 0) {
     }
   }
 }
+
+// Fetch student details based on session login
+$sql = mysqli_query($con, "SELECT * FROM students WHERE StudentRegno='" . $_SESSION['login'] . "'");
+$row = mysqli_fetch_array($sql);
 ?>
 
 <!DOCTYPE html>
@@ -91,7 +95,6 @@ if (strlen($_SESSION['login']) == 0) {
                       <input type="text" class="form-control" id="firstname" name="firstname"
                         value="<?php echo htmlentities($row['firstname']); ?>" />
                     </div>
-
                   </div>
 
                   <div class="form-group">
