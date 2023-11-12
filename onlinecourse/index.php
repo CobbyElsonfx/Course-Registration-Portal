@@ -57,8 +57,11 @@ if (isset($_POST['submit'])) {
                 </a>
 
                 <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
+                <img class="homeIcon" src="./assets/img/home.svg">
                     <li class="navLink px-3 py-2 "><a href="#">Home </a></li>
+                    <img class="adminIcon" src="./assets/img/login.svg">
                     <li class="navLink px-3 py-2"><a href="./admin/index.php">Admin Login </a></li>
+                    <img class="studentIcon" src="./assets/img/student.svg">
                     <li class="navLink px-3 py-2 "><a href="./index.php">Student Login</a></li>
                 </ul>
 
