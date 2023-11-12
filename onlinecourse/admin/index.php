@@ -67,7 +67,7 @@ if (isset($_POST['submit'])) {
 
                 </ul>
 
-                <form class=" d-flex   col-12 col-lg-5 mb-3 mb-lg-0 me-lg-3">
+                <form class=" d-flex  mb-3 mb-lg-0 me-lg-3">
                     <input type="search" class="form-control form-control-dark" placeholder="Type in your query"
                         aria-label="Search">
                 </form>
