@@ -147,10 +147,11 @@ if (strlen($_SESSION['alogin']) == 0) {
                   </div>
 
                   <div class="form-group">
-                    <label for="Programme">Programme</labele <select class="form-control" name="programme"
-                        required="required">
+                    <label for="Programme">Programme</label>
+                    <select class="form-control" name="programme" required="required">
                       <option value="">Select Programme</option>
                       <?php
+
                       $sql = mysqli_query($con, "SELECT * FROM programme");
                       while ($row = mysqli_fetch_array($sql)) {
                         ?>
@@ -158,7 +159,7 @@ if (strlen($_SESSION['alogin']) == 0) {
                           <?php echo htmlentities($row['category'] . ' - ' . $row['program']); ?>
                         </option>
                       <?php } ?>
-                      </select>
+                    </select>
                   </div>
                   <div class="form-group">
                     <label for="studentregno">Student Index/Ref Number </label>
