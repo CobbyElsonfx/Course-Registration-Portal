@@ -45,10 +45,10 @@ if (isset($_POST['submit'])) {
 
 <body>
     <div class="studensPortalHeader">
-        <h1 class="studentPortal">Welcome Wiawso College Education Course <br> Registration Portal </h1>
+        <h1 class="studentPortal">WELCOME TO WIAWSO COLLEGE OF EDUCATION STUDENTS COURSE <br> REGISTRATION PORTAL </h1>
     </div>
     <header class="p-4 bg-dark text-white">
-        <div class="container">
+        <di+v class="container">
             <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
                 <a href="/" class="d-flex align-items-center mb-2 mb-lg-0 text-white text-decoration-none">
                     <svg class="bi me-2" width="40" height="32" role="img" aria-label="Bootstrap">

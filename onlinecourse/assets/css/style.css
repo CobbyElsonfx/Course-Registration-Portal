@@ -357,3 +357,48 @@ label {
     height: 25px;
     padding: 0;
 }
+
+footer {
+background-color:rgb(14, 14, 19);;
+color: #fff;
+padding: 20px;
+text-align: center;
+}
+
+
+.schoolLogo {
+    height: 200px;
+    width: 200px;
+}
+.copyright {
+    font-family: sans-serif;
+    font-size: 12px;
+    color: #999;
+}
+
+.phoneIcon{
+    height: 25px;
+    width: 25px;
+    filter: invert(100%);
+}
+
+.emailIcon{
+    height: 25px;
+    width: 25px;
+    filter: invert(100%);
+}
+
+.addressIcon{
+    height: 25px;
+    width: 25px;
+    filter: invert(100%);
+}
+
+
+
+
+
+
+
+
+    

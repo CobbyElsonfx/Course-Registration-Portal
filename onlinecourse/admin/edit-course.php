@@ -13,7 +13,7 @@ if(isset($_POST['submit']))
 {
 $coursecode=$_POST['coursecode'];
 $coursename=$_POST['coursename'];
-$courseunit=$_POST['courseunit'];
+$courseunit=$_POST['credithours'];
 $seatlimit=$_POST['seatlimit'];
 $ret=mysqli_query($con,"update course set courseCode='$coursecode',courseName='$coursename',courseUnit='$courseunit',noofSeats='$seatlimit',updationDate='$currentTime' where id='$id'");
 if($ret)

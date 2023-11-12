@@ -42,13 +42,13 @@ if (isset($_POST['submit'])) {
 <body>
     <div class="pageHeadline">
         <div class="pageHeadlineText">
-            <h1 class="welcHeadLine"> Welcome To</h1>
-            <h3>                <span class="welcHeadLineSpan">The Students </span> Registration
-                Portal
+            <h1 class="welcHeadLine"> WELCOME TO</h1>
+            <h3>                <span class="welcHeadLineSpan">THE STUDENTS </span> REGISTRATION
+                PORTAL
             </h3>
-            <small>Register your Semester Courses Here</small>
+            <small>Register your Semester Courses Here!!!</small>
         </div>
-        <img src="../assets/img/schoolLogo.jpg" />
+        <img class="schoolLogo" src="../assets/img/schoolLogo.jpg" />
 
     </div>
     <header class="p-4 navbarHeader text-white">
@@ -78,7 +78,7 @@ if (isset($_POST['submit'])) {
                 </div>
                 <div class="col-md-5 col-sm-9 mt-8 panel panel-default  ">
                     <div class="panel-heading">
-                        Enter Into Amin Panel
+                        Enter into Admin Panel
                     </div>
 
                     <span style="color:red;">
