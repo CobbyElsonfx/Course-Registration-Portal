@@ -17,6 +17,7 @@ if (strlen($_SESSION['login']) == 0 || strlen($_SESSION['pcode']) == 0) {
 
     if (!empty($courses)) {
       foreach ($courses as $courseId) {
+        
         // Insert each selected course into the courseenrolls table
         $ret = mysqli_query($con, "INSERT INTO courseenrolls(studentRegno, pincode, session, department, level, course, semester) VALUES ('$studentregno', '$pincode', '$session', '$dept', '$level', '$courseId', '$sem')");
       }
