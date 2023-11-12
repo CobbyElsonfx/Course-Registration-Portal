@@ -5,7 +5,7 @@ include("includes/config.php");
 if (isset($_POST['submit'])) {
     $username = $_POST['username'];
     $password = md5($_POST['password']);
-    $query = mysqli_query($con, "SELECT * FROM admin WHERE username='$username' and password='$password'");
+    $query = mysqli_query($con, "SELECT * FROM accountsoffice  WHERE username='$username' and password='$password'");
     $num = mysqli_fetch_array($query);
     if ($num > 0) {
         $_SESSION['alogin'] = $_POST['username'];
@@ -28,7 +28,7 @@ if (isset($_POST['submit'])) {
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
     <meta name="description" content="" />
     <meta name="author" content="" />
-    <title>Admin Login</title>
+    <title>Account Login</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
@@ -76,11 +76,11 @@ if (isset($_POST['submit'])) {
         <div class="container">
             <div class="row d-flex  flex-row justify-content-center align-items-center">
                 <div class="col-md-6 col-sm-10 gap-4">
-                    <img src="../assets/img/admin.svg" class="adminSVG p-0 m-0">
+                    <img class="accountsSVG" style="width:55rem;" src="../assets/img/accounts_img.svg" />
                 </div>
                 <div class="col-md-5 col-sm-9 mt-8 panel panel-default  ">
                     <div class="panel-heading">
-                        Enter Into Amin Panel
+                        Enter Into Accounts Office Panel
                     </div>
 
                     <span style="color:red;">
