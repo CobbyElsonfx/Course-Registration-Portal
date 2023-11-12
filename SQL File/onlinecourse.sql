@@ -37,11 +37,30 @@ CREATE TABLE `admin` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `admin`
+
+--
+--  data for table `accounts office`
 --
 
+CREATE TABLE `accountsoffice` (
+  `id` int(11) NOT NULL,
+  `username` varchar(255) DEFAULT NULL,
+  `password` varchar(255) DEFAULT NULL,
+  `creationDate` timestamp NULL DEFAULT current_timestamp(),
+  `updationDate` timestamp NULL DEFAULT NULL ON UPDATE current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `admin`
+--
 INSERT INTO `admin` (`id`, `username`, `password`, `creationDate`, `updationDate`) VALUES
 (1, 'admin', 'f925916e2754e5e03f75dd58a5733251', '2022-01-31 16:21:18', '2022-01-31 16:21:18');
+
+--
+-- Dumping data for table `accountsoffice`
+--
+INSERT INTO `accountsoffice` (`id`, `username`, `password`, `creationDate`, `updationDate`) VALUES
+(1, 'account', 'f925916e2754e5e03f75dd58a5733251', '2022-01-31 16:21:18', '2022-01-31 16:21:18');
 
 -- --------------------------------------------------------
 
@@ -58,17 +77,14 @@ CREATE TABLE `course` (
   `creationDate` timestamp NULL DEFAULT current_timestamp(),
   `updationDate` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
 --
 -- Dumping data for table `course`
 --
-
 INSERT INTO `course` (`id`, `courseCode`, `courseName`, `courseUnit`, `noofSeats`, `creationDate`, `updationDate`) VALUES
 (1, 'PHP01', 'PHP', '5', 10, '2022-02-10 17:23:28', NULL),
 (2, 'C001', 'C++', '12', 25, '2022-02-11 00:52:46', '11-02-2022 06:23:06 AM');
 
 -- --------------------------------------------------------
-
 --
 -- Table structure for table `courseenrolls`
 --
@@ -191,12 +207,13 @@ CREATE TABLE `students` (
   `StudentRegno` varchar(255) NOT NULL,
   `studentPhoto` varchar(255) DEFAULT NULL,
   `password` varchar(255) DEFAULT NULL,
-  `studentName` varchar(255) DEFAULT NULL,
+  `surname` varchar(255) DEFAULT NULL,
+  `firstname` varchar(255) DEFAULT NULL,
+  `programme` varchar(255) DEFAULT NULL,
   `pincode` varchar(255) DEFAULT NULL,
   `session` varchar(255) DEFAULT NULL,
   `department` varchar(255) DEFAULT NULL,
   `semester` varchar(255) DEFAULT NULL,
-  `cgpa` decimal(10,2) DEFAULT NULL,
   `creationdate` timestamp NULL DEFAULT current_timestamp(),
   `updationDate` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -205,8 +222,8 @@ CREATE TABLE `students` (
 -- Dumping data for table `students`
 --
 
-INSERT INTO `students` (`StudentRegno`, `studentPhoto`, `password`, `studentName`, `pincode`, `session`, `department`, `semester`, `cgpa`, `creationdate`, `updationDate`) VALUES
-('10806121', '', 'f925916e2754e5e03f75dd58a5733251', 'Anuj kumar', '822894', NULL, NULL, NULL, '7.10', '2022-02-11 00:53:31', NULL);
+INSERT INTO `students` (`StudentRegno`, `studentPhoto`, `password`, `surname`, `firstname`,`programme` , `pincode`, `session`, `department`, `semester`, `creationdate`, `updationDate`) VALUES
+('200045681', '', 'f925916e2754e5e03f75dd58a5733251', 'Andoh','Francis' ,'programme','822894', NULL, 'Sicnce/ICT', 'first Semester', '2022-02-11 00:53:31', NULL);
 
 -- --------------------------------------------------------
 
@@ -240,6 +257,12 @@ INSERT INTO `userlog` (`id`, `studentRegno`, `userip`, `loginTime`, `logout`, `s
 -- Indexes for table `admin`
 --
 ALTER TABLE `admin`
+  ADD PRIMARY KEY (`id`);
+
+--
+
+--
+ALTER TABLE `accountsoffice`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -307,6 +330,14 @@ ALTER TABLE `admin`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
+
+--
+-- AUTO_INCREMENT for table `accountsoffice`
+--
+ALTER TABLE `accountsoffice`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
 -- AUTO_INCREMENT for table `course`
 --
 ALTER TABLE `course`
@@ -328,12 +359,6 @@ ALTER TABLE `department`
 -- AUTO_INCREMENT for table `level`
 --
 ALTER TABLE `level`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
-
---
--- AUTO_INCREMENT for table `news`
---
-ALTER TABLE `news`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --

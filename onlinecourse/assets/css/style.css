@@ -9,7 +9,7 @@
 :root {
     --primaryColor: #af1aa8;
     --smoothWhite: rgb(247, 237, 246);
-    --seconddary:rgb(2, 3, 37);
+    --seconddary:#020325;
 }
 
 body {
@@ -342,6 +342,11 @@ label {
     height: auto;
 }
 
+.accountsSVG {
+    width: 200%;
+    height: 200%;
+}
+
 
 /* Additional styles can be added here */
 
@@ -443,4 +448,5 @@ label {
     height: 20px;
     padding: 0;
     filter: invert(100%);
+
 }

@@ -6,11 +6,13 @@ if (strlen($_SESSION['alogin']) == 0) {
 } else {
 
   if (isset($_POST['submit'])) {
-    $studentname = $_POST['studentname'];
+    $surname = $_POST['surname'];
+    $firstname = $_POST['firstname'];
+    $programme = $_POST['programme'];
     $studentregno = $_POST['studentregno'];
     $password = md5($_POST['password']);
     $pincode = rand(100000, 999999);
-    $ret = mysqli_query($con, "insert into students(studentName,StudentRegno,password,pincode) values('$studentname','$studentregno','$password','$pincode')");
+    $ret = mysqli_query($con, "insert into students(studentregno,surname,firstname,programme,password,pincode) values('$studentregno','$surname','$firstname','$programme','$password','$pincode')");
     if ($ret) {
       echo '<script>alert("Student Registered Successfully. Pincode is "+"' . $pincode . '")</script>';
       echo '<script>window.location.href=manage-students.php</script>';
@@ -20,7 +22,69 @@ if (strlen($_SESSION['alogin']) == 0) {
     }
   }
 
+  if (isset($_POST['upload'])) {
+    // File upload path
+    $targetDir = "uploads/";
+    $fileName = basename($_FILES["excelFile"]["name"]);
+    $targetFilePath = $targetDir . $fileName;
+    $fileName = basename($_FILES["excelFile"]["name"]);
+    $fileType = pathinfo($fileName, PATHINFO_EXTENSION);
+
+    // Sanitize the file name
+    $sanitizedFileName = preg_replace("/[^a-zA-Z0-9_-]/", "", $fileName);
+
+    // Generate a unique file name
+    $uniqueFileName = time() . '_' . uniqid() . '.' . $fileType;
+    $targetFilePath = $targetDir . $uniqueFileName;
+
+    // Allow certain file formats
+    $allowedTypes = array('xls', 'xlsx');
+    if (in_array($fileType, $allowedTypes)) {
+      // Upload file to server
+      if (move_uploaded_file($_FILES["excelFile"]["tmp_name"], $targetFilePath)) {
+        // Load Excel file
+        require '../../vendor/autoload.php'; // Include the Composer autoloader
+        $spreadsheet = \PhpOffice\PhpSpreadsheet\IOFactory::load($targetFilePath);
+
+        // Get the first worksheet
+        $worksheet = $spreadsheet->getActiveSheet();
+
+        // Loop through rows starting from row 2 (assuming the first row is headers)
+        foreach ($worksheet->getRowIterator(2) as $row) {
+          // Get cell values
+          $studentregno = $worksheet->getCellByColumnAndRow(1, $row->getRowIndex())->getValue();
+          $surname = $worksheet->getCellByColumnAndRow(2, $row->getRowIndex())->getValue();
+          $firstname = $worksheet->getCellByColumnAndRow(3, $row->getRowIndex())->getValue();
+          $programme = $worksheet->getCellByColumnAndRow(4, $row->getRowIndex())->getValue();
+
+          // ... Add more cell values as needed
+
+          // Insert or update database based on cell values
+          $query = "INSERT INTO students (surname, firstname, programme, studentregno) 
+                          VALUES ('$surname', '$firstname', '$programme', '$studentregno')
+                          ON DUPLICATE KEY UPDATE surname = VALUES(surname), firstname = VALUES(firstname),
+                          programme = VALUES(programme)";
+          mysqli_query($con, $query);
+        }
+
+        // Close Excel file and remove uploaded file
+        $spreadsheet->disconnectWorksheets();
+        unlink($targetFilePath);
+
+        echo '<script>alert("Database updated successfully!")</script>';
+        echo '<script>window.location.href=student-registration.php</script>';
+      } else {
+        echo '<script>alert("Error uploading file. Please try again.")</script>';
+        echo '<script>window.location.href=student-registration.php</script>';
+      }
+    } else {
+      echo '<script>alert("Invalid file format. Please upload a valid Excel file.")</script>';
+      echo '<script>window.location.href=student-registration.php</script>';
+    }
+  }
   ?>
+
+
 
   <!DOCTYPE html>
   <html xmlns="http://www.w3.org/1999/xhtml">
@@ -66,32 +130,47 @@ if (strlen($_SESSION['alogin']) == 0) {
                 <?php echo htmlentities($_SESSION['msg']); ?>
                 <?php echo htmlentities($_SESSION['msg'] = ""); ?>
               </font> -->
-
-
               <div class="panel-body" class=" shadow-lg">
                 <form class="card shadow-lg" name="dept" method="post">
+                  <div class="d-flex flex-row justify-content-between">
+                    <div class="form-group ">
+                      <label for="surname">Surname </label>
+                      <input type="text" class="form-control" id="surname" name="surname" placeholder="surname"
+                        required />
+                    </div>
+                    <div class="form-group">
+                      <label for="firtname">Firstname </label>
+                      <input type="text" class="form-control" id="firtname" name="firstname" placeholder="firstname"
+                        required />
+                    </div>
+                  </div>
                   <div class="form-group">
-                    <label for="studentname">Student Name </label>
-                    <input type="text" class="form-control" id="studentname" name="studentname" placeholder="Student Name"
+                    <label for="programme">Programme</label>
+                    <input type="text" class="form-control" id="programme" name="programme" placeholder="programme"
                       required />
                   </div>
-
                   <div class="form-group">
-                    <label for="studentregno">Student Registration Number </label>
+                    <label for="studentregno">Student Index/Ref Number </label>
                     <input type="text" class="form-control" id="studentregno" name="studentregno"
                       onBlur="userAvailability()" placeholder="Student Reg no" required />
                     <span id="user-availability-status1" style="font-size:12px;">
                   </div>
-
-
-
                   <div class="form-group">
                     <label for="password">Password </label>
                     <input type="password" class="form-control" id="password" name="password" placeholder="Enter password"
                       required />
                   </div>
-
                   <button type="submit" name="submit" id="submit" class="btn btn-default">Submit</button>
+                </form>
+
+                <!-- Form for Excel file upload -->
+                <form class="card shadow-lg mt-4" method="post" enctype="multipart/form-data">
+                  <div class="form-group">
+                    <label for="excelFile">Upload Excel File</label>
+                    <input type="file" class="form-control" id="excelFile" name="excelFile" accept=".xls, .xlsx"
+                      required />
+                  </div>
+                  <button type="submit" name="upload" class="btn btn-default">Upload Excel</button>
                 </form>
               </div>
             </div>
@@ -122,5 +201,6 @@ if (strlen($_SESSION['alogin']) == 0) {
     </script>
 
   </body>
+
   </html>
 <?php } ?>

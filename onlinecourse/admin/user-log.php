@@ -44,7 +44,7 @@ else{
         <div class="container">
               <div class="row">
                     <div class="col-md-12">
-                        <h1 class="page-head-line">Enroll History  </h1>
+                        <h1 class="page-head-line">User logs  </h1>
                     </div>
                 </div>
                 <div class="row" >
@@ -53,7 +53,7 @@ else{
                     <!--    Bordered Table  -->
                     <div class="panel panel-default">
                         <div class="panel-heading">
-                           Enroll History
+                           User logs
                         </div>
                         <!-- /.panel-heading -->
                         <div class="panel-body">
