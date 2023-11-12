@@ -379,6 +379,17 @@ label {
 
 }
 
+.homeIcon2 {
+    position: relative;
+    bottom: 4px;
+    left: 6px;
+    width: 25px;
+    height: 20px;
+    padding: 0;
+    filter: invert(100%);
+
+}
+
 
 .adminIcon {
     position: relative;
@@ -449,4 +460,19 @@ label {
     padding: 0;
     filter: invert(100%);
 
+}
+
+.schoolLogo{
+    width: 250px;
+    height: 250px;
+}
+
+.col-md-12{
+    text-align: center;
+}
+
+.foot{
+    background-color: #020325;
+    color: #fff;
+    align-content: center;
 }

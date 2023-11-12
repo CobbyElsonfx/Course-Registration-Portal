@@ -65,10 +65,6 @@ if (isset($_POST['submit'])) {
                     <li class="navLink px-3 py-2 "><a href="./index.php">Student Login</a></li>
                 </ul>
 
-                <form class="col-12 col-lg-5 mb-3 mb-lg-0 me-lg-3">
-                    <input type="search" class="form-control form-control-dark" placeholder="Type in your query"
-                        aria-label="Search">
-                </form>
             </div>
         </div>
     </header>
