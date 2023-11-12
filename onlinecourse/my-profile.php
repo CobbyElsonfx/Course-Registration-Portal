@@ -7,13 +7,14 @@ if (strlen($_SESSION['login']) == 0) {
 } else {
 
   if (isset($_POST['submit'])) {
-    $studentname = $_POST['studentname'];
+    $surname = $_POST['surname'];
+    $firstname = $_POST['fistname'];
     $photo = $_FILES["photo"]["name"];
-    $cgpa = $_POST['cgpa'];
     move_uploaded_file($_FILES["photo"]["tmp_name"], "studentphoto/" . $_FILES["photo"]["name"]);
-    $ret = mysqli_query($con, "update students set studentName='$studentname',studentPhoto='$photo',cgpa='$cgpa'  where StudentRegno='" . $_SESSION['login'] . "'");
+    $ret = mysqli_query($con, "update students set surname='$surname',firstname='$firstname',studentPhoto='$photo', where StudentRegno='" . $_SESSION['login'] . "'");
     if ($ret) {
-      echo '<script>alert("Student Record updated Successfully !!")</script>';
+      echo '<script>alert("Student Record updated Successf
+      ully !!")</script>';
       echo '<script>window.location.href=my-profile.php</script>';
     } else {
       echo '<script>alert("Something went wrong . Please try again.!")</script>';
@@ -75,14 +76,22 @@ if (strlen($_SESSION['login']) == 0) {
 
                 <div class="panel-body">
                   <form class="card shadow-lg text-left" name="dept" method="post" enctype="multipart/form-data">
-                    <div class="form-group">
-                      <label for="studentname">Student Name </label>
-                      <input type="text" class="form-control" id="studentname" name="studentname"
-                        value="<?php echo htmlentities($row['studentName']); ?>" />
+                    <div class="d-flex justify-content-between">
+                      <div class="form-group">
+                        <label for="surname">Surname</label>
+                        <input type="text" class="form-control" id="surname" name="surname"
+                          value="<?php echo htmlentities($row['surname']); ?>" />
+                      </div>
+                      <div class="form-group">
+                        <label for="firstname">Firstname </label>
+                        <input type="text" class="form-control" id="firstname" name="firstname"
+                          value="<?php echo htmlentities($row['firstname']); ?>" />
+                      </div>
+
                     </div>
 
                     <div class="form-group">
-                      <label for="studentregno">Student Reg No </label>
+                      <label for="studentregno">Student Index/Ref No. </label>
                       <input type="text" class="form-control" id="studentregno" name="studentregno"
                         value="<?php echo htmlentities($row['StudentRegno']); ?>" placeholder="Student Reg no" readonly />
 
@@ -95,13 +104,6 @@ if (strlen($_SESSION['login']) == 0) {
                       <input type="text" class="form-control" id="Pincode" name="Pincode" readonly
                         value="<?php echo htmlentities($row['pincode']); ?>" required />
                     </div>
-
-                    <!-- <div class="form-group">
-                      <label for="CGPA">CGPA </label>
-                      <input type="text" class="form-control" id="cgpa" name="cgpa"
-                        value="<?php echo htmlentities($row['cgpa']); ?>" required />
-                    </div> -->
-
 
                     <div class="form-group">
                       <label for="Pincode">Student Photo </label>
@@ -129,9 +131,6 @@ if (strlen($_SESSION['login']) == 0) {
         </div>
 
       </div>
-
-
-
 
 
     </div>

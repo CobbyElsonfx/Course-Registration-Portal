@@ -115,7 +115,7 @@ if (strlen($_SESSION['alogin']) == 0) {
                                                                 Edit</button> </a>
                                                         <a href="manage-students.php?id=<?php echo $row['StudentRegno'] ?>&del=delete"
                                                             onClick="return confirm('Are you sure you want to delete?')">
-                                                            <button class="btn btn-danger">Delete</button>
+                                                            <button class="btn btn-primary">Delete</button>
                                                         </a>
                                                         <a href="manage-students.php?id=<?php echo $row['StudentRegno'] ?>&pass=update"
                                                             onClick="return confirm('Are you sure you want to reset password?')">
