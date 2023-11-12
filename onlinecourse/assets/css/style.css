@@ -461,3 +461,18 @@ label {
     filter: invert(100%);
 
 }
+
+.schoolLogo{
+    width: 250px;
+    height: 250px;
+}
+
+.col-md-12{
+    text-align: center;
+}
+
+.foot{
+    background-color: #020325;
+    color: #fff;
+    align-content: center;
+}

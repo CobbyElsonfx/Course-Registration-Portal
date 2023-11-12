@@ -48,7 +48,7 @@ if (isset($_POST['submit'])) {
             </h3>
             <small>Register your Semester Courses Here</small>
         </div>
-        <img src="../assets/img/schoolLogo.jpg" />
+        <img class="schoolLogo" src="../assets/img/schoolLogo.png" />
 
     </div>
     <header class="p-4 navbarHeader text-white">
