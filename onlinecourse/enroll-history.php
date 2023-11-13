@@ -28,7 +28,6 @@
     </head>
 
     <body>
-    <?php include('includes/header.php');?>
         <!-- LOGO HEADER END-->
     <?php if($_SESSION['login']!="")
     {

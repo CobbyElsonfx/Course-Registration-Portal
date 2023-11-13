@@ -84,7 +84,7 @@ if (isset($_POST['submit'])) {
                     </span>
                     <form class="card" name="admin" method="post">
                         <div class="row">
-                            <div class="col-md-13">
+                            <div class="col-md-11">
                                 <div class="lnginput">
                                 <label>Enter index/ref no : </label>
                                 <input type="text" name="regno" class="form-control" />
