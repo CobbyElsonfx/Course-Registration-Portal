@@ -47,7 +47,7 @@ if (isset($_POST['submit'])) {
     <div class="studensPortalHeader">
         <h1 class="studentPortal">Welcome Wiawso College Education Course <br> Registration Portal </h1>
     </div>
-    <header class="p-4 bg-dark text-white">
+    <header class="p-4 navbarHeader text-white">
         <div class="container">
             <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
                 <a href="/" class="d-flex align-items-center mb-2 mb-lg-0 text-white text-decoration-none">
