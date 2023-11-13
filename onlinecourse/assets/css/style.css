@@ -244,6 +244,7 @@ header {
     padding: 20px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     border-radius: 10px;
+    align-content: center;
 }
 
 .page-head-line {
@@ -365,6 +366,7 @@ label {
     height: 20px;
     padding: 0;
     filter: invert(100%);
+    -webkit-filter: invert(100%);
 
 }
 
@@ -376,6 +378,7 @@ label {
     height: 20px;
     padding: 0;
     filter: invert(100%);
+    -webkit-filter: invert(100%);
 
 }
 
@@ -387,6 +390,7 @@ label {
     height: 20px;
     padding: 0;
     filter: invert(100%);
+    -webkit-filter: invert(100%);
 
 }
 
@@ -399,6 +403,7 @@ label {
     height: 25px;
     padding: 0;
     filter: invert(100%);
+    -webkit-filter: invert(100%);
 }
 
 .studentIcon {
@@ -409,6 +414,7 @@ label {
     height: 25px;
     padding: 0;
     filter: invert(100%);
+    -webkit-filter: invert(100%);
 }
 
 .enrollIcon {
@@ -419,6 +425,7 @@ label {
     height: 15px;
     padding: 0;
     filter: invert(100%);
+    -webkit-filter: invert(100%);
 }
 
 .profileIcon{
@@ -429,6 +436,7 @@ label {
     height: 20px;
     padding: 0;
     filter: invert(100%);
+    -webkit-filter: invert(100%);
 }
 
 .passwordIcon{
@@ -439,6 +447,7 @@ label {
     height: 18px;
     padding: 0;
     filter: invert(100%);
+    -webkit-filter: invert(100%);
 }
 
 .historyIcon {
@@ -449,6 +458,7 @@ label {
     height: 20px;
     padding: 0;
     filter: invert(100%);
+    -webkit-filter: invert(100%);
 }
 
 .logoutIcon {
@@ -459,6 +469,7 @@ label {
     height: 20px;
     padding: 0;
     filter: invert(100%);
+    -webkit-filter: invert(100%);
 
 }
 
@@ -468,11 +479,18 @@ label {
 }
 
 .col-md-12{
+    margin-top: 20px;
     text-align: center;
 }
 
 .foot{
+    height: 70px;
     background-color: #020325;
     color: #fff;
     align-content: center;
+}
+
+.lnginput{
+    width: 60%;
+    margin-left: 10%;
 }

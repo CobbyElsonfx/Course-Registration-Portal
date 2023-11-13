@@ -84,8 +84,9 @@ if (isset($_POST['submit'])) {
                     </span>
                     <form class="card" name="admin" method="post">
                         <div class="row">
-                            <div class="col-md-6">
-                                <label>Enter Reg no : </label>
+                            <div class="col-md-13">
+                                <div class="lnginput">
+                                <label>Enter index/ref no : </label>
                                 <input type="text" name="regno" class="form-control" />
                                 <label>Enter Password : </label>
                                 <input type="password" name="password" class="form-control" />
@@ -93,6 +94,7 @@ if (isset($_POST['submit'])) {
                                 <button type="submit" name="submit" class="btn btn-info"><span
                                         class="glyphicon glyphicon-user"></span>
                                     &nbsp;Log Me In </button>&nbsp;
+                                    </div>
                             </div>
                     </form>
                 </div>
