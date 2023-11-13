@@ -45,7 +45,7 @@ if (isset($_POST['submit'])) {
 
 <body>
     <div class="studensPortalHeader">
-        <h1 class="studentPortal">Welcome Wiawso College Education Course <br> Registration Portal </h1>
+        <h1 class="studentPortal">WELCOME TO Wiawso College Education Course <br> Registration Portal </h1>
     </div>
     <header class="p-4 bg-dark text-white">
         <div class="container">
@@ -57,7 +57,7 @@ if (isset($_POST['submit'])) {
                 </a>
 
                 <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
-                <img class="homeIcon" src="./assets/img/home.svg">
+                    <img class="homeIcon" src="./assets/img/home.svg">
                     <li class="navLink px-3 py-2 "><a href="#">Home </a></li>
                     <img class="adminIcon" src="./assets/img/login.svg">
                     <li class="navLink px-3 py-2"><a href="./admin/index.php">Admin Login </a></li>
@@ -86,15 +86,15 @@ if (isset($_POST['submit'])) {
                         <div class="row">
                             <div class="col-md-11">
                                 <div class="lnginput">
-                                <label>Enter index/ref no : </label>
-                                <input type="text" name="regno" class="form-control" />
-                                <label>Enter Password : </label>
-                                <input type="password" name="password" class="form-control" />
-                                <hr />
-                                <button type="submit" name="submit" class="btn btn-info"><span
-                                        class="glyphicon glyphicon-user"></span>
-                                    &nbsp;Log Me In </button>&nbsp;
-                                    </div>
+                                    <label>Enter index/ref no : </label>
+                                    <input type="text" name="regno" class="form-control" />
+                                    <label>Enter Password : </label>
+                                    <input type="password" name="password" class="form-control" />
+                                    <hr />
+                                    <button type="submit" name="submit" class="btn btn-info"><span
+                                            class="glyphicon glyphicon-user"></span>
+                                        &nbsp;Log Me In </button>&nbsp;
+                                </div>
                             </div>
                     </form>
                 </div>
