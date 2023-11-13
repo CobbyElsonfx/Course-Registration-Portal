@@ -92,9 +92,8 @@ INSERT INTO `course` (`id`, `courseCode`, `courseName`, `courseUnit`, `noofSeats
 CREATE TABLE `courseenrolls` (
   `id` int(11) NOT NULL,
   `studentRegno` varchar(255) DEFAULT NULL,
-  `pincode` varchar(255) DEFAULT NULL,
   `session` int(11) DEFAULT NULL,
-  `department` int(11) DEFAULT NULL,
+  `programme` varchar(255) DEFAULT NULL,
   `level` int(11) DEFAULT NULL,
   `semester` int(11) DEFAULT NULL,
   `course` int(11) DEFAULT NULL,
@@ -134,34 +133,65 @@ INSERT INTO `department` (`id`, `department`, `creationDate`) VALUES
 --
 -- Table structure for table `level`
 --
-
 CREATE TABLE `level` (
-  `id` int(11) NOT NULL,
-  `level` varchar(255) DEFAULT NULL,
-  `creationDate` timestamp NULL DEFAULT current_timestamp()
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `level` int(11) NOT NULL,
+  `creationDate` timestamp NOT NULL DEFAULT current_timestamp(),
+  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
---
--- Dumping data for table `level`
---
-
-INSERT INTO `level` (`id`, `level`, `creationDate`) VALUES
-(1, '1', '2022-02-11 00:59:02'),
-(2, '2', '2022-02-11 00:59:02'),
-(3, '3', '2022-02-11 00:59:09');
+INSERT INTO `level` (`level`) VALUES (100), (200), (300), (400);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `news`
+-- Table structure for table `program category`
 --
+CREATE TABLE `program_category` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `category` varchar(255) NOT NULL,
+  `program` varchar(255) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
--- --------------------------------------------------------
-
+-- ----------------------------  ----------------------------
+-------------------------------------
 --
+-- Table structure for table `programmes`
+--
+--
+CREATE TABLE `programme` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `program` varchar(255) NOT NULL,
+  `category_id` int(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  FOREIGN KEY (`category_id`) REFERENCES `program_category`(`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- Dummy data for programme_category and programme table
+-- Inserting data into program_category table
+INSERT INTO `program_category` (`category`, `program`) VALUES
+('JHS Education', 'Maths/Science'),
+('JHS Education', 'Science/ICT'),
+('JHS Education', 'Maths/ICT'),
+('JHS Education', 'Technical'),
+('JHS Education', 'Home Economics'),
+('JHS Education', 'Visual Arts'),
+('PRIMARY EDUCATION', 'Early Grade'),
+('PRIMARY EDUCATION', 'Upper Primary');
+
+-- Inserting data into programme table
+INSERT INTO `programme` (`program`, `category_id`) VALUES
+('Maths/Science', 1),
+('Science/ICT', 1),
+('Maths/ICT', 1),
+('Technical', 1),
+('Home Economics', 1),
+('Visual Arts', 1),
+('Early Grade', 2),
+('Upper Primary', 2);
+
 -- Table structure for table `semester`
---
-
 CREATE TABLE `semester` (
   `id` int(11) NOT NULL,
   `semester` varchar(255) DEFAULT NULL,
@@ -379,6 +409,16 @@ ALTER TABLE `session`
 ALTER TABLE `userlog`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 COMMIT;
+
+
+-----------------------------------------
+-- Alter Students table to include level col 
+ALTER TABLE students
+ADD COLUMN level INT CHECK (level IN (100, 200, 300, 400));
+
+
+
+-------------------------------------------
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

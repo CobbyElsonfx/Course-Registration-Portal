@@ -3,23 +3,21 @@ session_start();
 include('includes/config.php');
 error_reporting(0);
 
-if (strlen($_SESSION['login']) == 0 || strlen($_SESSION['pcode']) == 0) {
+if (strlen($_SESSION['login']) == 0) {
   header('location:index.php');
 } else {
   if (isset($_POST['submit'])) {
     $studentregno = $_POST['studentregno'];
-    $pincode = $_POST['Pincode'];
     $session = $_POST['session'];
-    $dept = $_POST['department'];
+    $progr = $_POST['programme'];
     $level = $_POST['level'];
     $courses = $_POST['courses']; // An array of selected course IDs
     $sem = $_POST['sem'];
 
     if (!empty($courses)) {
       foreach ($courses as $courseId) {
-        
         // Insert each selected course into the courseenrolls table
-        $ret = mysqli_query($con, "INSERT INTO courseenrolls(studentRegno, pincode, session, department, level, course, semester) VALUES ('$studentregno', '$pincode', '$session', '$dept', '$level', '$courseId', '$sem')");
+        $ret = mysqli_query($con, "INSERT INTO courseenrolls(studentRegno, session, programme, level, course, semester) VALUES ('$studentregno', '$session', '$progr', '$level', '$courseId', '$sem')");
       }
 
       if ($ret) {
@@ -34,6 +32,10 @@ if (strlen($_SESSION['login']) == 0 || strlen($_SESSION['pcode']) == 0) {
     }
   }
 }
+
+// Fetch student details based on session login
+$sql = mysqli_query($con, "SELECT * FROM students WHERE StudentRegno='" . $_SESSION['login'] . "'");
+$row = mysqli_fetch_array($sql);
 ?>
 
 <!DOCTYPE html>
@@ -81,20 +83,23 @@ if (strlen($_SESSION['login']) == 0 || strlen($_SESSION['pcode']) == 0) {
               <div class="panel-body">
                 <form name="dept" method="post" class="card shadow-lg text-left" enctype="multipart/form-data"
                   id="student-info-form">
-                  <div class="form-group">
-                    <label for="studentname">Student Name</label>
-                    <input type="text" class="form-control" id="studentname" name="studentname"
-                      value="<?php echo htmlentities($row['studentName']); ?>" />
+                  <div class="d-flex justify-content-between">
+                    <div class="form-group">
+                      <label for="surname">Surname</label>
+                      <input type="text" class="form-control" id="surname" name="surname"
+                        value="<?php echo htmlentities($row['surname']); ?>" readonly />
+                    </div>
+                    <div class="form-group">
+                      <label for="firstname">Firstname</label>
+                      <input type="text" class="form-control" id="firstname" name="firstname"
+                        value="<?php echo htmlentities($row['firstname']); ?>" readonly />
+                    </div>
                   </div>
+
                   <div class="form-group">
-                    <label for="studentregno">Student Reg No</label>
+                    <label for="studentregno">Student Index/Ref No.</label>
                     <input type="text" class="form-control" id="studentregno" name="studentregno"
                       value="<?php echo htmlentities($row['StudentRegno']); ?>" placeholder="Student Reg no" readonly />
-                  </div>
-                  <div class="form-group">
-                    <label for="Pincode">Pincode</label>
-                    <input type="text" class="form-control" id="Pincode" name="Pincode" readonly
-                      value="<?php echo htmlentities($row['pincode']); ?>" required />
                   </div>
                   <div class="form-group">
                     <label for="Pincode">Student Photo</label>
@@ -104,85 +109,80 @@ if (strlen($_SESSION['login']) == 0 || strlen($_SESSION['pcode']) == 0) {
                       <img src="studentphoto/<?php echo htmlentities($row['studentPhoto']); ?>" width="200" height="200">
                     <?php } ?>
                   </div>
-                <?php } ?>
-                <div class="form-group">
-                  <label for="Session">Session</label>
-                  <select class="form-control" name="session" required="required">
-                    <option value="">Select Session</option>
-                    <?php
-                    $sql = mysqli_query($con, "select * from session");
-                    while ($row = mysqli_fetch_array($sql)) {
-                      ?>
-                      <option value="<?php echo htmlentities($row['id']); ?>">
-                        <?php echo htmlentities($row['session']); ?>
-                      </option>
-                    <?php } ?>
-                  </select>
-                </div>
 
-                <div class="form-group">
-                  <label for="Department">Department</label>
-                  <select class="form-control" name="department" required="required">
-                    <option value="">Select Department</option>
-                    <?php
-                    $sql = mysqli_query($con, "select * from department");
-                    while ($row = mysqli_fetch_array($sql)) {
-                      ?>
-                      <option value="<?php echo htmlentities($row['id']); ?>">
-                        <?php echo htmlentities($row['department']); ?>
+                  <div class="form-group">
+                    <label for="Session">Session</label>
+                    <select class="form-control" name="session" required="required">
+                      <option value="">Select Session</option>
+                      <?php
+                      $sql = mysqli_query($con, "select * from session");
+                      while ($row = mysqli_fetch_array($sql)) {
+                        ?>
+                        <option value="<?php echo htmlentities($row['id']); ?>">
+                          <?php echo htmlentities($row['session']); ?>
+                        </option>
+                      <?php } ?>
+                    </select>
+                  </div>
+
+                  <div class="form-group">
+                    <label for="Programme">Programme</label>
+                    <select class="form-control" name="programme" required="required" readonly>
+                      <option value="<?php echo htmlentities($row['programme']); ?>">
+                        <?php echo htmlentities($row['programme']); ?>
                       </option>
-                    <?php } ?>
-                  </select>
-                </div>
-                <div class="form-group">
-                  <label for="Level">Level</label>
-                  <select class="form-control" name="level" required="required">
-                    <option value="">Select Level</option>
+                    </select>
+                  </div>
+
+                  <div class="form-group">
+                    <label for="Level">Level</label>
+                    <select class="form-control" name="level" required="required">
+                      <option value="">Select Level</option>
+                      <?php
+                      $sql_level = mysqli_query($con, "select * from level");
+                      while ($row_level = mysqli_fetch_array($sql_level)) {
+                        ?>
+                        <option value="<?php echo htmlentities($row_level['id']); ?>">
+                          <?php echo htmlentities($row_level['level']); ?>
+                        </option>
+                      <?php } ?>
+                    </select>
+                  </div>
+                  <div class="form-group">
+                    <label for="Semester">Semester</label>
+                    <select class="form-control" name="sem" required="required">
+                      <option value="">Select Semester</option>
+                      <?php
+                      $sql_sem = mysqli_query($con, "select * from semester");
+                      while ($row_sem = mysqli_fetch_array($sql_sem)) {
+                        ?>
+                        <option value="<?php echo htmlentities($row_sem['id']); ?>">
+                          <?php echo htmlentities($row_sem['semester']); ?>
+                        </option>
+                      <?php } ?>
+                    </select>
+                  </div>
+                  <div class="form-group text-left">
+                    <label for="Courses">Courses</label>
                     <?php
-                    $sql = mysqli_query($con, "select * from level");
-                    while ($row = mysqli_fetch_array($sql)) {
-                      ?>
-                      <option value="<?php echo htmlentities($row['id']); ?>">
-                        <?php echo htmlentities($row['level']); ?>
-                      </option>
-                    <?php } ?>
-                  </select>
-                </div>
-                <div class="form-group">
-                  <label for="Semester">Semester</label>
-                  <select class="form-control" name="sem" required="required">
-                    <option value="">Select Semester</option>
-                    <?php
-                    $sql = mysqli_query($con, "select * from semester");
-                    while ($row = mysqli_fetch_array($sql)) {
-                      ?>
-                      <option value="<?php echo htmlentities($row['id']); ?>">
-                        <?php echo htmlentities($row['semester']); ?>
-                      </option>
-                    <?php } ?>
-                  </select>
-                </div>
-                <div class="form-group text-left">
-                  <label for="Courses">Courses</label>
-                  <?php
-                  $sql = mysqli_query($con, "SELECT * FROM course");
-                  while ($row = mysqli_fetch_array($sql)) {
-                    echo '<div class="checkbox">';
-                    echo '<label>';
-                    echo '<input type="checkbox" name="courses[]" value="' . $row['id'] . '"> ' . htmlentities($row['courseName']);
-                    echo '</label>';
-                    echo '</div>';
-                  }
-                  ?>
-                </div>
-                <button type="submit" name="submit" id="submit" class="btn btn-default">Enroll</button>
-              </form>
-            </div>
+                    $sql_courses = mysqli_query($con, "SELECT * FROM course");
+                    while ($row_courses = mysqli_fetch_array($sql_courses)) {
+                      echo '<div class="checkbox">';
+                      echo '<label>';
+                      echo '<input type="checkbox" name="courses[]" value="' . $row_courses['id'] . '"> ' . htmlentities($row_courses['courseName']);
+                      echo '</label>';
+                      echo '</div>';
+                    }
+                    ?>
+                  </div>
+                  <button type="submit" name="submit" id="submit" class="btn btn-default">Enroll</button>
+                </form>
+              </div>
+            <?php } ?>
           </div>
         </div>
       </div>
     </div>
-  </div>
   </div>
   <?php include('includes/footer.php'); ?>
   <script src="assets/js/jquery-1.11.1.js"></script>
