@@ -104,29 +104,10 @@ CREATE TABLE `courseenrolls` (
 -- Dumping data for table `courseenrolls`
 --
 
-INSERT INTO `courseenrolls` (`id`, `studentRegno`, `pincode`, `session`, `department`, `level`, `semester`, `course`, `enrollDate`) VALUES
-(1, '10806121', '822894', 1, 1, 2, 3, 1, '2022-02-11 00:59:33'),
-(2, '10806121', '822894', 1, 1, 1, 2, 2, '2022-02-11 01:01:07');
-
 -- --------------------------------------------------------
 
 --
 -- Table structure for table `department`
---
-
-CREATE TABLE `department` (
-  `id` int(11) NOT NULL,
-  `department` varchar(255) DEFAULT NULL,
-  `creationDate` timestamp NULL DEFAULT current_timestamp()
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `department`
---
-
-INSERT INTO `department` (`id`, `department`, `creationDate`) VALUES
-(1, 'IT', '2022-02-10 17:23:04'),
-(2, 'HR', '2022-02-10 17:23:09');
 
 -- --------------------------------------------------------
 
@@ -204,9 +185,8 @@ CREATE TABLE `semester` (
 --
 
 INSERT INTO `semester` (`id`, `semester`, `creationDate`, `updationDate`) VALUES
-(1, '1', '2022-02-10 17:22:49', NULL),
-(2, '2', '2022-02-10 17:22:55', NULL),
-(3, '3', '2022-02-11 00:51:43', NULL);
+(1, 'First Semester', '2022-02-10 17:22:49', NULL),
+(2, 'Second Semester', '2022-02-10 17:22:55', NULL),
 
 -- --------------------------------------------------------
 
@@ -309,9 +289,6 @@ ALTER TABLE `courseenrolls`
 
 --
 -- Indexes for table `department`
---
-ALTER TABLE `department`
-  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `level`
@@ -319,13 +296,6 @@ ALTER TABLE `department`
 ALTER TABLE `level`
   ADD PRIMARY KEY (`id`);
 
---
--- Indexes for table `news`
---
-ALTER TABLE `news`
-  ADD PRIMARY KEY (`id`);
-
---
 -- Indexes for table `semester`
 --
 ALTER TABLE `semester`
@@ -381,11 +351,7 @@ ALTER TABLE `courseenrolls`
 
 --
 -- AUTO_INCREMENT for table `department`
---
-ALTER TABLE `department`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
---
 -- AUTO_INCREMENT for table `level`
 --
 ALTER TABLE `level`

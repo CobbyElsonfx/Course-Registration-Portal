@@ -1,0 +1,210 @@
+body {
+    background-image: url(../img/schoolBuilding.jpg);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    width: 100vw;
+    height: 100vh;
+}
+header {
+    background-color: rgba(3, 4, 38,0.6);
+}
+
+.navLink a {
+    color: rgb(200, 211, 45);
+    text-decoration: none
+}
+
+.content-wrapper {
+    margin: 20px;
+}
+
+/* Logo styles */
+.logo {
+    width: 150px;
+}
+
+/* Welcome section styles */
+.welcomeHome {
+    font-size: 5.5rem;
+    font-weight: 900;
+    color: white;
+
+}
+
+h2 {
+    color: #d3d316;
+}
+
+p {
+    color: #ffffff;
+}
+
+section {
+    margin-top: 20px;
+}
+
+/* Core Values list styles */
+ul {
+    list-style-type: none;
+    /* Remove bullet points */
+    padding: 0;
+}
+
+li {
+    margin-bottom: 10px;
+    /* Add space between list items */
+}
+
+.homeIcon {
+    position: relative;
+    top: 18px;
+    left: 16px;
+    width: 25px;
+    height: 20px;
+    padding: 0;
+    filter: invert(100%);
+    -webkit-filter: invert(100%);
+
+}
+
+.homeIcon1 {
+    position: relative;
+    bottom: 4px;
+    left: 6px;
+    width: 25px;
+    height: 20px;
+    padding: 0;
+    filter: invert(100%);
+    -webkit-filter: invert(100%);
+
+}
+
+.homeIcon2 {
+    position: relative;
+    bottom: 4px;
+    left: 6px;
+    width: 25px;
+    height: 20px;
+    padding: 0;
+    filter: invert(100%);
+    -webkit-filter: invert(100%);
+
+}
+
+
+.adminIcon {
+    position: relative;
+    top: 16px;
+    left: 18px;
+    width: 25px;
+    height: 25px;
+    padding: 0;
+    filter: invert(100%);
+    -webkit-filter: invert(100%);
+}
+
+.studentIcon {
+    position: relative;
+    top: 16px;
+    left: 18px;
+    width: 25px;
+    height: 25px;
+    padding: 0;
+    filter: invert(100%);
+    -webkit-filter: invert(100%);
+}
+
+.enrollIcon {
+    position: relative;
+    top: 13px;
+    left: 15px;
+    width: 25px;
+    height: 15px;
+    padding: 0;
+    filter: invert(100%);
+    -webkit-filter: invert(100%);
+}
+
+.profileIcon {
+    position: relative;
+    top: 13px;
+    left: 15px;
+    width: 25px;
+    height: 20px;
+    padding: 0;
+    filter: invert(100%);
+    -webkit-filter: invert(100%);
+}
+
+.passwordIcon {
+    position: relative;
+    top: 13px;
+    left: 15px;
+    width: 25px;
+    height: 18px;
+    padding: 0;
+    filter: invert(100%);
+    -webkit-filter: invert(100%);
+}
+
+.historyIcon {
+    position: relative;
+    top: 13px;
+    left: 15px;
+    width: 25px;
+    height: 20px;
+    padding: 0;
+    filter: invert(100%);
+    -webkit-filter: invert(100%);
+}
+
+.logoutIcon {
+    position: relative;
+    top: 13px;
+    left: 15px;
+    width: 25px;
+    height: 20px;
+    padding: 0;
+    filter: invert(100%);
+    -webkit-filter: invert(100%);
+
+}
+
+.schoolLogo {
+    width: 250px;
+    height: 250px;
+}
+
+
+/* Adjustments for smaller screens */
+@media (max-width: 768px) {
+    .content-wrapper {
+        margin: 10px;
+    }
+
+    h2 {
+        font-size: 1.2em;
+        color: white;
+    }
+
+    li {
+        margin-bottom: 8px;
+    }
+}
+
+
+.footerHome {
+    position: fixed;
+    bottom: 0;
+    height: 30rem;
+    background-color: rgba(3, 4, 38,0.9);
+    padding: 1rem 3rem 1rem 3rem;
+}
+
+
+
+
+
+
+
