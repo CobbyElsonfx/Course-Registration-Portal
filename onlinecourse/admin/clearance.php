@@ -1,7 +1,7 @@
 <?php
 session_start();
 include('includes/config.php');
-if (strlen($_SESSION['alogin']) == 0) {
+if (strlen($_SESSION['a_login']) == 0) {
     header('location:index.php');
 } else {
     if (isset($_POST['search'])) {
@@ -12,11 +12,21 @@ if (strlen($_SESSION['alogin']) == 0) {
 
     if (isset($_POST['markCleared'])) {
         $studentIndex = $_POST['studentIndex'];
-        // Perform the logic to mark the student as cleared and activate their portal
-        // This is a placeholder, you need to implement your logic here
 
-        echo '<script>alert("Student marked as cleared and portal activated!");</script>';
+        // Perform the logic to mark the student as cleared
+        $updateQuery = "UPDATE students SET cleared = 1 WHERE StudentRegno = '$studentIndex'";
+        $result = mysqli_query($con, $updateQuery);
+
+        if ($result) {
+            // Perform additional actions to activate the portal
+            // This could include sending an email, updating other tables, etc.
+
+            echo '<script>alert("Student marked as cleared and portal activated!");</script>';
+        } else {
+            echo '<script>alert("Error marking student as cleared!");</script>';
+        }
     }
+
     ?>
 
     <!DOCTYPE html>
@@ -38,8 +48,8 @@ if (strlen($_SESSION['alogin']) == 0) {
         <div class="studensPortalHeader">
             <h1 class="studentPortal">Account Office Dashboard</h1>
         </div>
-        <?php if ($_SESSION['alogin'] != "") {
-            include('includes/menubar.php');
+        <?php if ($_SESSION['a_login'] != "") {
+            include('includes/account_menubar.php');
         }
         ?>
         <div class="content-wrapper">
@@ -120,5 +130,6 @@ if (strlen($_SESSION['alogin']) == 0) {
         <script src="../assets/js/jquery-1.11.1.js"></script>
         <script src="../assets/js/bootstrap.js"></script>
     </body>
+
     </html>
 <?php } ?>

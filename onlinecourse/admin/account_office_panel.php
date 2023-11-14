@@ -8,7 +8,7 @@ if (isset($_POST['submit'])) {
     $query = mysqli_query($con, "SELECT * FROM accountsoffice  WHERE username='$username' and password='$password'");
     $num = mysqli_fetch_array($query);
     if ($num > 0) {
-        $_SESSION['login'] = $_POST['username'];
+        $_SESSION['a_login'] = $_POST['username'];
         $_SESSION['id'] = $num['id'];
         header("location:clearance.php");
         exit();

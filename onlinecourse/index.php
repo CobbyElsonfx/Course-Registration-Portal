@@ -1,26 +1,38 @@
 <?php
 session_start();
-error_reporting(0);
+error_reporting(1);
 include("includes/config.php");
+
 if (isset($_POST['submit'])) {
     $regno = $_POST['regno'];
     $password = md5($_POST['password']);
-    $query = mysqli_query($con, "SELECT * FROM students WHERE StudentRegno='$regno' and password='$password'");
+
+    // Add the check for cleared account in the SQL query
+    $query = mysqli_query($con, "SELECT * FROM students WHERE StudentRegno='$regno' AND password='$password' AND cleared = 1");
     $num = mysqli_fetch_array($query);
+
     if ($num > 0) {
+        // Student is cleared, proceed with login
         $_SESSION['login'] = $_POST['regno'];
         $_SESSION['id'] = $num['studentRegno'];
         $_SESSION['sname'] = $num['studentName'];
+
         $uip = $_SERVER['REMOTE_ADDR'];
         $status = 1;
-        $log = mysqli_query($con, "insert into userlog(studentRegno,userip,status) values('" . $_SESSION['login'] . "','$uip','$status')");
+
+        // Log the login attempt
+        $log = mysqli_query($con, "INSERT INTO userlog(studentRegno, userip, status) VALUES('" . $_SESSION['login'] . "','$uip','$status')");
+
+        // Redirect to the change password page
         header("location:http:change-password.php");
     } else {
-        $_SESSION['errmsg'] = "Invalid Reg no or Password";
+        // Account is not cleared, show error message
+        $_SESSION['errmsg'] = "Invalid Reg no, Password, or student not cleared. Please contact the admin for clearance.";
         header("location:http:index.php");
     }
 }
 ?>
+
 
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -39,7 +51,7 @@ if (isset($_POST['submit'])) {
         integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
         crossorigin="anonymous"></script>
     <link href="assets/css/bootstrap.css" rel="stylesheet" />
-    <link href="assets/css/font-awesome.css" rel="stylesheet" />
+    <link href="assets/css/font-awesome.css" rel="sty           lesheet" />
     <link href="assets/css/style.css" rel="stylesheet" />
 </head>
 
@@ -58,7 +70,7 @@ if (isset($_POST['submit'])) {
 
                 <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
                     <img class="homeIcon" src="./assets/img/home.svg">
-                    <li class="navLink px-3 py-2 "><a href="#">Home </a></li>
+                    <li class="navLink px-3 py-2 "><a href="./home.php">Home </a></li>
                     <img class="adminIcon" src="./assets/img/login.svg">
                     <li class="navLink px-3 py-2"><a href="./admin/index.php">Admin Login </a></li>
                     <img class="studentIcon" src="./assets/img/student.svg">
