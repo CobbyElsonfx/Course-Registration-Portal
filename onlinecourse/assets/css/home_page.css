@@ -4,7 +4,8 @@ body {
     background-position: center;
     background-size: cover;
     width: 100vw;
-    height: 100vh;
+    height: 75vh;
+    overflow: hidden;
 }
 header {
     background-color: rgba(42, 42, 44, 0.6);
@@ -66,6 +67,8 @@ ul {
 }
 /* Core Values styles */
 .corevalue{
+    position: relative;
+    right: 15%;
 font-size: small;
 vertical-align: auto;
 color: #ffffff;
@@ -195,6 +198,12 @@ li {
 .schoolLogo {
     width: 250px;
     height: 250px;
+}
+
+.mission{
+    position: relative;
+    top: 150px;
+    right: 26.5%;
 }
 
 

@@ -40,8 +40,10 @@ include("includes/config.php");
                     <li class="navLink px-3 py-2"><a href="./admin/index.php">Admin Login </a></li>
                     <img class="studentIcon" src="./assets/img/student.svg">
                     <li class="navLink px-3 py-2 "><a href="./index.php">Student Login</a></li>
-                    <img class="studentIcon" src="/assets/img/accounting.svg">
+                    <img class="studentIcon" src="./assets/img/accounting.svg">
                     <li class="navLink px-3 py-2"><a href="account_office_panel.php">Accounts Login</a></li>
+                    <img class="homeIcon" src="./assets/img/teacher.svg">
+                    <li class="navLink px-3 py-2"><a href="#">Lecturers Login</a></li>
                     <li>
                         <div class ='address'>
                             <p>P.O.Box 94, Sefwi Bekwi Wiawso</p>
@@ -79,7 +81,7 @@ include("includes/config.php");
 
 
     <section class="footerHome">
-        <div>
+        <div class="d-flex">
             <div>
                 <h2>Our Vision</h2>
                 <p>
@@ -89,7 +91,7 @@ include("includes/config.php");
                 </p>
             </div>
 
-            <div>
+            <div class="mission">
                 <h2>Our Mission</h2>
                 <p>
                     Equipping teacher trainees to be knowledgeable <br>and self-motivated in a tertiary environment
