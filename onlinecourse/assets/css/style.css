@@ -483,14 +483,31 @@ label {
     text-align: center;
 }
 
-.foot{
-    height: 70px;
+.footer{
     background-color: #020325;
     color: #fff;
     align-content: center;
 }
 
-.lnginput{
-    width: 80%;
-    margin-left: 10%;
+footer a {
+    color: #333;
+    text-decoration: none;
+    text-align: center;
+  }
+  
+  
+.footer a:hover {
+    text-decoration: underline;
+  }
+
+
+.col-sm-6
+  {
+  text-decoration: none;
+  text-align: justify;
 }
+  
+  
+  
+  
+

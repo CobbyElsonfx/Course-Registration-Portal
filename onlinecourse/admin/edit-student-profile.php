@@ -51,7 +51,7 @@ if (strlen($_SESSION['alogin']) == 0) {
       <div class="container">
         <div class="row">
           <div class="col-md-12">
-            <h1 class="page-head-line">Student Registration </h1>
+            <h1 class="page-head-line">STUDENT REGISTRATION </h1>
           </div>
         </div>
         <div class="row">

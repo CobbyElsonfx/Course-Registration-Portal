@@ -45,7 +45,7 @@ if (isset($_POST['submit'])) {
 
 <body>
     <div class="studensPortalHeader">
-        <h1 class="studentPortal">Welcome Wiawso College Education Course <br> Registration Portal </h1>
+        <h1 class="studentPortal">WELCOME TO WIAWSO COLLEGE OF  EDUCATION COURSE <br> REGISTRATION PORTAL </h1>
     </div>
     <header class="p-4 bg-dark text-white">
         <div class="container">

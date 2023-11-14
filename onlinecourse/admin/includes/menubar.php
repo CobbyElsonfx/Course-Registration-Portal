@@ -9,7 +9,7 @@
                 <li class="navLink px-3 py-2"><a href="semester.php">Semester </a></li>
                 <li class="navLink px-3 py-2"><a href="course.php">Course</a></li>
                 <li class="navLink px-3 py-2" class="navLink"><a href="session.php">Session</a></li>
-                <li class="navLink px-3 py-2"><a href="enroll-history.php">Enroll History</a></li>
+                <li class="navLink px-3 py-2"><a href="enroll-history.php">Enrollment History</a></li>
                 <li class="navLink px-3 py-2 "><a href="user-log.php">Student Logs </a></li>
                 <li class="navLink px-3 py-2"><a href="logout.php">Logout</a></li>
             </ul>
