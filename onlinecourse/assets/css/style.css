@@ -397,10 +397,10 @@ label {
 
 .adminIcon {
     position: relative;
-    top: 16px;
-    left: 18px;
+    bottom: 10px;
+    left: 6px;
     width: 25px;
-    height: 25px;
+    height: 20px;
     padding: 0;
     filter: invert(100%);
     -webkit-filter: invert(100%);

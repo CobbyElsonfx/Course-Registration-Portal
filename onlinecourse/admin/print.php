@@ -196,11 +196,11 @@ if (strlen($_SESSION['alogin']) == 0) {
 
                     <tr class="item">
                         <td>
-                            Department
+                            Programme
                         </td>
 
                         <td>
-                            <?php echo htmlentities($row['dept']); ?>
+                            <?php echo htmlentities($row['progr']); ?>
                         </td>
                     </tr>
                     <tr class="item">

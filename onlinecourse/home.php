@@ -44,6 +44,7 @@ include("includes/config.php");
                     <li class="navLink px-3 py-2"><a href="account_office_panel.php">Accounts Login</a></li>
                     <img class="homeIcon" src="./assets/img/teacher.svg">
                     <li class="navLink px-3 py-2"><a href="#">Lecturers Login</a></li>
+
                     <li>
                         <div class ='address'>
                             <p>P.O.Box 94, Sefwi Bekwi Wiawso</p>

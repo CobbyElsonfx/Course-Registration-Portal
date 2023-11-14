@@ -127,10 +127,17 @@ $row = mysqli_fetch_array($sql);
 
                   <div class="form-group">
                     <label for="Programme">Programme</label>
-                    <select class="form-control" name="programme" required="required" readonly>
-                      <option value="<?php echo htmlentities($row['programme']); ?>">
-                        <?php echo htmlentities($row['programme']); ?>
-                      </option>
+                    <select class="form-control" name="programme" required="required">
+                      <option value="">Select Programme</option>
+                      <?php
+
+                      $sql = mysqli_query($con, "SELECT * FROM programme");
+                      while ($row = mysqli_fetch_array($sql)) {
+                        ?>
+                        <option value="<?php echo htmlentities($row['id']); ?>">
+                          <?php echo htmlentities($row['category'] . ' - ' . $row['program']); ?>
+                        </option>
+                      <?php } ?>
                     </select>
                   </div>
 

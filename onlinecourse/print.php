@@ -1,7 +1,7 @@
 <?php
 session_start();
 include('includes/config.php');
-error_reporting(0);
+error_reporting(1);
 if (strlen($_SESSION['login']) == 0) {
     header('location:index.php');
 } else {
@@ -99,7 +99,7 @@ if (strlen($_SESSION['login']) == 0) {
         <div class="invoice-box">
             <?php
             $cid = intval($_GET['id']);
-            $sql = mysqli_query($con, "select course.courseName as courname,course.courseCode as ccode,course.courseUnit as cunit,session.session as session,department.department as dept,level.level as level,courseenrolls.enrollDate as edate,semester.semester as sem ,students.studentName as studentname,students.studentPhoto as photo,students.cgpa as scgpa,students.creationdate as studentregdate from courseenrolls join course on course.id=courseenrolls.course join session on session.id=courseenrolls.session join department on department.id=courseenrolls.department join level on level.id=courseenrolls.level join students on students.StudentRegno=courseenrolls.StudentRegno join semester on semester.id=courseenrolls.semester where courseenrolls.studentRegno='" . $_SESSION['login'] . "' and courseenrolls.course='$cid'");
+            $sql = mysqli_query($con, "select course.courseName as courname,course.courseCode as ccode,course.courseUnit as cunit,session.session as session,programme.program as progr,level.level as level,courseenrolls.enrollDate as edate,semester.semester as sem ,students.surname as sname,students.firstname as fname,students.studentPhoto as photo,students.creationdate as studentregdate from courseenrolls join course on course.id=courseenrolls.course join session on session.id=courseenrolls.session join programme on programme.id=courseenrolls.programme join level on level.id=courseenrolls.level join students on students.StudentRegno=courseenrolls.StudentRegno join semester on semester.id=courseenrolls.semester where courseenrolls.studentRegno='" . $_SESSION['login'] . "' and courseenrolls.course='$cid'");
             $cnt = 1;
             while ($row = mysqli_fetch_array($sql)) { ?>
 
@@ -122,7 +122,7 @@ if (strlen($_SESSION['login']) == 0) {
                                         <b> Reg No: </b>
                                         <?php echo htmlentities($_SESSION['login']); ?><br>
                                         <b> Student Name: </b>
-                                        <?php echo htmlentities($row['studentname']); ?><br>
+                                        <?php echo htmlentities($row['surname'] . "" . $row['firstname']); ?><br>
                                         <b> Student Reg Date:</b>
                                         <?php echo htmlentities($row['studentregdate']); ?><br>
                                         <b> Student Course Enroll Date:</b>
@@ -196,11 +196,11 @@ if (strlen($_SESSION['login']) == 0) {
 
                     <tr class="item">
                         <td>
-                            Department
+                            Programme
                         </td>
 
                         <td>
-                            <?php echo htmlentities($row['dept']); ?>
+                            <?php echo htmlentities($row['progr']); ?>
                         </td>
                     </tr>
                     <tr class="item">
@@ -210,17 +210,6 @@ if (strlen($_SESSION['login']) == 0) {
 
                         <td>
                             <?php echo htmlentities($row['level']); ?>
-                        </td>
-                    </tr>
-
-
-                    <tr class="item">
-                        <td>
-                            CGPA
-                        </td>
-
-                        <td>
-                            <?php echo htmlentities($row['scgpa']); ?>
                         </td>
                     </tr>
 
