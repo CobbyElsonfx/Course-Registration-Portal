@@ -89,6 +89,7 @@ if (strlen($_SESSION['login']) == 0) {
                       </div>
 
                     </div>
+                    
 
                     <div class="form-group">
                       <label for="studentregno">Student Index/Ref No. </label>

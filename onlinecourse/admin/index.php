@@ -8,7 +8,7 @@ if (isset($_POST['submit'])) {
     $query = mysqli_query($con, "SELECT * FROM admin WHERE username='$username' and password='$password'");
     $num = mysqli_fetch_array($query);
     if ($num > 0) {
-        $_SESSION['login'] = $_POST['username'];
+        $_SESSION['alogin'] = $_POST['username'];
         $_SESSION['id'] = $num['id'];
         header("location:change-password.php");
         exit();
