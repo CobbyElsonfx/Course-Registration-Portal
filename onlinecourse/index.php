@@ -51,30 +51,29 @@ if (isset($_POST['submit'])) {
         integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
         crossorigin="anonymous"></script>
     <link href="assets/css/bootstrap.css" rel="stylesheet" />
-    <link href="assets/css/font-awesome.css" rel="sty           lesheet" />
+    <link href="assets/css/font-awesome.css" rel="stylesheet" />
     <link href="assets/css/style.css" rel="stylesheet" />
 </head>
 
 <body>
-    <div class="studensPortalHeader">
-        <h1 class="studentPortal">WELCOME TO WIAWSO COLLEGE OF  EDUCATION COURSE <br> REGISTRATION PORTAL </h1>
+    <div class="studensPortalHeader d-flex flex-column align-items-center justify-content-center">
+        <h1 class="studentPortal">WELCOME TO WIAWSO COLLEGE OF EDUCATION </h1>
+        <h3 class="font-bold">COURSE REGISTRATION PORTAL</h3>
     </div>
     <header class="p-4 navbarHeader text-white">
-        <div class="container">
-            <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
-                <a href="/" class="d-flex align-items-center mb-2 mb-lg-0 text-white text-decoration-none">
-                    <svg class="bi me-2" width="40" height="32" role="img" aria-label="Bootstrap">
-                        <use xlink:href="#bootstrap"></use>
-                    </svg>
-                </a>
+        <div class="container d-flex flex-wrap align-items-center justify-content-center ">
+            <div class="">
 
                 <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
-                    <img class="homeIcon" src="./assets/img/home.svg">
-                    <li class="navLink px-3 py-2 "><a href="./home.php">Home </a></li>
-                    <img class="adminIcon" src="./assets/img/login.svg">
-                    <li class="navLink px-3 py-2"><a href="./admin/index.php">Admin Login </a></li>
-                    <img class="studentIcon" src="./assets/img/student.svg">
-                    <li class="navLink px-3 py-2 "><a href="./index.php">Student Login</a></li>
+                    <li class="navLink px-3 py-2 ">
+                        <img class="homeIcon" src="./assets/img/home.svg">
+                        <a href="./home.php">Home </a>
+                    </li>
+
+                    <li class="navLink px-3 py-2 ">
+                        <img class="studentIcon" src="./assets/img/student.svg">
+                        <a href="./index.php">Student Login</a>
+                    </li>
                 </ul>
 
             </div>

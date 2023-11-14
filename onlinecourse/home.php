@@ -41,7 +41,7 @@ include("includes/config.php");
                     <img class="studentIcon" src="./assets/img/student.svg">
                     <li class="navLink px-3 py-2 "><a href="./index.php">Student Login</a></li>
                     <img class="studentIcon" src="/assets/img/accounting.svg">
-                    <li class="navLink px-3 py-2"><a href="account_office_panel.php">Accounts Login</a></li>
+                    <li class="navLink px-3 py-2"><a href="./admin/account_office_panel.php">Accounts Login</a></li>
                     <li>
                         <div>
                             <p>P.O.Box 94, Sefwi Bekwi Wiawso</p>
