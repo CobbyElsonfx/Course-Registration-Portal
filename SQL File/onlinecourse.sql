@@ -107,7 +107,7 @@ CREATE TABLE `courseenrolls` (
   `semester` int(11) DEFAULT NULL,
   `course` int(11) DEFAULT NULL,
   `enrollDate` timestamp NULL DEFAULT current_timestamp(),
-  `department_id` int(11) DEFAULT NULL
+  `programme_id` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 --

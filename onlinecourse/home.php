@@ -29,7 +29,7 @@ include("includes/config.php");
 </head>
 
 <body>
-    <header class="p-4 homePageBackground  ">
+   <header class="p-4 homePageBackground  ">
         <div class="container d-flex  flex-column  align-items-center  ">
             <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
 
@@ -40,10 +40,13 @@ include("includes/config.php");
                     <li class="navLink px-3 py-2"><a href="./admin/index.php">Admin Login </a></li>
                     <img class="studentIcon" src="./assets/img/student.svg">
                     <li class="navLink px-3 py-2 "><a href="./index.php">Student Login</a></li>
-                    <img class="studentIcon" src="/assets/img/accounting.svg">
+                    <img class="studentIcon" src="./assets/img/accounting.svg">
                     <li class="navLink px-3 py-2"><a href="account_office_panel.php">Accounts Login</a></li>
+                    <img class="homeIcon" src="./assets/img/teacher.svg">
+                    <li class="navLink px-3 py-2"><a href="#">Lecturers Login</a></li>
+
                     <li>
-                        <div>
+                        <div class ='address'>
                             <p>P.O.Box 94, Sefwi Bekwi Wiawso</p>
                             <p>admin@wce.edu.gh</p>
                             <p>024 333 2222 , 024 370 4297</p>
@@ -62,13 +65,13 @@ include("includes/config.php");
                     <caption>
                         <h1 class="welcomeHome">WELCOME TO</h1>
                     </caption>
-                    <div>
+                    <div class='hh'>
                         <h2>The Student Course Registration Portal</h2>
                     </div>
-                    <div>
+                    <div class='school'>
                         <p>
-                            Wiawso College of Education is a tertiary Institution located in the Western North Region of
-                            Ghana. It is equipped with competent staffs to train qualified teachers in the country.
+                            Wiawso College of Education is a tertiary Institution <br>located in the Western North Region of
+                            Ghana. It is equipped with competent staffs <br>to train qualified teachers in the country.
                         </p>
                     </div>
                 </div>
@@ -79,38 +82,41 @@ include("includes/config.php");
 
 
     <section class="footerHome">
-        <div>
+        <div class="d-flex">
             <div>
                 <h2>Our Vision</h2>
                 <p>
-                    To produce safe teachers who are academically sound, professionally competent, ready to serve the
-                    community and will not cause harm physically and mentally to pupils.
+                    To produce safe teachers who are academically sound, <br>professionally competent, ready to serve the
+                    community and <br>will not cause harm physically and mentally to pupils.
 
                 </p>
             </div>
 
-            <div>
+            <div class="mission">
                 <h2>Our Mission</h2>
                 <p>
-                    Equipping teacher trainees to be knowledgeable and self-motivated in a tertiary environment
+                    Equipping teacher trainees to be knowledgeable <br>and self-motivated in a tertiary environment
 
                 </p>
             </div>
-            <div>
-                <h2>Our Core Values</h2>
+           
+            
+            <div class="corevalue">
+                <h2 >Our Core Values</h2>
                 <p>
                 <ul>
-                    <li>Excellence – A community striving for excellence in all our academic pursuits
+                    <li><b>EXCELENCE</b> – A community striving for excellence in all our academic pursuits
                     </li>
-                    <li>Integrity – We are open, truthful and straightforward with our interactions with others
+                    <li><b>INTIGRETY</b>I – We are open, truthful and straightforward with our interactions with others
                     </li>
-                    <li>Diversity – A learning community made up of people from all walks of life coming together to
+                    <li><b>DDIVERSITY</b> – A learning community made up of people from all walks of life coming together to
+                    <li><b></b> – A learning community made up of people from all walks of life coming together to
                         achieve academic excellence</li>
-                    <li>Student focus – We are dedicated to ensuring the personal and professional growth of our
+                    <li><b>STUDENT FOCUS</b> – We are dedicated to ensuring the personal and professional growth of our
                         students
                     </li>
-                    <li>Leadership – Advocating for student teachers, staff and the teaching profession as a whole and
-                        listening with humility. Involving student teachers and staff in college committees to groom
+                    <li><b>LEADERSHIP</b> – Advocating for student teachers, staff and <br>the teaching profession as a whole and
+                        listening with humility. <br>Involving student teachers and staff in college committees to groom
                         them for future leadership positions</li>
                 </ul>
                 </p>
