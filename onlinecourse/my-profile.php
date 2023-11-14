@@ -96,6 +96,19 @@ if (strlen($_SESSION['login']) == 0) {
                         value="<?php echo htmlentities($row['StudentRegno']); ?>" placeholder="Student Reg no" readonly />
 
                     </div>
+                    <div class="form-group">
+                        <label for="progamme">Programme</label>
+                        <input type="text" class="form-control" id="progamme" name="progamme"
+                          value="<?php echo htmlentities($row['progamme']); ?>" />
+                      </div>
+
+                      <div class="form-group">
+                        <label for="level">Level</label>
+                        <input type="text" class="form-control" id="level" name="level"
+                          value="<?php echo htmlentities($row['level']); ?>" />
+                      </div>
+
+
 
 
 
