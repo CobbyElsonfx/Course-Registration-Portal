@@ -28,6 +28,9 @@ if (strlen($_SESSION['login']) == 0) {
     </head>
 
     <body>
+          <div class="studensPortalHeader">
+      <h1 class="studentPortal">Enrollment History</h1>
+    </div>
         <!-- LOGO HEADER END-->
         <?php if ($_SESSION['login'] != "") {
             include('includes/menubar.php');
