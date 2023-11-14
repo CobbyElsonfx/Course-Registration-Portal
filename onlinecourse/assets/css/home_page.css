@@ -17,6 +17,18 @@ header {
     color: rgb(200, 211, 45);
     text-decoration: none
     
+<<<<<<< Updated upstream
+}
+.navLink a:hover{
+    color: #ffffff;
+}
+
+.navLink a {
+    color: rgb(200, 211, 45);
+    text-decoration: none
+    
+=======
+>>>>>>> Stashed changes
 }
 
 .content-wrapper {
@@ -233,6 +245,7 @@ li {
     background-color: rgba(3, 4, 38,0.9);
     padding: 1rem 3rem 1rem 3rem;
 }
+
 
 
 

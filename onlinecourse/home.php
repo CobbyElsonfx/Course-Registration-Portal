@@ -110,7 +110,11 @@ include("includes/config.php");
                     <li><b>INTIGRETY</b>I – We are open, truthful and straightforward with our interactions with others
                     </li>
                     <li><b>DDIVERSITY</b> – A learning community made up of people from all walks of life coming together to
+<<<<<<< Updated upstream
+                    <li><b></b> – A learning community made up of people from all walks of life coming together to
+=======
                     <li><b></b>D – A learning community made up of people from all walks of life coming together to
+>>>>>>> Stashed changes
                         achieve academic excellence</li>
                     <li><b>STUDENT FOCUS</b> – We are dedicated to ensuring the personal and professional growth of our
                         students

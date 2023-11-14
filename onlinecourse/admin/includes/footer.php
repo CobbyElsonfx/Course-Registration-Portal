@@ -1,4 +1,4 @@
-<footer class="foot">
+<footer class="foot footer py-4">
     <div class="container footer">
         <div class="row">
             <div class="col-md-12">
