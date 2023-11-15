@@ -14,8 +14,8 @@ if (strlen($_SESSION['a_login']) == 0) {
 
     if (isset($_POST['markCleared'])) {
         $studentIndex = $_POST['studentIndex'];
-        // Perform the logic to mark the student as cleared and activate their portal
-        // This is a placeholder, you need to implement your logic here
+        $updateQuery = "UPDATE students SET cleared = 1 WHERE StudentRegno = '$studentIndex'";
+        $updateResult = mysqli_query($con, $updateQuery);
 
         echo '<script>alert("Student marked as cleared and portal activated!");</script>';
     }
