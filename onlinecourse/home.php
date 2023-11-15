@@ -61,12 +61,12 @@ include("includes/config.php");
                     <img class="logo" src="assets/img/schoolLogo.png">
 
                 </div>
-                <div>
+                <div class="besidelogo">
                     <caption>
                         <h1 class="welcomeHome">WELCOME TO</h1>
                     </caption>
                     <div class='hh'>
-                        <h2>The Student Course Registration Portal</h2>
+                        <h2 class="besidelogo1">The Student Course Registration Portal</h2>
                     </div>
                     <div class='school'>
                         <p>

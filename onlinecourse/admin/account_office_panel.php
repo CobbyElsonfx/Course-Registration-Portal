@@ -57,10 +57,10 @@ if (isset($_POST['submit'])) {
                 <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
                     <li class="navLink px-3 py-2 d-flex  align-items-center gap-0">
                         <img class="homeIcon2" src="../assets/img/home.svg">
-                        <a href="#">Home </a>
+                        <a href="../home.php">Home </a>
                     </li>
-                    <li class="navLink px-3 py-2">
-                        <img class="adminIcon" src="../assets/img/accounting.svg">
+                    <li class="navLink px-3 py-2 d-flex  align-items-center gap-0">
+                        <img class="adminIcon3" src="../assets/img/accounting.svg">
                         <a href="account_office_panel.php">Accounts Login</a>
                     </li>
 

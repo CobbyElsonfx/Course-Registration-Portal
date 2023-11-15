@@ -4,8 +4,8 @@ body {
     background-position: center;
     background-size: cover;
     width: 100vw;
-    height: 75vh;
-    overflow: hidden;
+    height: 100vh;
+    overflow: auto;
 }
 
 header {
@@ -16,18 +16,13 @@ header {
 
 .navLink a {
     color: rgb(200, 211, 45);
-    text-decoration: none
+    text-decoration: none;
     
 }
 .navLink a:hover{
     color: #ffffff;
 }
 
-.navLink a {
-    color: rgb(200, 211, 45);
-    text-decoration: none
-    
-}
 
 .content-wrapper {
     margin: 20px;
@@ -55,10 +50,17 @@ h2 {
 }
 .hh{
     text-align: center;
+    font-size: 25px;
 }
 .school{
+    margin-left:70px;
     text-align: justify;
     text-align: 40px;
+}
+
+.besidelogo1{
+position: relative;
+right: 12%;
 }
 p {
     color: #ffffff;
@@ -213,7 +215,7 @@ li {
 .mission{
     position: relative;
     top: 150px;
-    right: 26.5%;
+    right: 24%;
 }
 
 
