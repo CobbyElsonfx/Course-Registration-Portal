@@ -7,8 +7,9 @@ body {
     height: 75vh;
     overflow: hidden;
 }
+
 header {
-    background-color: rgba(42, 42, 44, 0.6);
+    background-color: rgba(3, 4, 38,0.7);
     width: 100%;
     height: -100%;
 }
@@ -17,7 +18,6 @@ header {
     color: rgb(200, 211, 45);
     text-decoration: none
     
-<<<<<<< Updated upstream
 }
 .navLink a:hover{
     color: #ffffff;
@@ -27,8 +27,6 @@ header {
     color: rgb(200, 211, 45);
     text-decoration: none
     
-=======
->>>>>>> Stashed changes
 }
 
 .content-wrapper {
@@ -242,7 +240,7 @@ li {
     top: -20px;
     height: 70%;
     width: 100%;
-    background-color: rgba(3, 4, 38,0.9);
+    background-color: rgba(3, 4, 38,0.94);
     padding: 1rem 3rem 1rem 3rem;
 }
 

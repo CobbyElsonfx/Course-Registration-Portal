@@ -509,8 +509,8 @@ label {
 
 
 .schoolLogo{
-    width: 250px;
-    height: 250px;
+    width: 170px;
+    height: auto;
 }
 
 .col-md-12{
@@ -526,14 +526,16 @@ label {
 }
 
 footer a {
-    color: #333;
     text-decoration: none;
     text-align: center;
+    color: white;
   }
   
   
 .footer a:hover {
     text-decoration: underline;
+    color: #ece907;
+   
   }
 
 

@@ -83,22 +83,17 @@ if (strlen($_SESSION['alogin']) == 0) {
                                     </div>
 
                                     <div class="form-group">
-                                        <label for="coursename">Course Name </label>
+                                        <label for="coursename">Course Title </label>
                                         <input type="text" class="form-control" id="coursename" name="coursename"
                                             placeholder="Course Name" required />
                                     </div>
 
                                     <div class="form-group">
-                                        <label for="courseunit">Course unit </label>
+                                        <label for="courseunit">Credit Hours</label>
                                         <input type="text" class="form-control" id="courseunit" name="courseunit"
                                             placeholder="Course Unit" required />
                                     </div>
 
-                                    <div class="form-group">
-                                        <label for="seatlimit">Seat limit </label>
-                                        <input type="text" class="form-control" id="seatlimit" name="seatlimit"
-                                            placeholder="Seat limit" required />
-                                    </div>
 
                                     <button type="submit" name="submit" class="btn btn-default">Submit</button>
                                 </form>
@@ -125,9 +120,7 @@ if (strlen($_SESSION['alogin']) == 0) {
                                         <tr>
                                             <th>#</th>
                                             <th>Course Code</th>
-                                            <th>Course Name </th>
-                                            <th>Course Unit</th>
-                                            <th>Seat limit</th>
+                                            <th>Course Title </th>
                                             <th>Creation Date</th>
                                             <th>Action</th>
                                         </tr>
@@ -149,12 +142,8 @@ if (strlen($_SESSION['alogin']) == 0) {
                                                 <td>
                                                     <?php echo htmlentities($row['courseName']); ?>
                                                 </td>
-                                                <td>
-                                                    <?php echo htmlentities($row['courseUnit']); ?>
-                                                </td>
-                                                <td>
-                                                    <?php echo htmlentities($row['noofSeats']); ?>
-                                                </td>
+
+
                                                 <td>
                                                     <?php echo htmlentities($row['creationDate']); ?>
                                                 </td>

@@ -191,12 +191,6 @@ INSERT INTO `level` (`id`, `level`, `creationDate`) VALUES
 -- Table structure for table `news`
 --
 
-CREATE TABLE `news` (
-  `id` int(11) NOT NULL,
-  `newstitle` varchar(255) DEFAULT NULL,
-  `newsDescription` mediumtext DEFAULT NULL,
-  `postingDate` timestamp NULL DEFAULT current_timestamp()
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 --
 -- Dumping data for table `news`

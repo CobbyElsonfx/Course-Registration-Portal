@@ -124,8 +124,21 @@ $row = mysqli_fetch_array($sql);
                       <?php } ?>
                     </select>
                   </div>
-
                   <div class="form-group">
+                    <label for="Programme">Programme</label>
+                    <?php
+                    // Fetch the student's program information
+                    $regno = $_SESSION['login'];
+                    $programQuery = mysqli_query($con, "SELECT programme FROM students WHERE StudentRegno = '$regno'");
+                    $programData = mysqli_fetch_array($programQuery);
+                    ?>
+                    <input type="text" class="form-control" id="programme" name="programme"
+                      value="<?php echo htmlentities($programData['programme']); ?>" placeholder="Programme" readonly />
+                  </div>
+
+
+
+                  <!-- <div class="form-group">
                     <label for="Programme">Programme</label>
                     <select class="form-control" name="programme" required="required">
                       <option value="">Select Programme</option>
@@ -139,7 +152,7 @@ $row = mysqli_fetch_array($sql);
                         </option>
                       <?php } ?>
                     </select>
-                  </div>
+                  </div> -->
 
                   <div class="form-group">
                     <label for="Level">Level</label>
