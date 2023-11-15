@@ -23,10 +23,6 @@ header {
     color: #ffffff;
 }
 
-.navLink a:hover {
-    color: rgb(255, 255, 255);
-    
-}
 
 .content-wrapper {
     margin: 20px;
