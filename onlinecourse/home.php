@@ -41,7 +41,7 @@ include("includes/config.php");
                     <img class="studentIcon" src="./assets/img/student.svg">
                     <li class="navLink px-3 py-2 "><a href="./index.php">Student Login</a></li>
                     <img class="studentIcon" src="./assets/img/accounting.svg">
-                    <li class="navLink px-3 py-2"><a href="account_office_panel.php">Accounts Login</a></li>
+                    <li class="navLink px-3 py-2"><a href="./admin/account_office_panel.php">Accounts Login</a></li>
                     <img class="homeIcon" src="./assets/img/teacher.svg">
                     <li class="navLink px-3 py-2"><a href="#">Lecturers Login</a></li>
 
@@ -61,12 +61,12 @@ include("includes/config.php");
                     <img class="logo" src="assets/img/schoolLogo.png">
 
                 </div>
-                <div>
+                <div class="besidelogo">
                     <caption>
                         <h1 class="welcomeHome">WELCOME TO</h1>
                     </caption>
                     <div class='hh'>
-                        <h2>The Student Course Registration Portal</h2>
+                        <h2 class="besidelogo1">The Student Course Registration Portal</h2>
                     </div>
                     <div class='school'>
                         <p>
