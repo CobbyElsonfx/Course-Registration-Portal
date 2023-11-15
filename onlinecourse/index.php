@@ -24,7 +24,7 @@ if (isset($_POST['submit'])) {
         $log = mysqli_query($con, "INSERT INTO userlog(studentRegno, userip, status) VALUES('" . $_SESSION['login'] . "','$uip','$status')");
 
         // Redirect to the change password page
-        header("location:http:change-password.php");
+        header("location:http:my-profile.php");
     } else {
         // Account is not cleared, show error message
         $_SESSION['errmsg'] = "Invalid Reg no, Password, or student not cleared. Please contact the admin for clearance.";

@@ -89,7 +89,7 @@ if (strlen($_SESSION['login']) == 0) {
                       </div>
 
                     </div>
-                    
+
 
                     <div class="form-group">
                       <label for="studentregno">Student Index/Ref No. </label>
@@ -98,16 +98,16 @@ if (strlen($_SESSION['login']) == 0) {
 
                     </div>
                     <div class="form-group">
-                        <label for="progamme">Programme</label>
-                        <input type="text" class="form-control" id="progamme" name="progamme"
-                          value="<?php echo htmlentities($row['progamme']); ?>" />
-                      </div>
+                      <label for="progamme">Programme</label>
+                      <input type="text" class="form-control" id="progamme" name="progamme"
+                        value="<?php echo htmlentities($row['progamme']); ?>" />
+                    </div>
 
-                      <div class="form-group">
-                        <label for="level">Level</label>
-                        <input type="text" class="form-control" id="level" name="level"
-                          value="<?php echo htmlentities($row['level']); ?>" />
-                      </div>
+                    <div class="form-group">
+                      <label for="level">Level</label>
+                      <input type="text" class="form-control" id="level" name="level"
+                        value="<?php echo htmlentities($row['level']); ?>" />
+                    </div>
 
 
 

@@ -7,8 +7,9 @@ body {
     height: 100vh;
     overflow: auto;
 }
+
 header {
-    background-color: rgba(42, 42, 44, 0.6);
+    background-color: rgba(3, 4, 38,0.7);
     width: 100%;
     height: -100%;
 }
@@ -17,6 +18,9 @@ header {
     color: rgb(200, 211, 45);
     text-decoration: none;
     
+}
+.navLink a:hover{
+    color: #ffffff;
 }
 
 .navLink a:hover {
@@ -242,7 +246,7 @@ li {
     top: -20px;
     height: 70%;
     width: 100%;
-    background-color: rgba(3, 4, 38,0.9);
+    background-color: rgba(3, 4, 38,0.94);
     padding: 1rem 3rem 1rem 3rem;
 }
 

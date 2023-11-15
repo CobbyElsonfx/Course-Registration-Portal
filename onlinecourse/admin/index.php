@@ -10,7 +10,7 @@ if (isset($_POST['submit'])) {
     if ($num > 0) {
         $_SESSION['alogin'] = $_POST['username'];
         $_SESSION['id'] = $num['id'];
-        header("location:change-password.php");
+        header("location:student-registration.php");
         exit();
     } else {
         $_SESSION['errmsg'] = "Invalid username or password";

@@ -142,8 +142,19 @@ if (strlen($_SESSION['alogin']) == 0) {
                     </div>
                   </div>
                   <div class="form-group">
-                    <label for="level">Level </label>
-                    <input type="text" class="form-control" id="level" name="level" placeholder="level" required />
+                    <label for="Level">Level</label>
+                    <select class="form-control" name="level" required="required">
+                      <option value="">Select Level</option>
+                      <?php
+
+                      $sql = mysqli_query($con, "SELECT * FROM level");
+                      while ($row = mysqli_fetch_array($sql)) {
+                        ?>
+                        <option value="<?php echo htmlentities($row['id']); ?>">
+                          <?php echo htmlentities($row['level']); ?>
+                        </option>
+                      <?php } ?>
+                    </select>
                   </div>
 
                   <div class="form-group">
