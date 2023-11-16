@@ -65,11 +65,11 @@ include("includes/config.php");
                     <caption>
                         <h1 class="welcomeHome">WELCOME TO</h1>
                     </caption>
-                    <div class='hh'>
-                        <h2 class="besidelogo1">The Student Course Registration Portal</h2>
+                    <div>
+                        <h2 class="subheading">The Student Course Registration Portal</h2>
                     </div>
-                    <div class='school'>
-                        <p>
+                    <div>
+                        <p class='description'>
                             Wiawso College of Education is a tertiary Institution <br>located in the Western North
                             Region of
                             Ghana. It is equipped with competent staffs <br>to train qualified teachers in the country.
@@ -83,7 +83,27 @@ include("includes/config.php");
 
 
     <section class="footerHome">
-        <div class="d-flex">
+        <div class="d-flex gap-5 row">
+                <div class="corevalue col-lg-7 col-md-7 col-sm-12">
+                <h2>Our Core Values</h2>
+                <ul>
+                    <li>
+                        <b>EXCELENCE</b> – A community striving for excellence in all our academic pursuits
+                    </li>
+                    <li><b>INTIGRETY</b>I – We are open, truthful and straightforward with our interactions with others
+                    </li>
+                    <li><b></b> – A learning community made up of people from all walks of
+                        life coming together to
+                    <li><b>STUDENT FOCUS</b> – We are dedicated to ensuring the personal and professional growth of our
+                        students
+                    </li>
+                    <li><b>LEADERSHIP</b> – Advocating for student teachers, staff and <br>the teaching profession as a
+                        whole and
+                        listening with humility. <br>Involving student teachers and staff in college committees to groom
+                        them for future leadership positions</li>
+                </ul>
+                 </div>
+            <div class="col-lg-4 col-md-4 col-sm-12">
             <div>
                 <h2>Our Vision</h2>
                 <p>
@@ -102,34 +122,9 @@ include("includes/config.php");
                 </p>
             </div>
 
-
-            <div class="corevalue">
-                <h2>Our Core Values</h2>
-                <p>
-                <ul>
-                    <li><b>EXCELENCE</b> – A community striving for excellence in all our academic pursuits
-                    </li>
-                    <li><b>INTIGRETY</b>I – We are open, truthful and straightforward with our interactions with others
-                    </li>
-                    <li><b>DDIVERSITY</b> – A learning community made up of people from all walks of life coming
-                        together to
-                        <<<<<<< Updated upstream <li><b></b> – A learning community made up of people from all walks of
-                            life coming together to
-                            =======
-                    <li><b></b>D – A learning community made up of people from all walks of life coming together to
-                        >>>>>>> Stashed changes
-                        achieve academic excellence</li>
-                    <li><b>STUDENT FOCUS</b> – We are dedicated to ensuring the personal and professional growth of our
-                        students
-                    </li>
-                    <li><b>LEADERSHIP</b> – Advocating for student teachers, staff and <br>the teaching profession as a
-                        whole and
-                        listening with humility. <br>Involving student teachers and staff in college committees to groom
-                        them for future leadership positions</li>
-                </ul>
-                </p>
             </div>
         </div>
+</section>
 
         <script src="assets/js/bootstrap.js"></script>
 
