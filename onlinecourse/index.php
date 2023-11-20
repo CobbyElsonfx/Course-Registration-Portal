@@ -56,9 +56,16 @@ if (isset($_POST['submit'])) {
 </head>
 
 <body>
-    <div class="studensPortalHeader d-flex flex-column align-items-center justify-content-center">
-        <h1 class="studentPortal">WELCOME TO WIAWSO COLLEGE OF EDUCATION </h1>
-        <h3 class="font-bold">COURSE REGISTRATION PORTAL</h3>
+    <div class="pageHeadline">
+        <div class="pageHeadlineText">
+            <h1 class="welcHeadLine"> WELCOME TO</h1>
+            <h3> <span class="welcHeadLineSpan">THE STUDENTS </span> REGISTRATION
+                PORTAL
+            </h3>
+            <small>Register your Semester Courses Here</small>
+        </div>
+        <img class="schoolLogo" src="./assets/img/schoolLogo.png" />
+
     </div>
     <header class="p-4 navbarHeader text-white">
         <div class="container d-flex flex-wrap align-items-center justify-content-center ">

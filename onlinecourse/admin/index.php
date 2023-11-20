@@ -43,10 +43,9 @@ if (isset($_POST['submit'])) {
     <div class="pageHeadline">
         <div class="pageHeadlineText">
             <h1 class="welcHeadLine"> WELCOME TO</h1>
-            <h3> <span class="welcHeadLineSpan">THE STUDENTS </span> REGISTRATION
+            <h3> <span class="welcHeadLineSpan">THE ADMINISTRATORS </span> 
                 PORTAL
             </h3>
-            <small>Register your Semester Courses Here</small>
         </div>
         <img class="schoolLogo" src="../assets/img/schoolLogo.png" />
 
