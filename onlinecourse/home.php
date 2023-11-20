@@ -34,16 +34,27 @@ include("includes/config.php");
             <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
 
                 <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
-                    <img class="homeIcon" src="./assets/img/home.svg">
-                    <li class="navLink px-3 py-2 "><a href="home.php">Home </a></li>
-                    <img class="adminIcon" src="./assets/img/login.svg">
-                    <li class="navLink px-3 py-2"><a href="./admin/index.php">Admin Login </a></li>
-                    <img class="studentIcon" src="./assets/img/student.svg">
-                    <li class="navLink px-3 py-2 "><a href="./index.php">Student Login</a></li>
-                    <img class="studentIcon" src="./assets/img/accounting.svg">
-                    <li class="navLink px-3 py-2"><a href="./admin/account_office_panel.php">Accounts Login</a></li>
-                    <img class="homeIcon" src="./assets/img/teacher.svg">
-                    <li class="navLink px-3 py-2"><a href="#">Lecturers Login</a></li>
+                    <li class="navLink px-3 py-2 ">
+                                            <img class="homeIcon" src="./assets/img/home.svg">
+
+                        <a href="home.php">Home </a>
+                    </li>
+                    <li class="navLink px-3 py-2">
+                                            <img class="adminIcon" src="./assets/img/login.svg">
+
+                        <a href="./admin/index.php">Admin Login </a>
+                    </li>
+                    <li class="navLink px-3 py-2 ">
+                                            <img class="studentIcon" src="./assets/img/student.svg">
+
+                        <a href="./index.php">Student Login</a></li>
+                    <li class="navLink px-3 py-2">
+                                            <img class="studentIcon" src="./assets/img/accounting.svg">
+                                            <a href="./admin/account_office_panel.php">Accounts Login</a></li>
+                    <li class="navLink px-3 py-2">
+                                            <img class="homeIcon" src="./assets/img/teacher.svg">
+                        
+                        <a href="#">Lecturers Login</a></li>
 
                     <li>
                         <div class='address'>
@@ -63,7 +74,7 @@ include("includes/config.php");
                 </div>
                 <div class="besidelogo">
                     <caption>
-                        <h1 class="welcomeHome">WELCOME TO</h1>
+                        <h1 class="welcomeHome">WEL<span class="come">COME</span> TO</h1>
                     </caption>
                     <div>
                         <h2 class="subheading">The Student Course Registration Portal</h2>
@@ -92,8 +103,6 @@ include("includes/config.php");
                     </li>
                     <li><b>INTIGRETY</b>I – We are open, truthful and straightforward with our interactions with others
                     </li>
-                    <li><b></b> – A learning community made up of people from all walks of
-                        life coming together to
                     <li><b>STUDENT FOCUS</b> – We are dedicated to ensuring the personal and professional growth of our
                         students
                     </li>

@@ -117,16 +117,11 @@ if (strlen($_SESSION['login']) == 0) {
                       <input type="text" class="form-control" id="progamme" name="progamme"
                         value="<?php echo $programName; ?>" readonly />
                     </div>
-
                     <div class="form-group">
                       <label for="level">Level</label>
                       <input type="text" class="form-control" id="level" name="level"
                         value="<?php echo htmlentities($row['level']); ?>" readonly />
                     </div>
-
-
-
-
                     <div class="form-group mb-2 mt-2 rounded-3">
                       <label for="Pincode">Student Photo </label>
                       <?php if ($row['studentPhoto'] == "") { ?>
