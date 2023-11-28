@@ -1,4 +1,14 @@
 <?php
+// use PHPMailer\PHPMailer\PHPMailer;
+// use PHPMailer\PHPMailer\SMTP;
+// use PHPMailer\PHPMailer\Exception;
+
+// require 'path/to/phpmailer/src/Exception.php';
+// require 'path/to/phpmailer/src/PHPMailer.php';
+// require 'path/to/phpmailer/src/SMTP.php';
+
+
+
 session_start();
 include('includes/config.php');
 if (strlen($_SESSION['a_login']) == 0) {
@@ -12,12 +22,53 @@ if (strlen($_SESSION['a_login']) == 0) {
         $result = mysqli_query($con, $sql);
     }
 
+
+
     if (isset($_POST['markCleared'])) {
         $studentIndex = $_POST['studentIndex'];
         $updateQuery = "UPDATE students SET cleared = 1 WHERE StudentRegno = '$studentIndex'";
-        $updateResult = mysqli_query($con, $updateQuery);
+        $result = mysqli_query($con, $updateQuery);
+        // function sendActivationEmail($email)
+        // {
+        //     // Instantiation and passing `true` enables exceptions
+        //     $mail = new PHPMailer(true);
 
-        echo '<script>alert("Student marked as cleared and portal activated!");</script>';
+        //     try {
+        //         // Server settings
+        //         $mail->isSMTP();
+        //         $mail->Host = 'smtp.example.com'; // Specify your SMTP server
+        //         $mail->SMTPAuth = true;
+        //         $mail->Username = 'your_username'; // SMTP username
+        //         $mail->Password = 'your_password'; // SMTP password
+        //         $mail->SMTPSecure = 'tls'; // Enable TLS encryption; `ssl` also accepted
+        //         $mail->Port = 587; // TCP port to connect to
+
+        //         // Sender information
+        //         $mail->setFrom('your_email@example.com', 'Your Name');
+        //         // Recipient
+        //         $mail->addAddress($email);
+
+        //         // Content
+        //         $mail->isHTML(true); // Set email format to HTML
+        //         $mail->Subject = 'Account Activation';
+        //         $mail->Body = 'Please click the following link to activate your account: <a href="https://example.com/activate.php?email=' . urlencode($email) . '">Activate Now</a>';
+
+        //         // Send the email
+        //         $mail->send();
+
+        //         echo 'Email has been sent';
+        //     } catch (Exception $e) {
+        //         echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
+        //     }
+        // }
+
+        if ($result) {
+            // Additional actions to activate the portal
+            // sendActivationEmail($studentEmail);
+            echo '<script>alert("Student marked as cleared and portal activated!");</script>';
+        } else {
+            echo '<script>alert("Error marking student as cleared!");</script>';
+        }
     }
     ?>
 
