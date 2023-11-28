@@ -10,7 +10,7 @@ if (isset($_POST['submit'])) {
     if ($num > 0) {
         $_SESSION['alogin'] = $_POST['username'];
         $_SESSION['id'] = $num['id'];
-        header("location:change-password.php");
+        header("location:student-registration.php");
         exit();
     } else {
         $_SESSION['errmsg'] = "Invalid username or password";
@@ -42,35 +42,32 @@ if (isset($_POST['submit'])) {
 <body>
     <div class="pageHeadline">
         <div class="pageHeadlineText">
-            <h1 class="welcHeadLine"> WELCOME TO </h1>
-            <h3> <span class="welcHeadLineSpan">The Students </span> Registration
-                Portal
+            <h1 class="welcHeadLine"> WELCOME TO</h1>
+            <h3> <span class="welcHeadLineSpan">THE ADMINISTRATORS </span> 
+                PORTAL
             </h3>
-            <small>Register your Semester Courses Here</small>
         </div>
         <img class="schoolLogo" src="../assets/img/schoolLogo.png" />
 
     </div>
     <header class="p-4 navbarHeader text-white">
-        <div class="container">
-            <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
+        <div class="container d-flex flex-wrap align-items-center justify-content-center">
+            <div class="">
                 <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
                     <li class="navLink px-3 py-2 d-flex  align-items-center gap-0">
                         <img class="homeIcon1" src="../assets/img/home.svg">
-                        <a href="#">Home </a>
+                        <a href="../home.php">Home </a>
                     </li>
-                    <img class="adminIcon" src="../assets/img/login.svg">
-                    <li class="navLink px-3 py-2"><a href="index.php">Admin Login </a></li>
-                    <img class="studentIcon" src="../assets/img/student.svg">
-                    <li class="navLink px-3 py-2"><a href="../index.php">Student Login</a></li>
-                    <img class="studentIcon" src="../assets/img/accounting.svg">
-                    <li class="navLink px-3 py-2"><a href="account_office_panel.php">Accounts Login</a></li>
+
+                    <li class="navLink px-3 py-2 d-flex  align-items-center gap-0">
+                        <img class="adminIcon " src="../assets/img/login.svg">
+
+                        <a href="index.php">
+                            Admin Login </a>
+                    </li>
 
                 </ul>
-                <form class=" d-flex  mb-3 mb-lg-0 me-lg-3">
-                    <input type="search" class="form-control form-control-dark" placeholder="Type in your query"
-                        aria-label="Search">
-                </form>
+
             </div>
         </div>
     </header>

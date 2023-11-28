@@ -65,7 +65,7 @@ $row = mysqli_fetch_array($sql);
     include('includes/menubar.php');
   } ?>
   <!-- MENU SECTION END-->
-  <div class="content-wrapper">
+  <div class="content-wrapper mb-4">
     <div class="container">
       <div class="row">
       </div>
@@ -110,7 +110,7 @@ $row = mysqli_fetch_array($sql);
                     <?php } ?>
                   </div>
 
-                  <div class="form-group">
+                  <!-- <div class="form-group">
                     <label for="Session">Session</label>
                     <select class="form-control" name="session" required="required">
                       <option value="">Select Session</option>
@@ -123,31 +123,70 @@ $row = mysqli_fetch_array($sql);
                         </option>
                       <?php } ?>
                     </select>
-                  </div>
-
+                  </div> -->
                   <div class="form-group">
                     <label for="Programme">Programme</label>
-                    <select class="form-control" name="programme" required="required" readonly>
-                      <option value="<?php echo htmlentities($row['programme']); ?>">
-                        <?php echo htmlentities($row['programme']); ?>
-                      </option>
-                    </select>
+                    <?php
+                    // Fetch the student's program information
+                    $regno = $_SESSION['login'];
+                    $programQuery = mysqli_query($con, "SELECT programme FROM students WHERE StudentRegno = '$regno'");
+
+                    if ($programData = mysqli_fetch_array($programQuery)) {
+                      $programId = $programData['programme'];
+
+                      // Fetch the corresponding program name from the programme table
+                      $programQuery = mysqli_query($con, "SELECT program FROM programme WHERE id = '$programId'");
+
+                      if ($programRow = mysqli_fetch_array($programQuery)) {
+                        $programName = htmlentities($programRow['program']);
+                      } else {
+                        $programName = "Unknown Program";
+                      }
+                    } else {
+                      $programName = "Program Not Found";
+                    }
+                    ?>
+                    <input type="text" class="form-control" id="programme" name="programme"
+                      value="<?php echo $programName; ?>" readonly />
                   </div>
 
-                  <div class="form-group">
-                    <label for="Level">Level</label>
-                    <select class="form-control" name="level" required="required">
-                      <option value="">Select Level</option>
+
+
+
+                  <!-- <div class="form-group">
+                    <label for="Programme">Programme</label>
+                    <select class="form-control" name="programme" required="required">
+                      <option value="">Select Programme</option>
                       <?php
-                      $sql_level = mysqli_query($con, "select * from level");
-                      while ($row_level = mysqli_fetch_array($sql_level)) {
+
+                      $sql = mysqli_query($con, "SELECT * FROM programme");
+                      while ($row = mysqli_fetch_array($sql)) {
                         ?>
-                        <option value="<?php echo htmlentities($row_level['id']); ?>">
-                          <?php echo htmlentities($row_level['level']); ?>
+                        <option value="<?php echo htmlentities($row['id']); ?>">
+                          <?php echo htmlentities($row['category'] . ' - ' . $row['program']); ?>
                         </option>
                       <?php } ?>
                     </select>
+                  </div> -->
+
+                  <div class="form-group">
+                    <label for="Level">Level</label>
+                    <?php
+                    // Fetch the current student's level information
+                    $regno = $_SESSION['login'];
+                    $levelQuery = mysqli_query($con, "SELECT level FROM students WHERE StudentRegno = '$regno'");
+
+                    if ($levelData = mysqli_fetch_array($levelQuery)) {
+                      $currentLevel = $levelData['level'];
+                    } else {
+                      $currentLevel = ""; // Set a default value if level information is not found
+                    }
+                    ?>
+                    <input type="text" class="form-control" id="level" name="level"
+                      value="<?php echo htmlentities($currentLevel); ?>" readonly />
                   </div>
+
+
                   <div class="form-group">
                     <label for="Semester">Semester</label>
                     <select class="form-control" name="sem" required="required">
@@ -162,20 +201,125 @@ $row = mysqli_fetch_array($sql);
                       <?php } ?>
                     </select>
                   </div>
-                  <div class="form-group text-left">
-                    <label for="Courses">Courses</label>
-                    <?php
-                    $sql_courses = mysqli_query($con, "SELECT * FROM course");
-                    while ($row_courses = mysqli_fetch_array($sql_courses)) {
-                      echo '<div class="checkbox">';
-                      echo '<label>';
-                      echo '<input type="checkbox" name="courses[]" value="' . $row_courses['id'] . '"> ' . htmlentities($row_courses['courseName']);
-                      echo '</label>';
-                      echo '</div>';
-                    }
-                    ?>
-                  </div>
-                  <button type="submit" name="submit" id="submit" class="btn btn-default">Enroll</button>
+                  <?php
+                  $courses = array(
+                    "Introduction to Agriculture",
+                    "Textile Design Fundamentals",
+                    "Food Science and Nutrition",
+                    "Environmental Sustainability in Agriculture",
+                    "Advanced Textile Techniques",
+                    "Nutritional Biochemistry",
+                    "Agricultural Economics",
+                    "Fashion and Textile Marketing",
+                    "Culinary Arts",
+                    "Advanced Food Preparation"
+                  );
+
+                  $numberOfCourses = 5; // Set the number of random courses you want
+                
+                  $randomCourses = array_rand($courses, $numberOfCourses);
+                  ?>
+
+                  <h5>Choose Courses to Enroll in this Semester</h5>
+
+                  <div class="accordion" id="accordionExample">
+                    <div class="accordion-item">
+                      <h2 class="accordion-header" id="headingOne">
+                        <button class="accordion-button" type="button" data-bs-toggle="collapse"
+                          data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                          Maths/Science
+                        </button>
+                      </h2>
+                      <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne"
+                        data-bs-parent="#accordionExample">
+                        <div class="accordion-body">
+                          <label>Choose Courses:</label>
+                          <ul>
+                            <?php foreach ($randomCourses as $index) { ?>
+                              <li>
+                                <input type="checkbox" id="course_<?php echo $index; ?>" name="courses[]"
+                                  value="<?php echo htmlentities($courses[$index]); ?>">
+                                <label for="course_<?php echo $index; ?>">
+                                  <?php echo htmlentities($courses[$index]); ?>
+                                </label>
+                              </li>
+                            <?php } ?>
+                          </ul>
+                          <button type="submit" name="submit" id="submit" class="btn btn-default">Enroll</button>
+
+                        </div>
+                      </div>
+                      <div class="accordion-item">
+                        <h2 class="accordion-header" id="headingTwo">
+                          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                            data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                            Technical
+                          </button>
+                        </h2>
+                        <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo"
+                          data-bs-parent="#accordionExample">
+                          <div class="accordion-body">
+                            <label>Choose Courses:</label>
+                            <ul>
+                              <?php foreach ($randomCourses as $index) { ?>
+                                <li>
+                                  <input type="checkbox" id="course_<?php echo $index; ?>" name="courses[]"
+                                    value="<?php echo htmlentities($courses[$index]); ?>">
+                                  <label for="course_<?php echo $index; ?>">
+                                    <?php echo htmlentities($courses[$index]); ?>
+                                  </label>
+                                </li>
+                              <?php } ?>
+                            </ul>
+                            <button type="submit" name="submit" id="submit" class="btn btn-default">Enroll</button>
+
+                          </div>
+                        </div>
+                      </div>
+                      <div class="accordion-item">
+                        <h2 class="accordion-header" id="headingThree">
+                          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                            data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                            Agric/Home Economics
+                          </button>
+                        </h2>
+                        <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree"
+                          data-bs-parent="#accordionExample">
+                          <div class="accordion-body">
+                            <label>Choose Courses:</label>
+                            <ul>
+                              <?php foreach ($randomCourses as $index) { ?>
+                                <li>
+                                  <input type="checkbox" id="course_<?php echo $index; ?>" name="courses[]"
+                                    value="<?php echo htmlentities($courses[$index]); ?>">
+                                  <label for="course_<?php echo $index; ?>">
+                                    <?php echo htmlentities($courses[$index]); ?>
+                                  </label>
+                                </li>
+                              <?php } ?>
+                            </ul>
+                            <button type="submit" name="submit" id="submit" class="btn btn-default">Enroll</button>
+
+
+
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <!-- <div class="form-group text-left">
+                      <label for="Courses">Courses</label>
+                      <?php
+                      $sql_courses = mysqli_query($con, "SELECT * FROM course");
+                      while ($row_courses = mysqli_fetch_array($sql_courses)) {
+                        echo '<div class="checkbox">';
+                        echo '<label>';
+                        echo '<input type="checkbox" name="courses[]" value="' . $row_courses['id'] . '"> ' . htmlentities($row_courses['courseName']);
+                        echo '</label>';
+                        echo '</div>';
+                      }
+                      ?>
+                    </div> -->
+                    <!-- <button type="submit" name="submit" id="submit" class="btn btn-default">Enroll</button> -->
                 </form>
               </div>
             <?php } ?>
@@ -184,6 +328,7 @@ $row = mysqli_fetch_array($sql);
       </div>
     </div>
   </div>
+
   <?php include('includes/footer.php'); ?>
   <script src="assets/js/jquery-1.11.1.js"></script>
   <script src="assets/js/bootstrap.js"></script>

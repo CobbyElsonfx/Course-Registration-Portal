@@ -28,6 +28,9 @@ if (strlen($_SESSION['login']) == 0) {
     </head>
 
     <body>
+          <div class="studensPortalHeader">
+      <h1 class="studentPortal">Enrollment History</h1>
+    </div>
         <!-- LOGO HEADER END-->
         <?php if ($_SESSION['login'] != "") {
             include('includes/menubar.php');
@@ -42,9 +45,8 @@ if (strlen($_SESSION['login']) == 0) {
                     </div>
                 </div>
                 <div class="row">
-
                     <div class="col-md-12">
-                        <!--    Bordered Table  -->
+                        <!-- Bordered Table -->
                         <div class="panel panel-default">
                             <div class="panel-heading">
                                 Enroll History
@@ -62,17 +64,27 @@ if (strlen($_SESSION['login']) == 0) {
                                                 <th>Level</th>
                                                 <th>Semester</th>
                                                 <th>Enrollment Date</th>
-                                                <th>Action</th>
                                             </tr>
                                         </thead>
                                         <tbody>
                                             <?php
-                                            $sql = mysqli_query($con, "select courseenrolls.course as cid, course.courseName as courname,session.session as session,programme.program as progr,level.level as level,courseenrolls.enrollDate as edate ,semester.semester as sem from courseenrolls join course on course.id=courseenrolls.course join session on session.id=courseenrolls.session join programme on programme.id=courseenrolls.programme join level on level.id=courseenrolls.level  join semester on semester.id=courseenrolls.semester  where courseenrolls.studentRegno='" . $_SESSION['login'] . "'");
+                                            $courses = []; // Array to store enrolled courses
+                                        
+                                            $sql = mysqli_query($con, "select courseenrolls.course as cid,
+                                         course.courseName as courname,session.session as 
+                                         session,programme.program as progr,level.level as
+                                          level,courseenrolls.enrollDate as edate ,semester.semester
+                                           as sem from courseenrolls join course on 
+                                           course.id=courseenrolls.course join session 
+                                           on session.id=courseenrolls.session join programme 
+                                           on programme.id=courseenrolls.programme join level on
+                                            level.id=courseenrolls.level  join semester on
+                                             semester.id=courseenrolls.semester 
+                                              where courseenrolls.studentRegno='" . $_SESSION['login'] . "'");
                                             $cnt = 1;
                                             while ($row = mysqli_fetch_array($sql)) {
+                                                $courses[] = $row; // Store each course information
                                                 ?>
-
-
                                                 <tr>
                                                     <td>
                                                         <?php echo $cnt; ?>
@@ -95,14 +107,7 @@ if (strlen($_SESSION['login']) == 0) {
                                                     <td>
                                                         <?php echo htmlentities($row['edate']); ?>
                                                     </td>
-                                                    <td>
-                                                        <a href="print.php?id=<?php echo $row['cid'] ?>" target="_blank">
-                                                            <button class="btn btn-primary"><i class="fa fa-print "></i>
-                                                                Print
-                                                            </button> </a>
 
-
-                                                    </td>
                                                 </tr>
                                                 <?php
                                                 $cnt++;
@@ -110,13 +115,16 @@ if (strlen($_SESSION['login']) == 0) {
                                         </tbody>
                                     </table>
                                 </div>
+                                <!-- Add a single print button here -->
+                                <div class="text-center">
+                                    <button class="btn btn-primary" onclick="printAllCourses()">
+                                        <i class="fa fa-print"></i> Print All Courses
+                                    </button>
+                                </div>
                             </div>
                         </div>
-                        <!--  End  Bordered Table  -->
                     </div>
                 </div>
-
-
             </div>
         </div>
         <!-- CONTENT-WRAPPER SECTION END-->
@@ -127,6 +135,15 @@ if (strlen($_SESSION['login']) == 0) {
         <script src="assets/js/jquery-1.11.1.js"></script>
         <!-- BOOTSTRAP SCRIPTS  -->
         <script src="assets/js/bootstrap.js"></script>
+        <!-- Custom script for printing all courses -->
+        <script>
+            function printAllCourses() {
+                // You can customize this function to print the information for all enrolled courses
+                // For simplicity, I'll just print the course names to the console
+                console.log(<?php echo json_encode($courses); ?>);
+                // Add your logic for printing here
+            }
+        </script>
     </body>
 
     </html>

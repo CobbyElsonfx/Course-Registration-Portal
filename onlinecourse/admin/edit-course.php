@@ -11,8 +11,7 @@ if (strlen($_SESSION['alogin']) == 0) {
     $coursecode = $_POST['coursecode'];
     $coursename = $_POST['coursename'];
     $courseunit = $_POST['courseunit'];
-    $seatlimit = $_POST['seatlimit'];
-    $ret = mysqli_query($con, "update course set courseCode='$coursecode',courseName='$coursename',courseUnit='$courseunit',noofSeats='$seatlimit',updationDate='$currentTime' where id='$id'");
+    $ret = mysqli_query($con, "update course set courseCode='$coursecode',courseName='$coursename',courseUnit='$courseunit',updationDate='$currentTime' where id='$id'");
     if ($ret) {
       echo '<script>alert("Course Updated Successfully !!")</script>';
       echo '<script>window.location.href=course.php</script>';
@@ -32,14 +31,21 @@ if (strlen($_SESSION['alogin']) == 0) {
     <meta name="description" content="" />
     <meta name="author" content="" />
     <title>Admin | Course</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+      integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+      crossorigin="anonymous"></script>
     <link href="../assets/css/bootstrap.css" rel="stylesheet" />
     <link href="../assets/css/font-awesome.css" rel="stylesheet" />
     <link href="../assets/css/style.css" rel="stylesheet" />
   </head>
 
+
   <body>
-    <?php include('includes/header.php'); ?>
-    <!-- LOGO HEADER END-->
+    <div class="studensPortalHeader">
+      <h1 class="studentPortal">Edit Course</h1>
+    </div>
     <?php if ($_SESSION['alogin'] != "") {
       include('includes/menubar.php');
     }
@@ -82,21 +88,15 @@ if (strlen($_SESSION['alogin']) == 0) {
                     </div>
 
                     <div class="form-group">
-                      <label for="coursename">Course Name </label>
+                      <label for="coursename">Course Title </label>
                       <input type="text" class="form-control" id="coursename" name="coursename" placeholder="Course Name"
                         value="<?php echo htmlentities($row['courseName']); ?>" required />
                     </div>
 
                     <div class="form-group">
-                      <label for="courseunit">Course unit </label>
-                      <input type="text" class="form-control" id="courseunit" name="courseunit" placeholder="Course Unit"
-                        value="<?php echo htmlentities($row['courseUnit']); ?>" required />
-                    </div>
-
-                    <div class="form-group">
-                      <label for="seatlimit">Seat limit </label>
-                      <input type="text" class="form-control" id="seatlimit" name="seatlimit" placeholder="Seat limit"
-                        value="<?php echo htmlentities($row['noofSeats']); ?>" required />
+                      <label for="courseunit">Credit Hours </label>
+                      <input type="number" max="5" min="0" class="form-control" id="courseunit" name="courseunit"
+                        placeholder="Course Unit" value="<?php echo htmlentities($row['courseUnit']); ?>" required />
                     </div>
 
 

@@ -1,497 +1,524 @@
 ﻿@import url(http://fonts.googleapis.com/css?family=Roboto);
 /* FREE GOOGLE FONT */
 * {
-    padding: 0;
-    box-sizing: border-box;
-    background-color: transparent;
+  padding: 0;
+  box-sizing: border-box;
+  background-color: transparent;
 }
 
 :root {
-    --primaryColor: #af1aa8;
-    --smoothWhite: rgb(247, 237, 246);
-    --seconddary:#020325;
+  --primaryColor: #af1aa8;
+  --smoothWhite: rgb(247, 237, 246);
+  --seconddary: #020325;
 }
 
 body {
-    font-family: 'Roboto', sans-serif;
-    line-height: 30px;
+  font-family: "Roboto", sans-serif;
+  line-height: 30px;
 }
 
-.nav .navLink  a:hover {
-    background-color: transparent !important;
-    background: transparent !important;
-   
+.nav .navLink a:hover {
+  background-color: transparent !important;
+  background: transparent !important;
 }
 
 .btn {
-    border-radius: 7px;
-    background-color: rgb(7, 65, 190) !important;
-    color: white;
-    font-weight: 400;
+  border-radius: 7px;
+  background-color: rgb(7, 65, 190) !important;
+  color: white;
+  font-weight: 400;
 }
 
 .btn:hover {
-    background-color: rgb(17, 71, 133) !important;
-    color: white;
-    transition: all ease-in-out 500ms;
+  background-color: rgb(17, 71, 133) !important;
+  color: white;
+  transition: all ease-in-out 500ms;
 }
-
 
 header {
-    background-color: white;
-    color: #fff;
-    padding: 10px;
-    text-align: right;
+  background-color: white;
+  color: #fff;
+  padding: 10px;
+  text-align: right;
 }
-
-
 
 /* Navbar */
 
 .navbar {
-    background-color: var(--seconddary);
+  background-color: var(--seconddary);
 }
 .navLink a {
-    font-size: medium;
-    text-decoration: none;
-    position: relative;
-    color: whitesmoke;
-    background-color: transparent !important;
+  font-size: medium;
+  text-decoration: none;
+  position: relative;
+  color: whitesmoke;
+  background-color: transparent !important;
 }
 
 .navLink a::before {
-    content: "";
-    position: absolute;
-    width: 100%;
-    height: 2px;
-    bottom: 0;
-    left: 0;
-    background-color: transparent !important;
-    background: linear-gradient(90deg, transparent, gold) !important;
-    transform: scaleX(0);
-    transform-origin: left;
-    transition: transform 0.5s ease;
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 2px;
+  bottom: 0;
+  left: 0;
+  background-color: transparent !important;
+  background: linear-gradient(90deg, transparent, gold) !important;
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.5s ease;
 }
 
 .navLink a:hover::before {
-    transform: scaleX(1);
-    background-color: transparent !important;
+  transform: scaleX(1);
+  background-color: transparent !important;
 }
 
 /* home page styligns start */
 .pageHeadline {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: center;
-    background-color: #af1aa8;
-    color: white;
-    text-align: center;
-    padding: 1rem 2rem 1rem 2rem;
-    position: relative;
-    gap: 15px;  
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  background-color: #af1aa8;
+  color: white;
+  text-align: center;
+  padding: 1rem 2rem 1rem 2rem;
+  position: relative;
+  gap: 15px;
 }
 
 .pageHeadlineText {
-    border-bottom: 1px solid white;
+  border-bottom: 1px solid white;
 }
 
 .pageHeadlineText h3 {
-    text-shadow: 2px 3px 1px rgb(0, 0, 0);
+  text-shadow: 2px 3px 1px rgb(0, 0, 0);
 }
 
-@media ( width < 563px){
-    .pageHeadline img {
-            margin: 2rem 0 2rem 0;
-            max-width: 30%;
-            height: 30%;
-            display: block;
-            border-radius: 50%;
-            transition: transform 0.3s ease-in-out;
-       }
+@media (max-width: 563px) {
+  .pageHeadline img {
+    margin: 2rem 0;
+    max-width: 100%;
+    height: auto;
+    display: block;
+    border-radius: 50%;
+    transition: transform 0.3s ease-in-out;
+  }
 
-            .welcHeadLine {
-                font-size: 3rem;
-                margin-bottom: 10px;
-                font-weight: bold;
-                color: #ffffff;
-            }
+  .welcHeadLine {
+    font-size: 2.5rem;
+    margin-bottom: 10px;
+    font-weight: bold;
+    color: #ffffff;
+  }
 
-            .welcHeadLineSpan ,h3 {
-                font-size: 2rem;
-            }
+  .welcHeadLineSpan,
+  h3 {
+    font-size: 1.5rem;
+  }
 
-            .pageHeadline small {
-                font-size: 1rem;
-            }
-    
+  .pageHeadline small {
+    font-size: 0.875rem;
+  }
 }
 
-@media (width > 563px) {
-.pageHeadline img {
-        margin: 2rem 0 2rem 0;
-        max-width: 50%;
-        height: 60%;
-        display: block;
-        border-radius: 50%;
-        transition: transform 0.3s ease-in-out;
-    }
+@media (min-width: 564px) {
+  .pageHeadline img {
+    margin: 2rem 0;
+    max-width: 50%;
+    height: 60%;
+    display: block;
+    border-radius: 50%;
+    transition: transform 0.3s ease-in-out;
+  }
 
-        .welcHeadLine {
-            font-size: 5rem;
-            margin-bottom: 10px;
-            font-weight: bold;
-            color: #ffffff;
-        }
+  .welcHeadLine {
+    font-size: 5rem;
+    margin-bottom: 10px;
+    font-weight: bold;
+    color: #ffffff;
+  }
 
-    .welcHeadLineSpan {
-        font-size: 2rem;
-    }
+  .welcHeadLineSpan {
+    font-size: 2rem;
+  }
 
-    .pageHeadline small {
-        font-size: 1.5rem;
-    }
-
+  .pageHeadline small {
+    font-size: 1.5rem;
+  }
 }
 
 .pageHeadline h1,
 .pageHeadline h3,
 .pageHeadline small {
-    color: var(--smoothWhite);
-    margin: 0;
+  color: var(--smoothWhite);
+  margin: 0;
 }
-
 
 .welcHeadLineSpan {
-    color: #ffffff;
+  color: #ffffff;
 }
-
 
 .pageHeadline img:hover {
-    transform: scale(1.03);
-    transition: transform 0.3s ease-in-out;
+  transform: scale(1.03);
+  transition: transform 0.3s ease-in-out;
 }
 
- @keyframes fadeIn {
-    0% {
-        opacity: 0;
-        transform: translateY(20px);
-    }
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+    transform: translateY(20px);
+  }
 
-    100% {
-        opacity: 1;
-        transform: translateY(0);
-    }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 .pageHeadline h1,
 .pageHeadline h3,
 .pageHeadline small {
-    animation: fadeIn 1s ease-in-out;
+  animation: fadeIn 1s ease-in-out;
 }
-
 
 /* home page stylings end for header*/
 
 /* navbar stylings start */
 .navbarHeader {
-    background-color: rgb(2, 3, 37);
+  background-color: rgb(28, 28, 31);
 }
 
 /* navbar stylings end */
 
-
 /* portal head for all pages */
 .studensPortalHeader {
-    background-color: var(--primaryColor);
-    color: #fff;
-    padding: 20px;
-    text-align: center;
+  background-color: var(--primaryColor);
+  color: #fff;
+  padding: 20px;
+  text-align: center;
 }
 
 .studentPortal {
-    font-size: 28px;
-    font-weight: bold;
+  font-size: 28px;
+  font-weight: bold;
 }
 
 .studentPortal br {
-    display: none;
+  display: none;
 }
 
 @media (max-width: 768px) {
-    .studentPortal br {
-        display: inline;
-    }
+  .studentPortal br {
+    display: inline;
+  }
 }
 
 .content-wrapper {
-    background-color: #f8f8f8;
-    padding: 60px 0;
-    text-align: center;
+  background-color: #f8f8f8;
+  padding: 60px 0;
+  text-align: center;
 }
 
-
-
-
-
 .adminSVG {
-    max-width: 100%;
-    fill: #af1aa8;
+  max-width: 100%;
+  fill: #af1aa8;
 }
 
 .card {
-    background-color: #fff;
-    padding: 20px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    border-radius: 10px;
-    align-content: center;
+  background-color: #fff;
+  padding: 20px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+  align-content: center;
 }
 
 .page-head-line {
-    font-size: 24px;
-    font-weight: bold;
-    color: #333;
+  font-size: 24px;
+  font-weight: bold;
+  color: #333;
 }
 
 .form-label {
-    color: #333;
+  color: #333;
 }
 
 .btn-primary {
-    background-color: #007bff;
-    border: none;
-    color: #fff;
+  background-color: #007bff;
+  border: none;
+  color: #fff;
 }
 
-
 form {
-    text-align: left;
- 
+  text-align: left;
 }
 
 label {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif !important;
-    font-weight: 500 !important;
-    color:var(--seconddary) !important;
-
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif !important;
+  font-weight: 500 !important;
+  color: var(--seconddary) !important;
 }
 
 /* 
 /* Style the form container */
 #student-info-form {
-    background-color: #f8f8f8;
-    padding: 20px;
-    border: 1px solid #ddd;
-    border-radius: 5px;
+  background-color: #f8f8f8;
+  padding: 20px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
 }
 
 /* Style the form elements */
 #student-info-form .form-group {
-    margin-bottom: 20px;
+  margin-bottom: 20px;
 }
 
 #student-info-form label {
-    font-weight: bold;
+  font-weight: bold;
 }
 
 #student-info-form select,
 #student-info-form input[type="text"] {
-    width: 100%;
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
 }
 
 #student-info-form select {
-    cursor: pointer;
+  cursor: pointer;
 }
 
 #student-info-form img {
-    max-width: 100%;
-    height: auto;
+  max-width: 100%;
+  height: auto;
 }
 
 /* Style the checkboxes */
 #student-info-form .checkbox {
-    margin-bottom: 10px;
+  margin-bottom: 10px;
 }
 
 /* Style the submit button */
 #student-info-form #submit {
-    background-color: #007bff;
-    color: #fff;
-    border: none;
-    padding: 10px 20px;
-    border-radius: 5px;
-    cursor: pointer;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
 }
 
 #student-info-form #submit:hover {
-    background-color: #0056b3;
-    transition: background-color 0.3s ease-in-out;
+  background-color: #0056b3;
+  transition: background-color 0.3s ease-in-out;
 }
 
 /* Style success message */
 #student-info-form font[color="green"] {
-    color: green;
-    font-weight: bold;
-} */
-
-
-.studentSVG {
-    width: 90%;
-    height: auto;
+  color: green;
+  font-weight: bold;
+}
+*/ .studentSVG {
+  width: 90%;
+  height: auto;
 }
 
 .accountsSVG {
-    width: 200%;
-    height: 200%;
+  width: 200%;
+  height: 200%;
 }
-
 
 /* Additional styles can be added here */
 
-.nav>li>a:hover,
-.nav>li>a:focus {
-    text-decoration: none;
-    background-color: transparent !important;
+.nav > li > a:hover,
+.nav > li > a:focus {
+  text-decoration: none;
+  background-color: transparent !important;
 }
 
 /* admin page stylings start */
 .homeIcon {
-    position: relative;
-    top: 18px;
-    left: 16px;
-    width: 25px;
-    height: 20px;
-    padding: 0;
-    filter: invert(100%);
-    -webkit-filter: invert(100%);
-
+  position: relative;
+  top: 38px;
+  right: 60px;
+  width: 25px;
+  height: 20px;
+  padding: 0;
+  filter: invert(100%);
+  -webkit-filter: invert(100%);
 }
 
 .homeIcon1 {
-    position: relative;
-    bottom: 4px;
-    left: 6px;
-    width: 25px;
-    height: 20px;
-    padding: 0;
-    filter: invert(100%);
-    -webkit-filter: invert(100%);
-
+  position: relative;
+  bottom: 1px;
+  left: 10px;
+  width: 25px;
+  height: 20px;
+  padding: 0;
+  filter: invert(100%);
+  -webkit-filter: invert(100%);
 }
 
 .homeIcon2 {
-    position: relative;
-    bottom: 4px;
-    left: 6px;
-    width: 25px;
-    height: 20px;
-    padding: 0;
-    filter: invert(100%);
-    -webkit-filter: invert(100%);
-
+  position: relative;
+  bottom: 4px;
+  left: 6px;
+  width: 25px;
+  height: 20px;
+  padding: 0;
+  filter: invert(100%);
+  -webkit-filter: invert(100%);
 }
 
-
 .adminIcon {
-    position: relative;
-    top: 16px;
-    left: 18px;
-    width: 25px;
-    height: 25px;
-    padding: 0;
-    filter: invert(100%);
-    -webkit-filter: invert(100%);
+  position: relative;
+  bottom: 1px;
+  left: 10px;
+  width: 25px;
+  height: 20px;
+  padding: 0;
+  filter: invert(100%);
+  -webkit-filter: invert(100%);
+}
+.adminIcon3 {
+  position: relative;
+  top: px;
+  left: 14px;
+  width: 25px;
+  height: 20px;
+  padding: 0;
+  filter: invert(100%);
+  -webkit-filter: invert(100%);
 }
 
 .studentIcon {
-    position: relative;
-    top: 16px;
-    left: 18px;
-    width: 25px;
-    height: 25px;
-    padding: 0;
-    filter: invert(100%);
-    -webkit-filter: invert(100%);
+  position: relative;
+  top: 38px;
+  right: 118px;
+  width: 25px;
+  height: 22px;
+  padding: 0;
+  filter: invert(100%);
+  -webkit-filter: invert(100%);
 }
 
 .enrollIcon {
-    position: relative;
-    top: 13px;
-    left: 15px;
-    width: 25px;
-    height: 15px;
-    padding: 0;
-    filter: invert(100%);
-    -webkit-filter: invert(100%);
+  position: relative;
+  top: 13px;
+  left: 15px;
+  width: 25px;
+  height: 15px;
+  padding: 0;
+  filter: invert(100%);
+  -webkit-filter: invert(100%);
 }
 
-.profileIcon{
-    position: relative;
-    top: 13px;
-    left: 15px;
-    width: 25px;
-    height: 20px;
-    padding: 0;
-    filter: invert(100%);
-    -webkit-filter: invert(100%);
+.profileIcon {
+  position: relative;
+  top: 13px;
+  left: 15px;
+  width: 25px;
+  height: 20px;
+  padding: 0;
+  filter: invert(100%);
+  -webkit-filter: invert(100%);
 }
 
-.passwordIcon{
-    position: relative;
-    top: 13px;
-    left: 15px;
-    width: 25px;
-    height: 18px;
-    padding: 0;
-    filter: invert(100%);
-    -webkit-filter: invert(100%);
+.passwordIcon {
+  position: relative;
+  top: 13px;
+  left: 15px;
+  width: 25px;
+  height: 18px;
+  padding: 0;
+  filter: invert(100%);
+  -webkit-filter: invert(100%);
 }
 
 .historyIcon {
-    position: relative;
-    top: 13px;
-    left: 15px;
-    width: 25px;
-    height: 20px;
-    padding: 0;
-    filter: invert(100%);
-    -webkit-filter: invert(100%);
+  position: relative;
+  top: 13px;
+  left: 15px;
+  width: 25px;
+  height: 20px;
+  padding: 0;
+  filter: invert(100%);
+  -webkit-filter: invert(100%);
 }
 
 .logoutIcon {
-    position: relative;
-    top: 13px;
-    left: 15px;
-    width: 25px;
-    height: 20px;
-    padding: 0;
-    filter: invert(100%);
-    -webkit-filter: invert(100%);
-
+  position: relative;
+  top: 13px;
+  left: 15px;
+  width: 25px;
+  height: 20px;
+  padding: 0;
+  filter: invert(100%);
+  -webkit-filter: invert(100%);
+}
+.logoutIcon5 {
+  position: relative;
+  top: 20px;
+  left: 20px;
+  width: 25px;
+  height: 20px;
+  padding: 0;
+  filter: invert(100%);
+  -webkit-filter: invert(100%);
 }
 
-.schoolLogo{
-    width: 250px;
-    height: 250px;
+.othersIcon {
+  position: relative;
+  top: 20px;
+  left: 20px;
+  width: 25px;
+  height: 20px;
+  padding: 0;
+  filter: invert(100%);
+  -webkit-filter: invert(100%);
+}
+.homeIcon5 {
+  position: relative;
+  top: 20px;
+  left: 20px;
+  width: 25px;
+  height: 20px;
+  padding: 0;
+  filter: invert(100%);
+  -webkit-filter: invert(100%);
 }
 
-.col-md-12{
-    margin-top: 20px;
-    text-align: center;
+.schoolLogo {
+  width: 170px;
+  height: auto;
 }
 
-.foot{
-    height: 70px;
-    background-color: #020325;
-    color: #fff;
-    align-content: center;
+.col-md-12 {
+  margin-top: 20px;
+  text-align: center;
 }
 
-.lnginput{
-    width: 80%;
-    margin-left: 10%;
+.footer {
+  background-color: #020325;
+  color: #fff;
+  align-content: center;
+  width: 100%;
 }
 
+footer a {
+  text-decoration: none;
+  text-align: center;
+  color: white;
+}
+
+.footer a:hover {
+  text-decoration: underline;
+  color: #ece907;
+}
+
+.col-sm-6 {
+  text-decoration: none;
+  text-align: justify;
+}

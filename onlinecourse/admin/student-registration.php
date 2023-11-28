@@ -15,7 +15,7 @@ if (strlen($_SESSION['alogin']) == 0) {
     $pincode = rand(100000, 999999);
     $ret = mysqli_query($con, "insert into students(studentregno,surname,firstname,level,programme,password,pincode) values('$studentregno','$surname','$firstname','$level', '$programme','$password','$pincode')");
     if ($ret) {
-      echo '<script>alert("Student Registered Successfully. Pincode is "+"' . $pincode . '")</script>';
+      echo '<script>alert("Student Registered Successfully")</script>';
       echo '<script>window.location.href=manage-students.php</script>';
     } else {
       echo '<script>alert("Something went wrong. Please try again.")</script>';
@@ -141,10 +141,6 @@ if (strlen($_SESSION['alogin']) == 0) {
                         required />
                     </div>
                   </div>
-                  <div class="form-group">
-                    <label for="level">Level </label>
-                    <input type="text" class="form-control" id="level" name="level" placeholder="level" required />
-                  </div>
 
                   <div class="form-group">
                     <label for="Programme">Programme</label>
@@ -162,6 +158,15 @@ if (strlen($_SESSION['alogin']) == 0) {
                     </select>
                   </div>
                   <div class="form-group">
+                    <label for="level">Level</label>
+                    <select class="form-control" id="level" name="level" required>
+                      <option value="100">Level 100</option>
+                      <option value="200">Level 200</option>
+                      <option value="300">Level 300</option>
+                      <option value="400">Level 400</option>
+                    </select>
+                  </div>
+                  <div class="form-group">
                     <label for="studentregno">Student Index/Ref Number </label>
                     <input type="text" class="form-control" id="studentregno" name="studentregno"
                       onBlur="userAvailability()" placeholder="Student Reg no" required />
@@ -169,8 +174,8 @@ if (strlen($_SESSION['alogin']) == 0) {
                   </div>
                   <div class="form-group">
                     <label for="password">Password </label>
-                    <input type="password" class="form-control" id="password" name="password" placeholder="Enter password"
-                      required />
+                    <input type="password" minlength="6" maxlength="10" class="form-control" id="password" name="password"
+                      placeholder="Enter password" required />
                   </div>
                   <button type="submit" name="submit" id="submit" class="btn btn-default">Submit</button>
                 </form>

@@ -80,16 +80,16 @@ if (strlen($_SESSION['login']) == 0) {
                       <div class="form-group">
                         <label for="surname">Surname</label>
                         <input type="text" class="form-control" id="surname" name="surname"
-                          value="<?php echo htmlentities($row['surname']); ?>" />
+                          value="<?php echo htmlentities($row['surname']); ?>" readonly />
                       </div>
                       <div class="form-group">
                         <label for="firstname">Firstname </label>
                         <input type="text" class="form-control" id="firstname" name="firstname"
-                          value="<?php echo htmlentities($row['firstname']); ?>" />
+                          value="<?php echo htmlentities($row['firstname']); ?>" readonly />
                       </div>
 
                     </div>
-                    
+
 
                     <div class="form-group">
                       <label for="studentregno">Student Index/Ref No. </label>
@@ -97,19 +97,35 @@ if (strlen($_SESSION['login']) == 0) {
                         value="<?php echo htmlentities($row['StudentRegno']); ?>" placeholder="Student Reg no" readonly />
 
                     </div>
+                    <?php
+                    // Assuming the program ID is stored in $row['program_id']
+                    $programId = $row['programme'];
 
+                    // Fetch the corresponding program name from the programme table
+                    $programQuery = "SELECT program FROM programme WHERE id = '$programId'";
+                    $programResult = mysqli_query($con, $programQuery);
 
-
+                    if ($programResult && $programRow = mysqli_fetch_assoc($programResult)) {
+                      $programName = htmlentities($programRow['program']);
+                    } else {
+                      // Handle the case where the program ID doesn't exist in the programme table
+                      $programName = "Unknown Program";
+                    }
+                    ?>
                     <div class="form-group">
-                      <label for="Pincode">Pincode </label>
-                      <input type="text" class="form-control" id="Pincode" name="Pincode" readonly
-                        value="<?php echo htmlentities($row['pincode']); ?>" required />
+                      <label for="progamme">Programme</label>
+                      <input type="text" class="form-control" id="progamme" name="progamme"
+                        value="<?php echo $programName; ?>" readonly />
                     </div>
-
                     <div class="form-group">
+                      <label for="level">Level</label>
+                      <input type="text" class="form-control" id="level" name="level"
+                        value="<?php echo htmlentities($row['level']); ?>" readonly />
+                    </div>
+                    <div class="form-group mb-2 mt-2 rounded-3">
                       <label for="Pincode">Student Photo </label>
                       <?php if ($row['studentPhoto'] == "") { ?>
-                        <img src="studentphoto/noimage.png" width="200" height="200">
+                        <img src="studentphoto/noimage.png" class="rounded-3" width="200" height="200">
                       <?php } else { ?>
                         <img src="studentphoto/<?php echo htmlentities($row['studentPhoto']); ?>" width="200" height="200">
                       <?php } ?>
@@ -123,7 +139,8 @@ if (strlen($_SESSION['login']) == 0) {
 
                   <?php } ?>
 
-                  <button class="mt-4" type="submit" name="submit" id="submit" class="btn btn-default">Update</button>
+                  <button class="mt-4 btn btn-primary" type="submit" name="submit" id="submit"
+                    class="btn btn-default">Update</button>
                 </form>
               </div>
             </div>

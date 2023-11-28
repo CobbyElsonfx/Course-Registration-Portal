@@ -15,6 +15,8 @@ if (strlen($_SESSION['a_login']) == 0) {
     header('location:index.php');
 } else {
     if (isset($_POST['search'])) {
+        $studentIndex = trim($_POST['studentIndex']); // Trim whitespaces
+        $studentIndex = mysqli_real_escape_string($con, $studentIndex); // Escape the string for use in a query
         $studentIndex = $_POST['studentIndex'];
         $sql = "SELECT * FROM students WHERE StudentRegno = '$studentIndex'";
         $result = mysqli_query($con, $sql);
@@ -24,8 +26,6 @@ if (strlen($_SESSION['a_login']) == 0) {
 
     if (isset($_POST['markCleared'])) {
         $studentIndex = $_POST['studentIndex'];
-
-        // Perform the logic to mark the student as cleared
         $updateQuery = "UPDATE students SET cleared = 1 WHERE StudentRegno = '$studentIndex'";
         $result = mysqli_query($con, $updateQuery);
         // function sendActivationEmail($email)
@@ -70,7 +70,6 @@ if (strlen($_SESSION['a_login']) == 0) {
             echo '<script>alert("Error marking student as cleared!");</script>';
         }
     }
-
     ?>
 
     <!DOCTYPE html>
@@ -93,7 +92,7 @@ if (strlen($_SESSION['a_login']) == 0) {
             <h1 class="studentPortal">Account Office Dashboard</h1>
         </div>
         <?php if ($_SESSION['a_login'] != "") {
-            include('includes/account_menubar.php');
+            include('includes/menubar.php');
         }
         ?>
         <div class="content-wrapper">

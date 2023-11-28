@@ -24,7 +24,7 @@ if (isset($_POST['submit'])) {
         $log = mysqli_query($con, "INSERT INTO userlog(studentRegno, userip, status) VALUES('" . $_SESSION['login'] . "','$uip','$status')");
 
         // Redirect to the change password page
-        header("location:http:change-password.php");
+        header("location:http:my-profile.php");
     } else {
         // Account is not cleared, show error message
         $_SESSION['errmsg'] = "Invalid Reg no, Password, or student not cleared. Please contact the admin for clearance.";
@@ -51,30 +51,36 @@ if (isset($_POST['submit'])) {
         integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
         crossorigin="anonymous"></script>
     <link href="assets/css/bootstrap.css" rel="stylesheet" />
-    <link href="assets/css/font-awesome.css" rel="sty           lesheet" />
+    <link href="assets/css/font-awesome.css" rel="stylesheet" />
     <link href="assets/css/style.css" rel="stylesheet" />
 </head>
 
 <body>
-    <div class="studensPortalHeader">
-        <h1 class="studentPortal">WELCOME TO Wiawso College Education Course <br> Registration Portal </h1>
+    <div class="pageHeadline">
+        <div class="pageHeadlineText">
+            <h1 class="welcHeadLine"> WELCOME TO</h1>
+            <h3> <span class="welcHeadLineSpan">THE STUDENTS </span> REGISTRATION
+                PORTAL
+            </h3>
+            <small>Register your Semester Courses Here</small>
+        </div>
+        <img class="schoolLogo" src="./assets/img/schoolLogo.png" />
+
     </div>
-    <header class="p-4 bg-dark text-white">
-        <div class="container">
-            <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
-                <a href="/" class="d-flex align-items-center mb-2 mb-lg-0 text-white text-decoration-none">
-                    <svg class="bi me-2" width="40" height="32" role="img" aria-label="Bootstrap">
-                        <use xlink:href="#bootstrap"></use>
-                    </svg>
-                </a>
+    <header class="p-4 navbarHeader text-white">
+        <div class="container d-flex flex-wrap align-items-center justify-content-center ">
+            <div class="">
 
                 <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
-                    <img class="homeIcon" src="./assets/img/home.svg">
-                    <li class="navLink px-3 py-2 "><a href="./home.php">Home </a></li>
-                    <img class="adminIcon" src="./assets/img/login.svg">
-                    <li class="navLink px-3 py-2"><a href="./admin/index.php">Admin Login </a></li>
-                    <img class="studentIcon" src="./assets/img/student.svg">
-                    <li class="navLink px-3 py-2 "><a href="./index.php">Student Login</a></li>
+                    <li class="navLink px-3 py-2 ">
+                        <img class="homeIcon" src="./assets/img/home.svg">
+                        <a href="./home.php">Home </a>
+                    </li>
+
+                    <li class="navLink px-3 py-2 ">
+                        <img class="studentIcon" src="./assets/img/student.svg">
+                        <a href="./index.php">Student Login</a>
+                    </li>
                 </ul>
 
             </div>
