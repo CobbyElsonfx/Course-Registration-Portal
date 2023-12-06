@@ -113,15 +113,10 @@ if (isset($_POST['submit'])) {
                                             class="glyphicon glyphicon-user"></span>
                                         &nbsp;Log Me In </button>&nbsp;
                                 </div>
-                            </div>
+                           </div>
                     </form>
                 </div>
-
-
-
             </div>
-
-
         </div>
     </div>
     </div>

@@ -2,109 +2,46 @@
 session_start();
 include('includes/config.php');
 error_reporting(1);
+
 if (strlen($_SESSION['login']) == 0) {
     header('location:index.php');
 } else {
     ?>
 
-    <!doctype html>
-    <html>
+    <!DOCTYPE html>
+    <html xmlns="http://www.w3.org/1999/xhtml">
 
     <head>
-        <meta charset="utf-8">
-        <title>Course Enrollment Print</title>
-
-        <style>
-            .invoice-box {
-                max-width: 800px;
-                margin: auto;
-                padding: 20px;
-                border: 1px solid #eee;
-                box-shadow: 0 0 10px rgba(0, 0, 0, .15);
-                font-size: 16px;
-                line-height: 18px;
-                font-family: 'Helvetica Neue', 'Helvetica', Helvetica, Arial, sans-serif;
-                color: #555;
-            }
-
-            .invoice-box table {
-                width: 100%;
-                line-height: inherit;
-                text-align: left;
-            }
-
-            .invoice-box table td {
-                padding: 5px;
-                vertical-align: top;
-            }
-
-            .invoice-box table tr td:nth-child(2) {
-                text-align: right;
-            }
-
-            .invoice-box table tr.top table td {
-                padding-bottom: 10px;
-            }
-
-            .invoice-box table tr.top table td.title {
-                font-size: 45px;
-                line-height: 30px;
-                color: #333;
-            }
-
-            .invoice-box table tr.information table td {
-                padding-bottom: 20px;
-            }
-
-            .invoice-box table tr.heading td {
-                background: #eee;
-                border-bottom: 1px solid #ddd;
-                font-weight: bold;
-            }
-
-            .invoice-box table tr.details td {
-                padding-bottom: 20px;
-            }
-
-            .invoice-box table tr.item td {
-                border-bottom: 1px solid #eee;
-            }
-
-            .invoice-box table tr.item.last td {
-                border-bottom: none;
-            }
-
-            .invoice-box table tr.total td:nth-child(2) {
-                border-top: 2px solid #eee;
-                font-weight: bold;
-            }
-
-            @media only screen and (max-width: 600px) {
-                .invoice-box table tr.top table td {
-                    width: 100%;
-                    display: block;
-                    text-align: center;
-                }
-
-                .invoice-box table tr.information table td {
-                    width: 100%;
-                    display: block;
-                    text-align: center;
-                }
-            }
-        </style>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+        <meta name="description" content="" />
+        <meta name="author" content="" />
+        <title>Enrollment Print</title>
+        <!-- Add your CSS styles if needed -->
     </head>
 
     <body>
         <div class="invoice-box">
             <?php
-            $cid = intval($_GET['id']);
-            $sql = mysqli_query($con, "select course.courseName as courname,course.courseCode as ccode,course.courseUnit as cunit,session.session as session,programme.program as progr,level.level as level,courseenrolls.enrollDate as edate,semester.semester as sem ,students.surname as sname,students.firstname as fname,students.studentPhoto as photo,students.creationdate as studentregdate from courseenrolls join course on course.id=courseenrolls.course join session on session.id=courseenrolls.session join programme on programme.id=courseenrolls.programme join level on level.id=courseenrolls.level join students on students.StudentRegno=courseenrolls.StudentRegno join semester on semester.id=courseenrolls.semester where courseenrolls.studentRegno='" . $_SESSION['login'] . "' and courseenrolls.course='$cid'");
+            // Fetch the enrolled courses directly in the print page
+            $courses = [];
+            $sql = mysqli_query($con, "SELECT course.courseName as courname, course.courseCode as ccode, course.courseUnit as cunit, programme.program as progr, level.level as level, courseenrolls.enrollDate as edate, semester.semester as sem, students.surname as sname, students.firstname as fname, students.studentPhoto as photo, students.creationdate as studentregdate
+            FROM courseenrolls
+            JOIN course ON course.id = courseenrolls.course
+            JOIN programme ON programme.id = courseenrolls.programme
+            JOIN level ON level.id = courseenrolls.level
+            JOIN students ON students.StudentRegno = courseenrolls.StudentRegno
+            JOIN semester ON semester.id = courseenrolls.semester
+            WHERE courseenrolls.studentRegno='" . $_SESSION['login'] . "'");
+
             $cnt = 1;
-            while ($row = mysqli_fetch_array($sql)) { ?>
+            ?>
 
-
-                <table cellpadding="0" cellspacing="0">
+            <table cellpadding="0" cellspacing="0">
+                <?php
+                while ($row = mysqli_fetch_array($sql)) {
+                    $courses[] = $row; // Store each course information
+                    ?>
                     <tr class="top">
                         <td colspan="2">
                             <table>
@@ -122,7 +59,7 @@ if (strlen($_SESSION['login']) == 0) {
                                         <b> Reg No: </b>
                                         <?php echo htmlentities($_SESSION['login']); ?><br>
                                         <b> Student Name: </b>
-                                        <?php echo htmlentities($row['surname'] . "" . $row['firstname']); ?><br>
+                                        <?php echo htmlentities($row['sname'] . " " . $row['fname']); ?><br>
                                         <b> Student Reg Date:</b>
                                         <?php echo htmlentities($row['studentregdate']); ?><br>
                                         <b> Student Course Enroll Date:</b>
@@ -163,7 +100,6 @@ if (strlen($_SESSION['login']) == 0) {
                         </td>
                     </tr>
 
-
                     <tr class="details">
                         <td>
                             Course unit
@@ -181,16 +117,6 @@ if (strlen($_SESSION['login']) == 0) {
 
                         <td>
 
-                        </td>
-                    </tr>
-
-                    <tr class="item">
-                        <td>
-                            Session
-                        </td>
-
-                        <td>
-                            <?php echo htmlentities($row['session']); ?>
                         </td>
                     </tr>
 
@@ -222,12 +148,11 @@ if (strlen($_SESSION['login']) == 0) {
                             <?php echo htmlentities($row['sem']); ?>
                         </td>
                     </tr>
-
-
-                </table>
-            <?php } ?>
+                <?php } ?>
+            </table>
         </div>
     </body>
 
     </html>
+
 <?php } ?>

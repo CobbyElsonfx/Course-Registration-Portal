@@ -1,14 +1,12 @@
 <?php
 session_start();
 include('includes/config.php');
+error_reporting(1);
+
 if (strlen($_SESSION['alogin']) == 0) {
     header('location:index.php');
 } else {
-
-
-
     ?>
-
     <!DOCTYPE html>
     <html xmlns="http://www.w3.org/1999/xhtml">
 
