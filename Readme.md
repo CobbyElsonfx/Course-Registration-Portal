@@ -116,7 +116,7 @@ php-enrollment-system/
 |-- enroll-history-page.png
 |-- enroll-page.png
 |-- .gitignore
-
+```
 
 ## Dependencies
 
