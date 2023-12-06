@@ -95,7 +95,6 @@ if (strlen($_SESSION['alogin']) == 0) {
                                         <input type="checkbox" id="isCore" name="isCore" value="1">
                                     </div>
 
-
                                     <div class="form-group">
                                         <label for="courseunit">Credit Hours</label>
                                         <input type="text" class="form-control" id="courseunit" name="courseunit"
@@ -126,7 +125,6 @@ if (strlen($_SESSION['alogin']) == 0) {
                                         </select>
                                     </div>
 
-
                                     <button type="submit" name="submit" class="btn btn-default">Submit</button>
                                 </form>
                             </div>
@@ -138,34 +136,36 @@ if (strlen($_SESSION['alogin']) == 0) {
                     <?php echo htmlentities($_SESSION['delmsg'] = ""); ?>
                 </font>
                 <div class="col-md-12">
-                    <?php
-                    // Fetch distinct levels from the database
-                    $levelQuery = $con->query("SELECT DISTINCT level_id FROM course");
+                <?php
+// ...
 
-                    while ($levelRow = $levelQuery->fetch_assoc()) {
-                        $levelId = $levelRow['level_id'];
+// Fetch distinct levels from the database
+$levelQuery = $con->query("SELECT DISTINCT level_id FROM course");
 
-                        // Fetch distinct programs for this level
-                        $programQuery = $con->prepare("SELECT DISTINCT programme_id, program FROM course 
-                                                        JOIN programme ON course.programme_id = programme.id
-                                                        WHERE level_id = ?");
-                        $programQuery->bind_param("i", $levelId);
-                        $programQuery->execute();
+while ($levelRow = $levelQuery->fetch_assoc()) {
+    $levelId = $levelRow['level_id'];
 
-                        $programResult = $programQuery->get_result();
+    // Fetch distinct programs for this level
+    $programQuery = $con->prepare("SELECT DISTINCT programme_id, program FROM course 
+                                    JOIN programme ON course.programme_id = programme.id
+                                    WHERE level_id = ?");
+    $programQuery->bind_param("i", $levelId);
+    $programQuery->execute();
 
-                        if ($programResult) {
-                            while ($programRow = $programResult->fetch_assoc()) {
-                                $programId = $programRow['programme_id'];
+    $programResult = $programQuery->get_result();
 
-                                // Fetch courses for this level and program
-                                $stmt = $con->prepare("SELECT * FROM course WHERE level_id = ? AND programme_id = ?");
-                                $stmt->bind_param("ii", $levelId, $programId);
-                                $stmt->execute();
+    if ($programResult) {
+        while ($programRow = $programResult->fetch_assoc()) {
+            $programId = $programRow['programme_id'];
 
-                                $result = $stmt->get_result();
+            // Fetch courses for this level and program, including core courses
+            $stmt = $con->prepare("SELECT * FROM course WHERE (level_id = ? AND programme_id = ?) OR (level_id = ? AND isCore = 1)");
+            $stmt->bind_param("iii", $levelId, $programId, $levelId);
+            $stmt->execute();
 
-                                if ($result) {
+            $result = $stmt->get_result();
+
+            if ($result) {
                                     // Display your data here
                                     ?>
                                     <div class="panel panel-default">
@@ -223,7 +223,7 @@ if (strlen($_SESSION['alogin']) == 0) {
                                         </div>
                                     </div>
                                     <?php
-                                    $result->free_result();
+                                   $result->free_result();
                                 } else {
                                     // Handle query error
                                     echo "Error: " . $con->error;
@@ -234,6 +234,7 @@ if (strlen($_SESSION['alogin']) == 0) {
                     ?>
                 </div>
             </div>
+                </div>
             <script src="../assets/js/jquery-1.11.1.js"></script>
             <script src="../assets/js/bootstrap.js"></script>
             <script>
@@ -249,12 +250,8 @@ if (strlen($_SESSION['alogin']) == 0) {
                 toggleProgramSelection();
             </script>
             <?php include('includes/footer.php'); ?>
-
-
     </body>
-
     </html>
     <?php
 }
-
 ?>

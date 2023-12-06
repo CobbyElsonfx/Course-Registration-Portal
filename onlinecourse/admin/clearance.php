@@ -71,7 +71,6 @@ if (strlen($_SESSION['a_login']) == 0) {
                         </div>
                     </div>
                 </div>
-
                 <?php if (isset($result)) { ?>
                     <div class="row">
                         <div class="col-md-12">

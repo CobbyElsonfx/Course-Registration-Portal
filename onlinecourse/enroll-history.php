@@ -2,6 +2,8 @@
 session_start();
 include('includes/config.php');
 error_reporting(1);
+
+
 if (strlen($_SESSION['login']) == 0) {
     header('location:index.php');
 } else {
@@ -59,9 +61,6 @@ if (strlen($_SESSION['login']) == 0) {
                                             <tr>
                                                 <th>#</th>
                                                 <th>Course Name </th>
-                                                <th>Session </th>
-                                                <th> Department</th>
-                                                <th>Level</th>
                                                 <th>Semester</th>
                                                 <th>Enrollment Date</th>
                                             </tr>
@@ -69,19 +68,22 @@ if (strlen($_SESSION['login']) == 0) {
                                         <tbody>
                                             <?php
                                             $courses = []; // Array to store enrolled courses
+                                            $sql = mysqli_query($con, "SELECT
+                                            courseenrolls.course as cid,
+                                            course.courseName as courname,
+                                            level.level as level,
+                                            courseenrolls.enrollDate as edate,
+                                            semester.semester as sem
+                                        FROM courseenrolls
+                                        JOIN course ON course.id = courseenrolls.course
+                                        JOIN level ON level.level = courseenrolls.level
+                                        JOIN semester ON semester.id = courseenrolls.semester
+                                        WHERE courseenrolls.studentRegno='" . $_SESSION['login'] . "'");
                                         
-                                            $sql = mysqli_query($con, "select courseenrolls.course as cid,
-                                         course.courseName as courname,session.session as 
-                                         session,programme.program as progr,level.level as
-                                          level,courseenrolls.enrollDate as edate ,semester.semester
-                                           as sem from courseenrolls join course on 
-                                           course.id=courseenrolls.course join session 
-                                           on session.id=courseenrolls.session join programme 
-                                           on programme.id=courseenrolls.programme join level on
-                                            level.id=courseenrolls.level  join semester on
-                                             semester.id=courseenrolls.semester 
-                                              where courseenrolls.studentRegno='" . $_SESSION['login'] . "'");
+                                        
                                             $cnt = 1;
+
+
                                             while ($row = mysqli_fetch_array($sql)) {
                                                 $courses[] = $row; // Store each course information
                                                 ?>
@@ -91,15 +93,6 @@ if (strlen($_SESSION['login']) == 0) {
                                                     </td>
                                                     <td>
                                                         <?php echo htmlentities($row['courname']); ?>
-                                                    </td>
-                                                    <td>
-                                                        <?php echo htmlentities($row['session']); ?>
-                                                    </td>
-                                                    <td>
-                                                        <?php echo htmlentities($row['progr']); ?>
-                                                    </td>
-                                                    <td>
-                                                        <?php echo htmlentities($row['level']); ?>
                                                     </td>
                                                     <td>
                                                         <?php echo htmlentities($row['sem']); ?>
@@ -116,17 +109,23 @@ if (strlen($_SESSION['login']) == 0) {
                                     </table>
                                 </div>
                                 <!-- Add a single print button here -->
-                                <div class="text-center">
+                                <!-- <div class="text-center">
                                     <button class="btn btn-primary" onclick="printAllCourses()">
                                         <i class="fa fa-print"></i> Print All Courses
                                     </button>
-                                </div>
+                                </div> -->
+                                <div class="text-center">
+                                <a href="print.php" target="_blank" class="btn btn-primary">
+        <i class="fa fa-print"></i> Print Enrollment Details
+    </a>
+</div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
+                                        </div>
         <!-- CONTENT-WRAPPER SECTION END-->
         <?php include('includes/footer.php'); ?>
         <!-- FOOTER SECTION END-->
@@ -136,14 +135,9 @@ if (strlen($_SESSION['login']) == 0) {
         <!-- BOOTSTRAP SCRIPTS  -->
         <script src="assets/js/bootstrap.js"></script>
         <!-- Custom script for printing all courses -->
-        <script>
-            function printAllCourses() {
-                // You can customize this function to print the information for all enrolled courses
-                // For simplicity, I'll just print the course names to the console
-                console.log(<?php echo json_encode($courses); ?>);
-                // Add your logic for printing here
-            }
-        </script>
+   <!-- Custom script for printing all courses -->
+
+
     </body>
 
     </html>
