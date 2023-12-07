@@ -41,7 +41,7 @@ if (strlen($_SESSION['a_login']) == 0) {
             <h1 class="studentPortal">Account Office Dashboard</h1>
         </div>
         <?php if ($_SESSION['a_login'] != "") {
-            include('includes/menubar.php');
+            include('includes/account_menubar.php');
         }
         ?>
         <div class="content-wrapper">

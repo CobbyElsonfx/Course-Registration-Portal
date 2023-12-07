@@ -47,25 +47,21 @@ if (strlen($_SESSION['login']) == 0) {
       <h1 class="studentPortal">Student Profile</h1>
     </div>
     <!-- LOGO HEADER END-->
+    <div class="">
     <?php if ($_SESSION['login'] != "") {
       include('includes/menubar.php');
     }
     ?>
+    </div>
+    
     <!-- MENU SECTION END-->
     <div class="content-wrapper">
       <div class="container">
         <div class="row">
-          <div class="col-md-12">
-            <h1 class="page-head-line">Student Registration </h1>
-          </div>
-        </div>
-        <div class="row">
           <div class="col-md-3"></div>
           <div class="col-md-6">
             <div class="panel panel-default">
-              <div class="panel-heading">
-                Student Registration
-              </div>
+         
               <font color="green" align="center">
                 <?php echo htmlentities($_SESSION['msg']); ?>
                 <?php echo htmlentities($_SESSION['msg'] = ""); ?>
