@@ -81,7 +81,7 @@ include("includes/config.php");
                     <h2 class="subheading ">The Student Course Registration Portal</h2>
                     <p class="lead fw-normal text-white mb-2 "> Wiawso College of Education is a tertiary Institution <br>located in the Western North
                     Region of
-                    Ghana. It is equipped with competent staffs <br>to train qualified teachers in the country</p>
+                    Ghana. It is equipped with competent staffs to train qualified teachers in the country</p>
 
                 </div>
             </div>
