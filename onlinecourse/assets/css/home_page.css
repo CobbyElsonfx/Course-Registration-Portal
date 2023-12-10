@@ -148,9 +148,19 @@ header {
 }
 
 /* Logo styles */
-.logo {
-  width: 300px;
-  align-items: normal;
+@media screen and (min-width: 768px) {
+  .logo {
+    width: 300px;
+    align-items: normal;
+  }
+  
+}
+
+@media screen and (max-width: 768px) {
+  .logo {
+    width: 170px;
+  }
+  
 }
 
 /* Welcome section styles */

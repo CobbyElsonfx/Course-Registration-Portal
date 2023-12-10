@@ -12,6 +12,9 @@
   --seconddary: rgb(3, 4, 38);
 }
 
+
+
+
 body {
   font-family: "Roboto", sans-serif;
   line-height: 30px;
@@ -340,9 +343,6 @@ label {
 
 /* admin page stylings start */
 .homeIcon {
-  position: relative;
-  top: 38px;
-  right: 60px;
   width: 25px;
   height: 20px;
   padding: 0;
@@ -351,9 +351,6 @@ label {
 }
 
 .homeIcon1 {
-  position: relative;
-  bottom: 1px;
-  left: 10px;
   width: 25px;
   height: 20px;
   padding: 0;
@@ -362,9 +359,7 @@ label {
 }
 
 .homeIcon2 {
-  position: relative;
-  bottom: 4px;
-  left: 6px;
+
   width: 25px;
   height: 20px;
   padding: 0;
@@ -373,9 +368,7 @@ label {
 }
 
 .adminIcon {
-  position: relative;
-  bottom: 1px;
-  left: 10px;
+
   width: 25px;
   height: 20px;
   padding: 0;
@@ -383,9 +376,7 @@ label {
   -webkit-filter: invert(100%);
 }
 .adminIcon3 {
-  position: relative;
-  top: px;
-  left: 14px;
+
   width: 25px;
   height: 20px;
   padding: 0;
@@ -394,7 +385,7 @@ label {
 }
 
 .studentIcon {
-  position: relative;
+
   top: 38px;
   right: 120px;
   width: 25px;
@@ -405,9 +396,7 @@ label {
 }
 
 .enrollIcon {
-  position: relative;
-  top: 13px;
-  left: 15px;
+
   width: 25px;
   height: 15px;
   padding: 0;
@@ -416,9 +405,7 @@ label {
 }
 
 .profileIcon {
-  position: relative;
-  top: 13px;
-  left: 15px;
+
   width: 25px;
   height: 20px;
   padding: 0;
@@ -522,3 +509,4 @@ footer a {
   text-decoration: none;
   text-align: justify;
 }
+

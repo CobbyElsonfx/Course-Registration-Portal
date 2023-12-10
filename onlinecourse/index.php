@@ -1,39 +1,8 @@
 <?php
 session_start();
-error_reporting(1);
+error_reporting(0);
 include("includes/config.php");
-
-if (isset($_POST['submit'])) {
-    $regno = $_POST['regno'];
-    $password = md5($_POST['password']);
-
-    // Add the check for cleared account in the SQL query
-    $query = mysqli_query($con, "SELECT * FROM students WHERE StudentRegno='$regno' AND password='$password' AND cleared = 1");
-    $num = mysqli_fetch_array($query);
-
-    if ($num > 0) {
-        // Student is cleared, proceed with login
-        $_SESSION['login'] = $_POST['regno'];
-        $_SESSION['id'] = $num['studentRegno'];
-        $_SESSION['sname'] = $num['studentName'];
-
-        $uip = $_SERVER['REMOTE_ADDR'];
-        $status = 1;
-
-        // Log the login attempt
-        $log = mysqli_query($con, "INSERT INTO userlog(studentRegno, userip, status) VALUES('" . $_SESSION['login'] . "','$uip','$status')");
-
-        // Redirect to the change password page
-        header("location:http:my-profile.php");
-    } else {
-        // Account is not cleared, show error message
-        $_SESSION['errmsg'] = "Invalid Reg no, Password, or student not cleared. Please contact the admin for clearance.";
-        header("location:http:index.php");
-    }
-}
 ?>
-
-
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
 
@@ -43,86 +12,132 @@ if (isset($_POST['submit'])) {
     <meta name="description" content="" />
     <meta name="author" content="" />
 
-    <title>Student Login</title>
+    <title>Home Page</title>
 
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
-        crossorigin="anonymous"></script>
-    <link href="assets/css/bootstrap.css" rel="stylesheet" />
-    <link href="assets/css/font-awesome.css" rel="stylesheet" />
-    <link href="assets/css/style.css" rel="stylesheet" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet" />
+        <!-- Google fonts-->
+        <link rel="preconnect" href="https://fonts.gstatic.com" />
+        <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,wght@0,600;1,600&amp;display=swap" rel="stylesheet" />
+        <link href="https://fonts.googleapis.com/css2?family=Mulish:ital,wght@0,300;0,500;0,600;0,700;1,300;1,500;1,600;1,700&amp;display=swap" rel="stylesheet" />
+        <link href="https://fonts.googleapis.com/css2?family=Kanit:ital,wght@0,400;1,400&amp;display=swap" rel="stylesheet" />
+    <link href="assets/css/home_page.css" rel="stylesheet" />
 </head>
 
 <body>
-    <div class="pageHeadline">
-        <div class="pageHeadlineText">
-            <h1 class="welcHeadLine"> WELCOME TO</h1>
-            <h3> THE COURSE  REGISTRATION
-                PORTAL
-            </h3>
-            <small>Register your Semester Courses Here</small>
-        </div>
-        <img class="schoolLogo" src="./assets/img/schoolLogo.png" />
+    <nav class="navbar navbar-expand-lg navbar-light fixed-top shadow-sm" id="mainNav">
+            <div class="container px-5">
+                <a class="navbar-brand fw-bold" href="#page-top">WATICO</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive"
+                    aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+                    Menu
+                    <i class="bi-list">
+                    </i>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarResponsive">
+                    <ul class="navbar-nav ms-auto me-4 my-3 my-lg-0">
+                        <li class="nav-item">
+                            <a class="nav-link me-lg-3" href="index.php">Home</a>
+                        </li>
+                        <li class="nav-item">
+                        <a class="nav-link me-lg-3" href="./admin/index.php">
+                            Admin </a>
+                        </li>
+                        <li class="nav-item">
 
-    </div>
-    <header class="p-4 navbarHeader text-white">
-        <div class="container d-flex flex-wrap align-items-center justify-content-center ">
-            <div class="">
+                            <a class="nav-link me-lg-3" href="./home.php">Student</a></li>
+                        <li class="nav-item">
 
-                <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
-                    <li class="navLink px-3 py-2 ">
-                        <img class="homeIcon" src="./assets/img/home.svg">
-                        <a href="./home.php">Home </a>
-                    </li>
+                            <a class="nav-link me-lg-3" href="./admin/account_office_panel.php">Account Office  </a>
+                            </li>
+                        <li class="nav-item">
 
-                    <li class="navLink px-3 py-2 ">
-                        <img class="studentIcon" src="./assets/img/student.svg">
-                        <a href="./index.php">Student Login</a>
-                    </li>
-                </ul>
-
+                        <a class="nav-link me-lg-3" href="#features">Tutor</a></li>
+                    </ul>
+                    <button class="btn btn-primary rounded-pill px-3 mb-2 mb-lg-0" data-bs-toggle="modal"
+                        data-bs-target="#feedbackModal">
+                        <span class="d-flex align-items-center">
+                            <i class="bi-chat-text-fill me-2"></i>
+                            <span class="small">Get in touch</span>
+                        </span>
+                    </button>
+                </div>
             </div>
+    </nav>
+            <!-- Mashead header-->
+    <header class="masthead">
+    <div class="overlay">
+    </div>
+    <div class="container px-5 ">
+        <div class="row gy-2 gx-lg-0 align-items-center">
+            <div class="col-lg-4 d-flex justify-content-center justify-content-lg-end">
+                <div>
+                    <img class="logo" src="assets/img/schoolLogo.png">
+                </div>
+            </div>
+            <div class="col-lg-8">
+                <!-- Mashead text and app badges-->
+                <div class="mb-2 mb-lg-0 text-start text-lg-start">
+                    <h1 class="display-1 lh-1 mb-3 welcomeHome">WEL<span class="come">COME</span> TO</h1>
+                    <h2 class="subheading ">The Student Course Registration Portal</h2>
+                    <p class="lead fw-normal text-white mb-2 "> Wiawso College of Education is a tertiary Institution <br>located in the Western North
+                    Region of
+                    Ghana. It is equipped with competent staffs to train qualified teachers in the country</p>
+
+                </div>
+            </div>
+
         </div>
+    </div>
+
     </header>
 
+    <section class="footerHome">
+        <div class="d-flex  row">
+            <div class="corevalue col-lg-7 col-md-7 col-sm-12">
+                <h2>Our Core Values</h2>
+                <ul>
+                    <li>
+                        <b>EXCELENCE</b> – A community striving for excellence in all our academic pursuits
+                    </li>
+                    <li><b>INTIGRETY</b> – We are open, truthful and straightforward with our interactions with others
+                    </li>
+                    <li><b>STUDENT FOCUS</b> – We are dedicated to ensuring the personal and professional growth of our
+                        students
+                    </li>
+                    <li><b>LEADERSHIP</b> – Advocating for student teachers, staff and <br>the teaching profession as a
+                        whole and
+                        listening with humility. <br>Involving student teachers and staff in college committees to groom
+                        them for future leadership positions</li>
+                </ul>
+            </div>
+            <div class="col-lg-4 col-md-4 col-sm-12">
+                <div>
+                    <h2>Our Vision</h2>
+                    <p>
+                        To produce safe teachers who are academically sound, <br>professionally competent, ready to
+                        serve
+                        the
+                        community and <br>will not cause harm physically and mentally to pupils.
 
-    <div class="content-wrapper">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-6">
-                    <img class="studentSVG" src="./assets/img/book-lovers.svg">
+                    </p>
                 </div>
-                <div class="col-md-6">
-                    <h4 class="page-head-line">Please Login To Enter </h4>
-                    <span style="color:red;">
-                        <?php echo htmlentities($_SESSION['errmsg']); ?>
-                        <?php echo htmlentities($_SESSION['errmsg'] = ""); ?>
-                    </span>
-                    <form class="card" name="admin" method="post">
-                        <div class="row">
-                            <div class="col-md-11">
-                                <div class="lnginput">
-                                    <label>Enter index/ref no : </label>
-                                    <input type="text" name="regno" class="form-control" />
-                                    <label>Enter Password : </label>
-                                    <input type="password" name="password" class="form-control" />
-                                    <hr />
-                                    <button type="submit" name="submit" class="btn btn-info"><span
-                                            class="glyphicon glyphicon-user"></span>
-                                        &nbsp;Log Me In </button>&nbsp;
-                                </div>
-                           </div>
-                    </form>
+
+                <div class="mission">
+                    <h2>Our Mission</h2>
+                    <p>
+                        Equipping teacher trainees to be knowledgeable <br>and self-motivated in a tertiary environment
+
+                    </p>
                 </div>
+
             </div>
         </div>
-    </div>
-    </div>
-    <?php include('includes/footer.php'); ?>
-    <script src="assets/js/jquery-1.11.1.js"></script>
-    <script src="assets/js/bootstrap.js"></script>
+    </section>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+        <!-- Core theme JS-->
+        <script src="js/scripts.js"></script>
+        <script src="https://cdn.startbootstrap.com/sb-forms-latest.js"></script>
 
 </body>
 

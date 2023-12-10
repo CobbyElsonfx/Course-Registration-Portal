@@ -1,7 +1,7 @@
 <?php
 session_start();
 include('includes/config.php');
-error_reporting(0);
+error_reporting(1);
 if (strlen($_SESSION['login']) == 0) {
   header('location:index.php');
 } else {
@@ -37,61 +37,86 @@ if (strlen($_SESSION['login']) == 0) {
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
       integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
       crossorigin="anonymous"></script>
-    <link href="../assets/css/bootstrap.css" rel="stylesheet" />
     <link href="../assets/css/font-awesome.css" rel="stylesheet" />
     <link href="assets/css/style.css" rel="stylesheet" />
+    <link href="assets/css/my_profile.css" rel="stylesheet" />
+
   </head>
 
   <body>
     <div class="studensPortalHeader">
-      <h1 class="studentPortal">Student Profile</h1>
+      <h1 class="studentPortal">Profile Page </h1>
     </div>
     <!-- LOGO HEADER END-->
-    <div class="">
     <?php if ($_SESSION['login'] != "") {
       include('includes/menubar.php');
     }
     ?>
-    </div>
-    
+
+
+
     <!-- MENU SECTION END-->
     <div class="content-wrapper">
-      <div class="container">
-        <div class="row">
-          <div class="col-md-3"></div>
-          <div class="col-md-6">
-            <div class="panel panel-default">
-         
-              <font color="green" align="center">
-                <?php echo htmlentities($_SESSION['msg']); ?>
-                <?php echo htmlentities($_SESSION['msg'] = ""); ?>
-              </font>
-              <?php $sql = mysqli_query($con, "select * from students where StudentRegno='" . $_SESSION['login'] . "'");
-              $cnt = 1;
-              while ($row = mysqli_fetch_array($sql)) { ?>
 
-                <div class="panel-body">
-                  <form class="card shadow-lg text-left" name="dept" method="post" enctype="multipart/form-data">
-                    <div class="d-flex justify-content-between">
-                      <div class="form-group">
-                        <label for="surname">Surname</label>
-                        <input type="text" class="form-control" id="surname" name="surname"
-                          value="<?php echo htmlentities($row['surname']); ?>" readonly />
-                      </div>
-                      <div class="form-group">
-                        <label for="firstname">Firstname </label>
-                        <input type="text" class="form-control" id="firstname" name="firstname"
-                          value="<?php echo htmlentities($row['firstname']); ?>" readonly />
-                      </div>
-
+      <div class="container bootstrap snippets bootdey">
+        <font color="green" align="center">
+          <?php echo htmlentities($_SESSION['msg']); ?>
+          <?php echo htmlentities($_SESSION['msg'] = ""); ?>
+        </font>
+        <?php $sql = mysqli_query($con, "select * from students where StudentRegno='" . $_SESSION['login'] . "'");
+        $cnt = 1;
+        while ($row = mysqli_fetch_array($sql)) { ?>
+          <div class="row">
+            <div class="profile-nav col-md-3">
+              <div class="panel">
+                <div class="user-heading round">
+                  <a href="#">
+                    <?php if ($row['studentPhoto'] == "") { ?>
+                      <img src="studentphoto/noimage.png" class="rounded-3" width="200" height="200">
+                    <?php } else { ?>
+                      <img src="studentphoto/<?php echo htmlentities($row['studentPhoto']); ?>" width="200" height="200">
+                    <?php } ?>
+                  </a>
+                  <h1>
+                    <?php echo htmlentities($row['surname'] . " " . $row['firstname']); ?>
+                  </h1>
+                  <span>Current Level:
+                    <?php echo htmlentities($row['level']); ?>
+                  </span>
+                  <p><?php echo htmlentities($row['email']); ?></p>
+                </div>
+              </div>
+            </div>
+            <div class="profile-info col-md-9">
+              <div class="panel card shadow-md">
+                <div class="bio-graph-heading ">
+                  Welcome to your Peronal Dashboard </div>
+                <div class="panel-body bio-graph-info mt-2">
+                  <h1>Personal Details</h1>
+                  <div class="row d-flex">
+                    <div class="bio-row">
+                      <p><span>First Name </span>:
+                        <?php echo htmlentities($row['firstname']); ?>
+                      </p>
                     </div>
-
-
-                    <div class="form-group">
-                      <label for="studentregno">Student Index/Ref No. </label>
-                      <input type="text" class="form-control" id="studentregno" name="studentregno"
-                        value="<?php echo htmlentities($row['StudentRegno']); ?>" placeholder="Student Reg no" readonly />
-
+                    <div class="bio-row">
+                      <p><span>Last Name </span>:
+                        <?php echo htmlentities($row['surname']); ?>
+                      </p>
+                    </div>
+                    <div class="bio-row">
+                      <p><span>Country </span>: Ghana</p>
+                    </div>
+                    <div class="bio-row">
+                      <p><span>Birthday</span>: 13 July 1983</p>
+                    </div>
+                    <div class="bio-row">
+                      <p><span>Index Number </span>:
+                        <?php echo htmlentities($row['StudentRegno']); ?>
+                      </p>
+                    </div>
+                    <div class="bio-row">
+                      <p><span>Email </span>: <?php echo htmlentities($row['email']); ?></p>
                     </div>
                     <?php
                     // Assuming the program ID is stored in $row['program_id']
@@ -108,52 +133,28 @@ if (strlen($_SESSION['login']) == 0) {
                       $programName = "Unknown Program";
                     }
                     ?>
-                    <div class="form-group">
-                      <label for="progamme">Programme</label>
-                      <input type="text" class="form-control" id="progamme" name="progamme"
-                        value="<?php echo $programName; ?>" readonly />
+                    <div class="bio-row">
+                      <p><span>Programme </span>:
+                        <?php echo $programName; ?>
+                      </p>
                     </div>
-                    <div class="form-group">
-                      <label for="level">Level</label>
-                      <input type="text" class="form-control" id="level" name="level"
-                        value="<?php echo htmlentities($row['level']); ?>" readonly />
+                    <div class="bio-row">
+                      <p><span>Contact: </span> <?php echo htmlentities($row['contactNumber']); ?></p>
                     </div>
-                    <div class="form-group mb-2 mt-2 rounded-3">
-                      <label for="Pincode">Student Photo </label>
-                      <?php if ($row['studentPhoto'] == "") { ?>
-                        <img src="studentphoto/noimage.png" class="rounded-3" width="200" height="200">
-                      <?php } else { ?>
-                        <img src="studentphoto/<?php echo htmlentities($row['studentPhoto']); ?>" width="200" height="200">
-                      <?php } ?>
-                    </div>
-                    <div class="form-group">
-                      <label for="Pincode">Upload New Photo </label>
-                      <input type="file" class="form-control" id="photo" name="photo"
-                        value="<?php echo htmlentities($row['studentPhoto']); ?>" />
-                    </div>
-
-
-                  <?php } ?>
-
-                  <button class="mt-4 btn btn-primary" type="submit" name="submit" id="submit"
-                    class="btn btn-default">Update</button>
-                </form>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
 
-        </div>
-
+        <?php } ?>
       </div>
-
 
     </div>
     </div>
     <?php include('includes/footer.php'); ?>
     <script src="assets/js/jquery-1.11.1.js"></script>
     <script src="assets/js/bootstrap.js"></script>
-
-
   </body>
 
   </html>

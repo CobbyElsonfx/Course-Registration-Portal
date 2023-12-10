@@ -50,12 +50,10 @@ if (strlen($_SESSION['login']) == 0) {
     <meta name="description" content="" />
     <meta name="author" content="" />
     <title>Course Enroll</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
-      integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
       integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
       crossorigin="anonymous"></script>
-    <link href="../assets/css/bootstrap.css" rel="stylesheet" />
     <link href="../assets/css/font-awesome.css" rel="stylesheet" />
     <link href="assets/css/style.css" rel="stylesheet" />
   </head>
@@ -86,13 +84,13 @@ if (strlen($_SESSION['login']) == 0) {
                 <div class="panel-body">
                   <form name="dept" method="post" class="card shadow-lg text-left" enctype="multipart/form-data"
                     id="student-info-form">
-                    <div class="d-flex justify-content-between">
-                      <div class="form-group">
+                    <div class="d-flex g-3 justify-content-between">
+                      <div class="form-group mr-2">
                         <label for="surname">Surname</label>
                         <input type="text" class="form-control" id="surname" name="surname"
                           value="<?php echo htmlentities($row['surname']); ?>" readonly />
                       </div>
-                      <div class="form-group">
+                      <div class="form-group ml-2">
                         <label for="firstname">Firstname</label>
                         <input type="text" class="form-control" id="firstname" name="firstname"
                           value="<?php echo htmlentities($row['firstname']); ?>" readonly />

@@ -56,7 +56,7 @@ if (isset($_POST['submit'])) {
                 <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
                     <li class="navLink px-3 py-2 d-flex  align-items-center gap-0">
                         <img class="homeIcon1" src="../assets/img/home.svg">
-                        <a href="../home.php">Home </a>
+                        <a href="../index.php">Home </a>
                     </li>
 
                     <li class="navLink px-3 py-2 d-flex  align-items-center gap-0">
