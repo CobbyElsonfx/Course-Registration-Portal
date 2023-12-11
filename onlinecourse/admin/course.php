@@ -9,27 +9,32 @@ if (strlen($_SESSION['alogin']) == 0) {
         $coursecode = $_POST['coursecode'];
         $coursename = $_POST['coursename'];
         $courseunit = $_POST['courseunit'];
-        $seatlimit = $_POST['seatlimit'];
         $level = $_POST['level'];
         $program = isset($_POST['isCore']) ? null : $_POST['program'];
         $isCore = isset($_POST['isCore']) ? 1 : 0;
 
-        $ret = mysqli_query($con, "INSERT INTO course(courseCode, courseName, courseUnit, noofSeats, level_id, programme_id, isCore) 
-                           VALUES ('$coursecode', '$coursename', '$courseunit', '$seatlimit', '$level', '$program', '$isCore')");
+        // Check if the course with the same code and level already exists
+        $checkQuery = mysqli_query($con, "SELECT * FROM course WHERE courseCode='$coursecode' AND level_id='$level'");
+        $existingRecord = mysqli_fetch_array($checkQuery);
 
-        if ($ret) {
-            echo '<script>alert("Course Created Successfully !!")</script>';
-            echo '<script>window.location.href=course.php</script>';
+        if ($existingRecord) {
+            echo '<script>alert("Error: Course with the same code and level already exists.")</script>';
         } else {
-            echo '<script>alert("Error : Course not created!!")</script>';
-            echo '<script>window.location.href=course.php</script>';
+            // Insert the new course
+            $insertQuery = mysqli_query($con, "INSERT INTO course(courseCode, courseName, courseUnit, level_id, programme_id, isCore) VALUES ('$coursecode', '$coursename', '$courseunit', '$level', '$program', '$isCore')");
+
+            if ($insertQuery) {
+                echo '<script>alert("Course added successfully!")</script>';
+            } else {
+                echo '<script>alert("Error: Unable to add the course.")</script>';
+            }
         }
     }
 
     if (isset($_GET['del'])) {
-        mysqli_query($con, "DELETE FROM course WHERE id = '" . $_GET['id'] . "'");
+        $courseId = $_GET['id'];
+        mysqli_query($con, "DELETE FROM course WHERE id = '$courseId'");
         echo '<script>alert("Course deleted!!")</script>';
-        echo '<script>window.location.href=course.php</script>';
     }
     ?>
 
@@ -136,36 +141,36 @@ if (strlen($_SESSION['alogin']) == 0) {
                     <?php echo htmlentities($_SESSION['delmsg'] = ""); ?>
                 </font>
                 <div class="col-md-12">
-                <?php
-// ...
+                    <?php
 
-// Fetch distinct levels from the database
-$levelQuery = $con->query("SELECT DISTINCT level_id FROM course");
 
-while ($levelRow = $levelQuery->fetch_assoc()) {
-    $levelId = $levelRow['level_id'];
+                    // Fetch distinct levels from the database
+                    $levelQuery = $con->query("SELECT DISTINCT level_id FROM course");
 
-    // Fetch distinct programs for this level
-    $programQuery = $con->prepare("SELECT DISTINCT programme_id, program FROM course 
+                    while ($levelRow = $levelQuery->fetch_assoc()) {
+                        $levelId = $levelRow['level_id'];
+
+                        // Fetch distinct programs for this level
+                        $programQuery = $con->prepare("SELECT DISTINCT programme_id, program FROM course 
                                     JOIN programme ON course.programme_id = programme.id
                                     WHERE level_id = ?");
-    $programQuery->bind_param("i", $levelId);
-    $programQuery->execute();
+                        $programQuery->bind_param("i", $levelId);
+                        $programQuery->execute();
 
-    $programResult = $programQuery->get_result();
+                        $programResult = $programQuery->get_result();
 
-    if ($programResult) {
-        while ($programRow = $programResult->fetch_assoc()) {
-            $programId = $programRow['programme_id'];
+                        if ($programResult) {
+                            while ($programRow = $programResult->fetch_assoc()) {
+                                $programId = $programRow['programme_id'];
 
-            // Fetch courses for this level and program, including core courses
-            $stmt = $con->prepare("SELECT * FROM course WHERE (level_id = ? AND programme_id = ?) OR (level_id = ? AND isCore = 1)");
-            $stmt->bind_param("iii", $levelId, $programId, $levelId);
-            $stmt->execute();
+                                // Fetch courses for this level and program, including core courses
+                                $stmt = $con->prepare("SELECT * FROM course WHERE (level_id = ? AND programme_id = ?) OR (level_id = ? AND isCore = 1)");
+                                $stmt->bind_param("iii", $levelId, $programId, $levelId);
+                                $stmt->execute();
 
-            $result = $stmt->get_result();
+                                $result = $stmt->get_result();
 
-            if ($result) {
+                                if ($result) {
                                     // Display your data here
                                     ?>
                                     <div class="panel panel-default">
@@ -223,7 +228,7 @@ while ($levelRow = $levelQuery->fetch_assoc()) {
                                         </div>
                                     </div>
                                     <?php
-                                   $result->free_result();
+                                    $result->free_result();
                                 } else {
                                     // Handle query error
                                     echo "Error: " . $con->error;
@@ -234,23 +239,24 @@ while ($levelRow = $levelQuery->fetch_assoc()) {
                     ?>
                 </div>
             </div>
-                </div>
-            <script src="../assets/js/jquery-1.11.1.js"></script>
-            <script src="../assets/js/bootstrap.js"></script>
-            <script>
-                // Function to enable/disable program selection based on isCore checkbox
-                function toggleProgramSelection() {
-                    var isCoreCheckbox = document.getElementById('isCore');
-                    var programSelect = document.getElementById('program');
+        </div>
+        <script src="../assets/js/jquery-1.11.1.js"></script>
+        <script src="../assets/js/bootstrap.js"></script>
+        <script>
+            // Function to enable/disable program selection based on isCore checkbox
+            function toggleProgramSelection() {
+                var isCoreCheckbox = document.getElementById('isCore');
+                var programSelect = document.getElementById('program');
 
-                    programSelect.disabled = isCoreCheckbox.checked;
-                }
+                programSelect.disabled = isCoreCheckbox.checked;
+            }
 
-                document.getElementById('isCore').addEventListener('change', toggleProgramSelection);
-                toggleProgramSelection();
-            </script>
-            <?php include('includes/footer.php'); ?>
+            document.getElementById('isCore').addEventListener('change', toggleProgramSelection);
+            toggleProgramSelection();
+        </script>
+        <?php include('includes/footer.php'); ?>
     </body>
+
     </html>
     <?php
 }

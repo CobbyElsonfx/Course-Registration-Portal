@@ -40,7 +40,6 @@ if (strlen($_SESSION['login']) == 0) {
     <link href="../assets/css/font-awesome.css" rel="stylesheet" />
     <link href="assets/css/style.css" rel="stylesheet" />
     <link href="assets/css/my_profile.css" rel="stylesheet" />
-
   </head>
 
   <body>
@@ -80,10 +79,12 @@ if (strlen($_SESSION['login']) == 0) {
                   <h1>
                     <?php echo htmlentities($row['surname'] . " " . $row['firstname']); ?>
                   </h1>
-                  <span>Current Level:
+                  <span>Level:
                     <?php echo htmlentities($row['level']); ?>
                   </span>
-                  <p><?php echo htmlentities($row['email']); ?></p>
+                  <p>
+                    <?php echo htmlentities($row['email']); ?>
+                  </p>
                 </div>
               </div>
             </div>
@@ -93,55 +94,66 @@ if (strlen($_SESSION['login']) == 0) {
                   Welcome to your Peronal Dashboard </div>
                 <div class="panel-body bio-graph-info mt-2">
                   <h1>Personal Details</h1>
-                  <div class="row d-flex">
-                    <div class="bio-row">
-                      <p><span>First Name </span>:
-                        <?php echo htmlentities($row['firstname']); ?>
-                      </p>
-                    </div>
-                    <div class="bio-row">
-                      <p><span>Last Name </span>:
-                        <?php echo htmlentities($row['surname']); ?>
-                      </p>
-                    </div>
-                    <div class="bio-row">
-                      <p><span>Country </span>: Ghana</p>
-                    </div>
-                    <div class="bio-row">
-                      <p><span>Birthday</span>: 13 July 1983</p>
-                    </div>
-                    <div class="bio-row">
-                      <p><span>Index Number </span>:
-                        <?php echo htmlentities($row['StudentRegno']); ?>
-                      </p>
-                    </div>
-                    <div class="bio-row">
-                      <p><span>Email </span>: <?php echo htmlentities($row['email']); ?></p>
-                    </div>
-                    <?php
-                    // Assuming the program ID is stored in $row['program_id']
-                    $programId = $row['programme'];
+                  <div class="row">
+                    <div class="col-sm-12 col-md-6">
+                      <div class="d-flex flex-row">
+                        <div class="px-3">Name: </div>
+                        <div>
+                          <?php echo htmlentities($row['surname'] . " " . $row['firstname'] . " " . $row['otherName']); ?>
+                        </div>
+                      </div>
+                      <div class="d-flex flex-row">
+                        <div  class="px-3">DOB: </div>
+                        <div>
+                          <?php echo htmlentities($row['dob']); ?>
+                        </div>
+                      </div>
+                      <div class="d-flex flex-row">
+                        <div  class="px-3">Index/Ref Number: </div>
+                        <div>
+                          <?php echo htmlentities($row['StudentRegno']); ?>
+                        </div>
+                      </div>
+                      <?php
 
-                    // Fetch the corresponding program name from the programme table
-                    $programQuery = "SELECT program FROM programme WHERE id = '$programId'";
-                    $programResult = mysqli_query($con, $programQuery);
+                      // Assuming the program ID is stored in $row['program_id']
+                      $programId = $row['programme'];
+                      // Fetch the corresponding program name from the programme table
+                      $programQuery = "SELECT program FROM programme WHERE id = '$programId'";
+                      $programResult = mysqli_query($con, $programQuery);
 
-                    if ($programResult && $programRow = mysqli_fetch_assoc($programResult)) {
-                      $programName = htmlentities($programRow['program']);
-                    } else {
-                      // Handle the case where the program ID doesn't exist in the programme table
-                      $programName = "Unknown Program";
-                    }
-                    ?>
-                    <div class="bio-row">
-                      <p><span>Programme </span>:
-                        <?php echo $programName; ?>
-                      </p>
+                      if ($programResult && $programRow = mysqli_fetch_assoc($programResult)) {
+                        $programName = htmlentities($programRow['program']);
+                      } else {
+                        // Handle the case where the program ID doesn't exist in the programme table
+                        $programName = "Unknown Program";
+                      }
+                      ?>
+                      <div class="d-flex flex-row">
+                        <div  class="px-3">Programme:</div>
+                        <div>
+                          <?php echo $programName; ?>
+                        </div>
+                      </div>
+
                     </div>
-                    <div class="bio-row">
-                      <p><span>Contact: </span> <?php echo htmlentities($row['contactNumber']); ?></p>
+                    <div class="col-sm-12 col-md-6">
+                      <div class="d-flex flex-row">
+                        <div class="px-3">Country of Origin: </div>
+                        <div>
+                          <span>Ghana</span>
+                        </div>
+                      </div>
+                      <div class="d-flex flex-row">
+                        <div class="px-3">Email Address:</div>
+                        <div>
+                          <span><?php echo htmlentities($row['email']); ?></span>
+                        </div>
+                      </div>
+
                     </div>
                   </div>
+                 
                 </div>
               </div>
             </div>

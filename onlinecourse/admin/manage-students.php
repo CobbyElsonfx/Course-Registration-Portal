@@ -50,12 +50,12 @@ if (strlen($_SESSION['alogin']) == 0) {
     <meta name="author" content="" />
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
-        crossorigin="anonymous"></script>
-    <!-- <link href="../assets/css/bootstrap.css" rel="stylesheet" /> -->
     <link href="../assets/css/font-awesome.css" rel="stylesheet" />
     <link href="../assets/css/style.css" rel="stylesheet" />
+    <!-- Add the DataTables CSS -->
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.24/css/jquery.dataTables.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.13.7/css/jquery.dataTables.min.css">
+
 </head>
 
 <body>
@@ -70,9 +70,6 @@ if (strlen($_SESSION['alogin']) == 0) {
     <div class="content-wrapper">
         <div class="container">
             <div class="row">
-                <div class="col-md-12">
-                    <h1 class="page-head-line">Course </h1>
-                </div>
             </div>
             <div class="row">
 
@@ -83,9 +80,6 @@ if (strlen($_SESSION['alogin']) == 0) {
                 <div class="col-md-12">
                     <!--    Bordered Table  -->
                     <div class="panel panel-default">
-                        <div class="panel-heading">
-                            Manage Course
-                        </div>
                         <!-- /.panel-heading -->
                         <div class="panel-body">
                             <div class="table-responsive table-bordered">
@@ -105,8 +99,6 @@ if (strlen($_SESSION['alogin']) == 0) {
                                         $cnt = 1;
                                         while ($row = mysqli_fetch_array($sql)) {
                                             ?>
-
-
                                             <tr>
                                                 <td>
                                                     <?php echo $cnt; ?>
@@ -121,10 +113,10 @@ if (strlen($_SESSION['alogin']) == 0) {
                                                     <?php echo htmlentities($row['creationdate']); ?>
                                                 </td>
                                                 <td>
-                                                    <a
-                                                        href="edit-student-profile.php?id=<?php echo $row['StudentRegno'] ?>">
+                                                    <a href="edit-student-profile.php?id=<?php echo $row['StudentRegno'] ?>">
                                                         <button class="btn btn-primary"><i class="fa fa-edit "></i>
-                                                            Edit</button> </a>
+                                                            Edit</button>
+                                                    </a>
                                                     <a href="manage-students.php?id=<?php echo $row['StudentRegno'] ?>&del=delete"
                                                         onClick="return confirm('Are you sure you want to delete?')">
                                                         <button class="btn btn-primary">Delete</button>
@@ -139,8 +131,6 @@ if (strlen($_SESSION['alogin']) == 0) {
                                             <?php
                                             $cnt++;
                                         } ?>
-
-
                                     </tbody>
                                 </table>
                             </div>
@@ -149,11 +139,6 @@ if (strlen($_SESSION['alogin']) == 0) {
                     <!--  End  Bordered Table  -->
                 </div>
             </div>
-
-
-
-
-
         </div>
     </div>
     <!-- CONTENT-WRAPPER SECTION END-->
@@ -164,7 +149,16 @@ if (strlen($_SESSION['alogin']) == 0) {
     <script src="../assets/js/jquery-1.11.1.js"></script>
     <!-- BOOTSTRAP SCRIPTS  -->
     <script src="../assets/js/bootstrap.js"></script>
+    <!-- Add the DataTables JavaScript -->
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.js"></script>
+    <script>
+        // DataTable initialization script
+        $(document).ready(function () {
+            $('.table').DataTable();
+        });
+    </script>
 </body>
 
 </html>
+
 <?php ?>

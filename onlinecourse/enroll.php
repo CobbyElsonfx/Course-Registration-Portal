@@ -14,18 +14,18 @@ if (strlen($_SESSION['login']) == 0) {
     $courses = $_POST['courses']; // An array of selected course IDs
     $sem = $_POST['sem'];
 
-    if (!empty($allcourses)) {
-      foreach ($allcourses as $courseId) {
+    if (!empty($courses)) {
+      foreach ($courses as $courseId) {
         // Insert each selected course into the courseenrolls table
         $ret = mysqli_query($con, "INSERT INTO courseenrolls(studentRegno, session, programme, level, course, semester) VALUES ('$studentregno', '$session', '$progr', '$level', '$courseId', '$sem')");
       }
 
       if ($ret) {
         echo '<script>alert("Enroll Successfully !!")</script>';
-        echo '<script>window.location.href=enroll.php</script>';
+        // echo '<script>window.location.href=enroll.php</script>';
       } else {
         echo '<script>alert("Error: Not Enroll")</script>';
-        echo '<script>window.location.href=enroll.php</script>';
+        // echo '<script>window.location.href=enroll.php</script>';
       }
     } else {
       echo '<script>alert("Please select at least one course")</script>';
@@ -57,7 +57,6 @@ if (strlen($_SESSION['login']) == 0) {
     <link href="../assets/css/font-awesome.css" rel="stylesheet" />
     <link href="assets/css/style.css" rel="stylesheet" />
   </head>
-
   <body>
     <div class="studensPortalHeader">
       <h1 class="studentPortal">Course Enroll</h1>
@@ -95,6 +94,12 @@ if (strlen($_SESSION['login']) == 0) {
                         <input type="text" class="form-control" id="firstname" name="firstname"
                           value="<?php echo htmlentities($row['firstname']); ?>" readonly />
                       </div>
+                    </div>
+                    
+                    <div class="form-group">
+                      <label for="otherName">Other Name</label>
+                      <input type="text" class="form-control" id="otherName" name="otheName"
+                        value="<?php echo htmlentities($row['otherName']); ?>" placeholder="Other Name" readonly />
                     </div>
 
                     <div class="form-group">

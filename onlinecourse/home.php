@@ -28,7 +28,7 @@ if (isset($_POST['submit'])) {
     } else {
         // Account is not cleared, show error message
         $_SESSION['errmsg'] = "Invalid Reg no, Password, or student not cleared. Please contact the admin for clearance.";
-        header("location:http:index.php");
+        header("location:http:home.php");
     }
 }
 ?>
@@ -80,15 +80,13 @@ if (isset($_POST['submit'])) {
 
                     <li class="navLink px-3 py-2 ">
                         <img class="studentIcon" src="./assets/img/student.svg">
-                        <a href="./index.php">Student Login</a>
+                        <a href="./home.php">Student Login</a>
                     </li>
                 </ul>
 
             </div>
         </div>
     </header>
-
-
     <div class="content-wrapper">
         <div class="container">
             <div class="row">

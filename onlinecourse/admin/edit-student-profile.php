@@ -1,7 +1,7 @@
 <?php
 session_start();
 include('includes/config.php');
-error_reporting(0);
+error_reporting(1);
 if (strlen($_SESSION['alogin']) == 0) {
   header('location:index.php');
 } else {
@@ -9,10 +9,11 @@ if (strlen($_SESSION['alogin']) == 0) {
   if (isset($_POST['submit'])) {
     $regid = intval($_GET['id']);
     $surname = $_POST['surname'];
+    $programme = $_POST['programme'];
     $firstname = $_POST['firstname'];
     $photo = $_FILES["photo"]["name"];
     move_uploaded_file($_FILES["photo"]["tmp_name"], "studentphoto/" . $_FILES["photo"]["name"]);
-    $ret = mysqli_query($con, "update students set surname='$surname', firstname='$firstname',studentPhoto='$photo', where StudentRegno='$regid'");
+    $ret = mysqli_query($con, "update students set surname='$surname', firstname='$firstname',studentPhoto='$photo' where StudentRegno='$regid'");
     if ($ret) {
       echo '<script>alert("Student Record updated Successfully !!")</script>';
       echo '<script>window.location.href=manage-students.php</script>';
@@ -104,6 +105,20 @@ if (strlen($_SESSION['alogin']) == 0) {
                               <img src="../studentphoto/<?php echo htmlentities($row['studentPhoto']); ?>" width="200" height="200">
                           <?php } ?>
                         </div>
+
+                        <div class="form-group">
+                    <label for="Programme">Programme</label>
+                    <select class="form-control" name="programme" required="required">
+                      <option value="">"<?php echo htmlentities ($row['programme'])?>"</option>
+                      <?php $sql = mysqli_query($con, "SELECT * FROM programme");
+                            while ($row = mysqli_fetch_array($sql)) {
+                        ?>
+                        <option value="<?php echo htmlentities($row['id']); ?>">
+                          <?php echo htmlentities($row['category'] . ' - ' . $row['program']); ?>
+                        </option>
+                      <?php } ?>
+                    </select>
+                  </div>
                         <div class="form-group">
                           <label for="studentphoto">Upload New Photo </label>
                           <input type="file" class="form-control" id="photo" name="photo"

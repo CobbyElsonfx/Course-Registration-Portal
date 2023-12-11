@@ -1,5 +1,4 @@
 ﻿@import url(http://fonts.googleapis.com/css?family=Roboto);
-/* FREE GOOGLE FONT */
 * {
   padding: 0;
   box-sizing: border-box;
@@ -12,12 +11,10 @@
   --seconddary: rgb(3, 4, 38);
 }
 
-
-
-
 body {
   font-family: "Roboto", sans-serif;
   line-height: 30px;
+  min-height: 100vh;
 }
 
 .nav .navLink a:hover {
@@ -50,9 +47,11 @@ header {
 .navbar {
   background-color: var(--seconddary);
 }
+
 .navLink a {
-  font-size: medium;
+  font-size: 1.2rem;
   text-decoration: none;
+  font-weight: 500;
   position: relative;
   color: whitesmoke;
   background-color: transparent !important;
@@ -218,12 +217,6 @@ header {
   }
 }
 
-.content-wrapper {
-  background-color: #f8f8f8;
-  padding: 60px 0;
-  text-align: center;
-}
-
 .adminSVG {
   max-width: 100%;
   fill: #af1aa8;
@@ -323,7 +316,8 @@ label {
   color: green;
   font-weight: bold;
 }
-*/ .studentSVG {
+
+.studentSVG {
   width: 90%;
   height: auto;
 }
@@ -341,6 +335,15 @@ label {
   background-color: transparent !important;
 }
 
+/* offcanvas icons start */
+.offcanvasNavIcon {
+  width: 25x;
+  height: 25px;
+  filter: invert(100%);
+  -webkit-filter: invert(100%);
+}
+/* offcanvas icons end */
+
 /* admin page stylings start */
 .homeIcon {
   width: 25px;
@@ -350,39 +353,7 @@ label {
   -webkit-filter: invert(100%);
 }
 
-.homeIcon1 {
-  width: 25px;
-  height: 20px;
-  padding: 0;
-  filter: invert(100%);
-  -webkit-filter: invert(100%);
-}
 
-.homeIcon2 {
-
-  width: 25px;
-  height: 20px;
-  padding: 0;
-  filter: invert(100%);
-  -webkit-filter: invert(100%);
-}
-
-.adminIcon {
-
-  width: 25px;
-  height: 20px;
-  padding: 0;
-  filter: invert(100%);
-  -webkit-filter: invert(100%);
-}
-.adminIcon3 {
-
-  width: 25px;
-  height: 20px;
-  padding: 0;
-  filter: invert(100%);
-  -webkit-filter: invert(100%);
-}
 
 .studentIcon {
 
@@ -395,17 +366,8 @@ label {
   -webkit-filter: invert(100%);
 }
 
-.enrollIcon {
 
-  width: 25px;
-  height: 15px;
-  padding: 0;
-  filter: invert(100%);
-  -webkit-filter: invert(100%);
-}
-
-.profileIcon {
-
+.navIcon {
   width: 25px;
   height: 20px;
   padding: 0;
@@ -413,69 +375,7 @@ label {
   -webkit-filter: invert(100%);
 }
 
-.passwordIcon {
-  position: relative;
-  top: 13px;
-  left: 15px;
-  width: 25px;
-  height: 18px;
-  padding: 0;
-  filter: invert(100%);
-  -webkit-filter: invert(100%);
-}
 
-.historyIcon {
-  position: relative;
-  top: 13px;
-  left: 15px;
-  width: 25px;
-  height: 20px;
-  padding: 0;
-  filter: invert(100%);
-  -webkit-filter: invert(100%);
-}
-
-.logoutIcon {
-  position: relative;
-  top: 13px;
-  left: 15px;
-  width: 25px;
-  height: 20px;
-  padding: 0;
-  filter: invert(100%);
-  -webkit-filter: invert(100%);
-}
-.logoutIcon5 {
-  position: relative;
-  top: 20px;
-  left: 20px;
-  width: 25px;
-  height: 20px;
-  padding: 0;
-  filter: invert(100%);
-  -webkit-filter: invert(100%);
-}
-
-.othersIcon {
-  position: relative;
-  top: 20px;
-  left: 20px;
-  width: 25px;
-  height: 20px;
-  padding: 0;
-  filter: invert(100%);
-  -webkit-filter: invert(100%);
-}
-.homeIcon5 {
-  position: relative;
-  top: 20px;
-  left: 20px;
-  width: 25px;
-  height: 20px;
-  padding: 0;
-  filter: invert(100%);
-  -webkit-filter: invert(100%);
-}
 
 .schoolLogo {
   width: 170px;

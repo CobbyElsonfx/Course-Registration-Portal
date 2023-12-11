@@ -30,12 +30,10 @@ if (strlen($_SESSION['alogin']) == 0) {
         <div class="studensPortalHeader">
             <h1 class="studentPortal">Enroll History</h1>
         </div>
-        <!-- LOGO HEADER END-->
         <?php if ($_SESSION['alogin'] != "") {
             include('includes/menubar.php');
         }
         ?>
-        <!-- MENU SECTION END-->
         <div class="content-wrapper ">
             <div class="container">
                 <div class="row">
@@ -44,14 +42,11 @@ if (strlen($_SESSION['alogin']) == 0) {
                     </div>
                 </div>
                 <div class="row">
-
                     <div class="col-md-12">
-                        <!--    Bordered Table  -->
                         <div class="panel panel-default">
                             <div class="panel-heading">
                                 Enroll History
                             </div>
-                            <!-- /.panel-heading -->
                             <div class="panel-body">
                                 <div class="table-responsive table-bordered">
                                     <table class="table">
@@ -62,7 +57,6 @@ if (strlen($_SESSION['alogin']) == 0) {
                                                 <th>Student Reg no </th>
                                                 <th>Course Name </th>
                                                 <th>Session </th>
-
                                                 <th>Semester</th>
                                                 <th>Enrollment Date</th>
                                                 <th>Action</th>
@@ -70,12 +64,10 @@ if (strlen($_SESSION['alogin']) == 0) {
                                         </thead>
                                         <tbody>
                                             <?php
-                                            $sql = mysqli_query($con, "select courseenrolls.course as cid, course.courseName as courname,session.session as session,programme.program as progr,courseenrolls.enrollDate as edate ,semester.semester as sem,students.surname as sname,students.firstname as fname ,students.StudentRegno as sregno from courseenrolls join course on course.id=courseenrolls.course join session on session.id=courseenrolls.session join Programme on programme.id=courseenrolls.programme  join semester on semester.id=courseenrolls.semester join students on students.StudentRegno=courseenrolls.studentRegno ");
+                                            $sql = mysqli_query($con, "select courseenrolls.id as enrollId, courseenrolls.course as cid, course.courseName as courname,session.session as session,programme.program as progr,courseenrolls.enrollDate as edate ,semester.semester as sem,students.surname as sname,students.firstname as fname ,students.StudentRegno as sregno from courseenrolls join course on course.id=courseenrolls.course join session on session.id=courseenrolls.session join Programme on programme.id=courseenrolls.programme  join semester on semester.id=courseenrolls.semester join students on students.StudentRegno=courseenrolls.studentRegno ");
                                             $cnt = 1;
                                             while ($row = mysqli_fetch_array($sql)) {
                                                 ?>
-
-
                                                 <tr>
                                                     <td>
                                                         <?php echo $cnt; ?>
@@ -92,7 +84,6 @@ if (strlen($_SESSION['alogin']) == 0) {
                                                     <td>
                                                         <?php echo htmlentities($row['progr']); ?>
                                                     </td>
-
                                                     <td>
                                                         <?php echo htmlentities($row['sem']); ?>
                                                     </td>
@@ -101,39 +92,42 @@ if (strlen($_SESSION['alogin']) == 0) {
                                                     </td>
                                                     <td>
                                                         <a href="print.php?id=<?php echo $row['cid'] ?>" target="_blank">
-                                                            <button class="btn btn-primary"><i class="fa fa-print "></i>
-                                                                Print</button> </a>
-
-
+                                                            <button class="btn btn-primary"><i class="fa fa-print"></i>
+                                                                Print</button>
+                                                        </a>
+                                                        <a href="enroll-history.php?del=<?php echo $row['enrollId'] ?>"
+                                                            onClick="return confirm('Are you sure you want to delete?')">
+                                                            <button class="btn btn-danger"><i class="fa fa-trash"></i>
+                                                                Delete</button>
+                                                        </a>
                                                     </td>
                                                 </tr>
                                                 <?php
                                                 $cnt++;
                                             } ?>
-
-
                                         </tbody>
                                     </table>
                                 </div>
                             </div>
                         </div>
-                        <!--  End  Bordered Table  -->
                     </div>
                 </div>
-
-
-
-
-
             </div>
         </div>
-        <!-- CONTENT-WRAPPER SECTION END-->
+        <?php
+        if (isset($_GET['del'])) {
+            $enrollId = $_GET['del'];
+            $deleteQuery = mysqli_query($con, "DELETE FROM courseenrolls WHERE id = '$enrollId'");
+            if ($deleteQuery) {
+                echo '<script>alert("Enrollment record deleted successfully!")</script>';
+                echo '<script>window.location.href="enroll-history.php"</script>';
+            } else {
+                echo '<script>alert("Error: Unable to delete enrollment record.")</script>';
+            }
+        }
+        ?>
         <?php include('includes/footer.php'); ?>
-        <!-- FOOTER SECTION END-->
-        <!-- JAVASCRIPT AT THE BOTTOM TO REDUCE THE LOADING TIME  -->
-        <!-- CORE JQUERY SCRIPTS -->
         <script src="../assets/js/jquery-1.11.1.js"></script>
-        <!-- BOOTSTRAP SCRIPTS  -->
         <script src="../assets/js/bootstrap.js"></script>
     </body>
 

@@ -1,12 +1,21 @@
 <?php
 session_start();
 include('includes/config.php');
-error_reporting(0);
+error_reporting(1);
 if (strlen($_SESSION['login']) == 0) {
     header('location:index.php');
 } else {
 
+    if (isset($_GET['del'])) {
+        $courseId = $_GET['id'];
+
+        mysqli_query($con, "DELETE FROM courseenrolls WHERE (course = '$courseId' AND studentRegno = studentRegno='" . $_SESSION['login'] . "')");
+        echo '<script>alert(<?php echo $courseId . "none"?>)</script>';
+    }
     ?>
+
+
+
 
     <!DOCTYPE html>
     <html xmlns="http://www.w3.org/1999/xhtml">
@@ -17,11 +26,12 @@ if (strlen($_SESSION['login']) == 0) {
         <meta name="description" content="" />
         <meta name="author" content="" />
         <title>Enroll History</title>
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+            integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
             integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
             crossorigin="anonymous"></script>
+        <link href="../assets/css/bootstrap.css" rel="stylesheet" />
         <link href="../assets/css/font-awesome.css" rel="stylesheet" />
         <link href="assets/css/style.css" rel="stylesheet" />
     </head>
@@ -59,7 +69,7 @@ if (strlen($_SESSION['login']) == 0) {
                                         <tbody>
                                             <?php
                                             $sql = mysqli_query($con, "SELECT
-                                            courseenrolls.course as cid,
+                                            courseenrolls.course as cid, course.id as courseId,
                                             course.courseName as courname,
                                             level.level as level,
                                             courseenrolls.enrollDate as edate,
@@ -92,6 +102,15 @@ if (strlen($_SESSION['login']) == 0) {
                                                     <td>
                                                         <?php echo htmlentities($row['edate']); ?>
                                                     </td>
+                                                    <td>
+                                                    <td>
+                                                        <a href="enroll-history.php?del=<?php echo $row['courseId'] ?>"
+                                                            onClick="return confirm('Are you sure you want to delete?')">
+                                                            <button class="btn btn-danger"><i class="fa fa-trash"></i>
+                                                                Delete</button>
+                                                        </a>
+
+                                                    </td>
                                                 </tr>
 
 
@@ -104,11 +123,10 @@ if (strlen($_SESSION['login']) == 0) {
 
                                     </table>
                                     <a href="print.php" target="_blank">
-                                        <button class="btn btn-primary">
-                                            <i class="fa fa-print "></i>
+                                        <button class="btn btn-primary"><i class="fa fa-print "></i>
                                             Print
-                                        </button>
-                                     </a>
+                                        </button> 
+                                    </a>
                                 </div>
                             </div>
                         </div>
@@ -117,6 +135,7 @@ if (strlen($_SESSION['login']) == 0) {
                 </div>
             </div>
         </div>
+        
         <?php include('includes/footer.php'); ?>
         <script src="assets/js/jquery-1.11.1.js"></script>
         <script src="assets/js/bootstrap.js"></script>
