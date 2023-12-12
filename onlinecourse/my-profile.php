@@ -73,7 +73,7 @@ if (strlen($_SESSION['login']) == 0) {
                     <?php if ($row['studentPhoto'] == "") { ?>
                       <img src="studentphoto/noimage.png" class="rounded-3" width="200" height="200">
                     <?php } else { ?>
-                      <img src="studentphoto/<?php echo htmlentities($row['studentPhoto']); ?>" width="200" height="200">
+                      <img class="profile" src="studentphoto/<?php echo htmlentities($row['studentPhoto']); ?>" width="200" height="200">
                     <?php } ?>
                   </a>
                   <h1>
@@ -91,7 +91,8 @@ if (strlen($_SESSION['login']) == 0) {
             <div class="profile-info col-md-9">
               <div class="panel card shadow-md">
                 <div class="bio-graph-heading ">
-                  Welcome to your Peronal Dashboard </div>
+                  Welcome to your Personal Dashboard 
+                </div>
                 <div class="panel-body bio-graph-info mt-2">
                   <h1>Personal Details</h1>
                   <div class="row">
@@ -103,7 +104,7 @@ if (strlen($_SESSION['login']) == 0) {
                         </div>
                       </div>
                       <div class="d-flex flex-row">
-                        <div  class="px-3">DOB: </div>
+                        <div  class="px-3">Date Of Birth: </div>
                         <div>
                           <?php echo htmlentities($row['dob']); ?>
                         </div>
@@ -150,6 +151,12 @@ if (strlen($_SESSION['login']) == 0) {
                           <span><?php echo htmlentities($row['email']); ?></span>
                         </div>
                       </div>
+                      <div class="d-flex flex-row">
+                        <div class="px-3">Contact Number:</div>
+                        <div>
+                          <span><?php echo htmlentities($row['contactNumber']); ?></span>
+                        </div>
+                      </div>
 
                     </div>
                   </div>
@@ -163,7 +170,7 @@ if (strlen($_SESSION['login']) == 0) {
       </div>
 
     </div>
-    </div>
+
     <?php include('includes/footer.php'); ?>
     <script src="assets/js/jquery-1.11.1.js"></script>
     <script src="assets/js/bootstrap.js"></script>

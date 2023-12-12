@@ -1,14 +1,9 @@
 <?php
 session_start();
 include('includes/config.php');
-if(strlen($_SESSION['alogin'])==0)
-    {   
-header('location:index.php');
-}
-else{
-
-
-
+if(strlen($_SESSION['alogin'])==0) {   
+    header('location:index.php');
+} else {
 ?>
 
 <!DOCTYPE html>
@@ -21,95 +16,118 @@ else{
     <title>User Log</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
     integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
     integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
     crossorigin="anonymous"></script>
-  <link href="../assets/css/bootstrap.css" rel="stylesheet" />
-  <link href="../assets/css/font-awesome.css" rel="stylesheet" />
+    <link href="../assets/css/font-awesome.css" rel="stylesheet" />
     <link href="../assets/css/style.css" rel="stylesheet" />
+    <link href="../assets/css/admin_side_nav.css" rel="stylesheet" />
+
+    <!-- DataTables CSS -->
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css">
+
+    <!-- jQuery -->
+    <script type="text/javascript" src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <!-- DataTables JS -->
+    <script type="text/javascript" src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
 </head>
 
 <body>
-  <div class="studensPortalHeader">
-    <h1 class="studentPortal">User Log</h1>
-  </div>
-    <!-- LOGO HEADER END-->
-<?php if($_SESSION['alogin']!="")
-{
- include('includes/menubar.php');
-}
- ?>
-    <!-- MENU SECTION END-->
-    <div class="content-wrapper">
-        <div class="container">
-              <div class="row">
-                    <div class="col-md-12">
-                        <h1 class="page-head-line">User logs  </h1>
-                    </div>
+<div class="wrapper">
+    <?php if ($_SESSION['alogin'] != "") {
+        include('includes/menubar.php');
+    }
+    ?>
+    <div id="content">
+        <nav class="navbar navbar-expand-lg ">
+            <div class="container-fluid ">
+                <button type="button" id="sidebarCollapse" class="navbar-btn">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+                <button class="btn btn-dark d-inline-block d-lg-none ml-auto" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <i class="fas fa-align-justify"></i>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="nav navbar-nav ">
+                        <li class="nav-item active">
+                            <a class="nav-link" href="#">Page</a>
+                        </li>
+                    </ul>
                 </div>
-                <div class="row" >
-            
-                <div class="col-md-12">
-                    <!--    Bordered Table  -->
-                    <div class="panel panel-default">
-                        <div class="panel-heading">
-                           User logs
-                        </div>
-                        <!-- /.panel-heading -->
-                        <div class="panel-body">
-                            <div class="table-responsive table-bordered">
-                                <table class="table">
-                                    <thead>
-                                        <tr>
-                                            <th>#</th>
-                                                
-                                                    <th>Student Reg no </th>
-                                            <th>IP  </th>
-                                            <th>Login Time </th>
-                                            
-                                                <th>Logout Time</th>
-                                             <th>Status</th>
-                                    
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <?php
-                                        $sql=mysqli_query($con,"select * from userlog");
-                                        $cnt=1;
-                                        while($row=mysqli_fetch_array($sql))
-                                        {
-                                        ?>
-                                        <tr>
-                                            <td><?php echo $cnt;?></td>
-                                              <td><?php echo htmlentities($row['studentRegno']);?></td>
-                                            <td><?php echo htmlentities($row['userip']);?></td>
-                                            <td><?php echo htmlentities($row['loginTime']);?></td>
-                                            <td><?php echo htmlentities($row['logout']);?></td>
-                                            <td><?php echo htmlentities($row['status']);?></td>
-                                        </tr>
-                                        <?php 
-                                        $cnt++;
-                                     } ?>
+            </div>
+        </nav>
 
-                                        
-                                    </tbody>
-                                </table>
+        <div class="content-wrapper">
+            <div class="container">
+        
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="panel panel-default  card">
+                            <div class="panel-heading">
+                                User logs
+                            </div>
+                            <div class="panel-body">
+                                <div class="table-responsive table-bordered">
+                                    <table id="userLogsTable" class="table">
+                                        <thead>
+                                            <tr>
+                                                <th>#</th>
+                                                <th>Student Reg no</th>
+                                                <th>IP</th>
+                                                <th>Login Time</th>
+                                                <th>Logout Time</th>
+                                                <th>Status</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <?php
+                                            $sql=mysqli_query($con,"select * from userlog");
+                                            $cnt=1;
+                                            while($row=mysqli_fetch_array($sql))
+                                            {
+                                            ?>
+                                            <tr>
+                                                <td><?php echo $cnt;?></td>
+                                                <td><?php echo htmlentities($row['studentRegno']);?></td>
+                                                <td><?php echo htmlentities($row['userip']);?></td>
+                                                <td><?php echo htmlentities($row['loginTime']);?></td>
+                                                <td><?php echo htmlentities($row['logout']);?></td>
+                                                <td><?php echo htmlentities($row['status']);?></td>
+                                            </tr>
+                                            <?php 
+                                            $cnt++;
+                                         } ?>
+                                        </tbody>
+                                    </table>
+                                </div>
                             </div>
                         </div>
                     </div>
-                     <!--  End  Bordered Table  -->
                 </div>
             </div>
         </div>
     </div>
-    <!-- CONTENT-WRAPPER SECTION END-->
-  <?php include('includes/footer.php');?>
-    <!-- FOOTER SECTION END-->
-    <!-- JAVASCRIPT AT THE BOTTOM TO REDUCE THE LOADING TIME  -->
-    <!-- CORE JQUERY SCRIPTS -->
-    <script src="../assets/js/jquery-1.11.1.js"></script>
-    <!-- BOOTSTRAP SCRIPTS  -->
-    <script src="../assets/js/bootstrap.js"></script>
+</div>
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <!-- Popper.JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js" integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ" crossorigin="anonymous"></script>
+    <!-- Bootstrap JS -->
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm" crossorigin="anonymous"></script>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#sidebarCollapse').on('click', function () {
+            $('#sidebar').toggleClass('active');
+            $(this).toggleClass('active');
+        });
+
+        // Initialize DataTable
+        $('#userLogsTable').DataTable();
+    });
+</script>
 </body>
 </html>
 <?php } ?>

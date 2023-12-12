@@ -73,13 +73,13 @@ if (isset($_POST['submit'])) {
             <div class="">
 
                 <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
-                    <li class="navLink px-3 py-2 ">
-                        <img class="homeIcon" src="./assets/img/home.svg">
+                    <li class="navLink px-3 py-2 d-flex ">
+                        <img class="navIcon" src="./assets/img/home.svg">
                         <a href="./index.php">Home </a>
                     </li>
 
-                    <li class="navLink px-3 py-2 ">
-                        <img class="studentIcon" src="./assets/img/student.svg">
+                    <li class="navLink px-3 py-2 d-flex">
+                        <img class="navIcon" src="./assets/img/student.svg">
                         <a href="./home.php">Student Login</a>
                     </li>
                 </ul>

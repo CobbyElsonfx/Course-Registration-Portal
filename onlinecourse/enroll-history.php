@@ -7,19 +7,14 @@ if (strlen($_SESSION['login']) == 0) {
 } else {
 
     if (isset($_GET['del'])) {
-        $courseId = $_GET['id'];
+        $courseId = $_GET['del'];
 
-        mysqli_query($con, "DELETE FROM courseenrolls WHERE (course = '$courseId' AND studentRegno = studentRegno='" . $_SESSION['login'] . "')");
-        echo '<script>alert(<?php echo $courseId . "none"?>)</script>';
+        mysqli_query($con, "DELETE FROM courseenrolls WHERE (course = '$courseId' AND  studentRegno='" . $_SESSION['login'] . "')");
+       echo '<script>alert("' . $courseId . ' none")</script>';
     }
     ?>
-
-
-
-
     <!DOCTYPE html>
     <html xmlns="http://www.w3.org/1999/xhtml">
-
     <head>
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
@@ -31,11 +26,9 @@ if (strlen($_SESSION['login']) == 0) {
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
             integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
             crossorigin="anonymous"></script>
-        <link href="../assets/css/bootstrap.css" rel="stylesheet" />
         <link href="../assets/css/font-awesome.css" rel="stylesheet" />
         <link href="assets/css/style.css" rel="stylesheet" />
     </head>
-
     <body>
         <div class="studensPortalHeader">
             <h1 class="studentPortal">Enrollment History</h1>
@@ -64,6 +57,7 @@ if (strlen($_SESSION['login']) == 0) {
                                                 <th>Level</th>
                                                 <th>Semester</th>
                                                 <th>Enrollment Date</th>
+                                                <th>Action</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -79,12 +73,9 @@ if (strlen($_SESSION['login']) == 0) {
                                         JOIN level ON level.level = courseenrolls.level
                                         JOIN semester ON semester.id = courseenrolls.semester
                                         WHERE courseenrolls.studentRegno='" . $_SESSION['login'] . "'");
-
-                                            $cnt = 1;
+                                            $cnt = 1; 
                                             while ($row = mysqli_fetch_array($sql)) {
                                                 ?>
-
-
                                                 <tr>
                                                     <td>
                                                         <?php echo $cnt; ?>
@@ -103,24 +94,17 @@ if (strlen($_SESSION['login']) == 0) {
                                                         <?php echo htmlentities($row['edate']); ?>
                                                     </td>
                                                     <td>
-                                                    <td>
                                                         <a href="enroll-history.php?del=<?php echo $row['courseId'] ?>"
                                                             onClick="return confirm('Are you sure you want to delete?')">
                                                             <button class="btn btn-danger"><i class="fa fa-trash"></i>
-                                                                Delete</button>
+                                                             Delete</button>
                                                         </a>
-
                                                     </td>
                                                 </tr>
-
-
                                                 <?php
                                                 $cnt++;
                                             } ?>
-
-
                                         </tbody>
-
                                     </table>
                                     <a href="print.php" target="_blank">
                                         <button class="btn btn-primary"><i class="fa fa-print "></i>
@@ -138,8 +122,6 @@ if (strlen($_SESSION['login']) == 0) {
         
         <?php include('includes/footer.php'); ?>
         <script src="assets/js/jquery-1.11.1.js"></script>
-        <script src="assets/js/bootstrap.js"></script>
     </body>
-
     </html>
 <?php } ?>

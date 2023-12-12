@@ -15,8 +15,52 @@ body {
   font-family: "Roboto", sans-serif;
   line-height: 30px;
   min-height: 100vh;
+  width: 100vw;
 }
 
+.table-heading {
+  background-color:#4347a5;
+  color: #fff;
+  padding: 10px;
+  border-radius: 5px;
+  font-size: 18px;
+  margin-bottom: 15px;
+}
+
+
+.panel-default {
+  margin-top: 20px;
+  border: 1px solid #eaeaea;
+  border-radius: 10px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+}
+
+.panel-heading {
+  background-color: #3498db;
+  color: #fff;
+  padding: 15px;
+  border-bottom: 1px solid #2980b9;
+  border-radius: 10px 10px 0 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.overallWrapper {
+  width: 100vw;
+}
+
+
+.dashboard {
+  width: 100% !important;
+  padding: 0 !important;
+  margin: 0 !important;
+}
+
+.sidebar {
+  background-color: var(--seconddary) !important;
+}
 .nav .navLink a:hover {
   background-color: transparent !important;
   background: transparent !important;
@@ -45,11 +89,18 @@ header {
 /* Navbar */
 
 .navbar {
+  position: sticky;
   background-color: var(--seconddary);
 }
 
+.content-wrapper {
+  margin-top:3rem;
+  margin-bottom: 3rem;
+  min-height: 60vh;
+}
+
 .navLink a {
-  font-size: 1.2rem;
+  font-size: 1rem;
   text-decoration: none;
   font-weight: 500;
   position: relative;
@@ -196,14 +247,14 @@ header {
 
 /* portal head for all pages */
 .studensPortalHeader {
-  background-color: var(--primaryColor);
+  background-color: var(--seconddary);
   color: #fff;
   padding: 20px;
   text-align: center;
 }
 
 .studentPortal {
-  font-size: 28px;
+  font-size: 24px;
   font-weight: bold;
 }
 
@@ -392,6 +443,8 @@ label {
   color: #fff;
   align-content: center;
   width: 100%;
+  position:static;
+  bottom: 0;
 }
 
 footer a {

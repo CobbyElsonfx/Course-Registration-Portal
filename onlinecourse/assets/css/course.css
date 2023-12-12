@@ -1,6 +1,15 @@
     
+       
+:root {
+    --primaryColor: #af1aa8;
+    --smoothWhite: rgb(247, 237, 246);
+    --seconddary: rgb(3, 4, 38);
+  }
+       
+       
+       
        .table-heading {
-        background-color: #4347a5;
+        background-color:#4347a5;
         color: #fff;
         padding: 10px;
         border-radius: 5px;

@@ -50,38 +50,59 @@ if (strlen($_SESSION['alogin']) == 0) {
     <meta name="author" content="" />
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+      crossorigin="anonymous"></script>
     <link href="../assets/css/font-awesome.css" rel="stylesheet" />
     <link href="../assets/css/style.css" rel="stylesheet" />
     <!-- Add the DataTables CSS -->
-    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.24/css/jquery.dataTables.css">
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.13.7/css/jquery.dataTables.min.css">
-
+    <link href= "../assets/css/admin_side_nav.css"rel="stylesheet"/>
+    <title>Admin | Manage Students</title>
 </head>
 
 <body>
-    <div class="studensPortalHeader">
-        <h1 class="studentPortal">Manage Students</h1>
-    </div>
-    <?php if ($_SESSION['alogin'] != "") {
-        include('includes/menubar.php');
+
+<div class="wrapper">
+        <!-- Sidebar Holder -->
+        <?php if ($_SESSION['alogin'] != "") {
+      include('includes/menubar.php');
     }
     ?>
-    <!-- MENU SECTION END-->
-    <div class="content-wrapper">
-        <div class="container">
-            <div class="row">
-            </div>
-            <div class="row">
 
+        <!-- Page Content Holder -->
+        <div id="content">
+
+            <nav class="navbar navbar-expand-lg ">
+                <div class="container-fluid ">
+
+                    <button type="button" id="sidebarCollapse" class="navbar-btn">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </button>
+                    <button class="btn btn-dark d-inline-block d-lg-none ml-auto" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                        <i class="fas fa-align-justify"></i>
+                    </button>
+
+                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                        <ul class="nav navbar-nav ">
+                            <li class="nav-item active">
+                                <a class="nav-link" href="#">Page</a>
+                            </li>
+                    </div>
+                </div>
+            </nav>
+            
+            <div >
                 <font color="red" align="center">
                     <?php echo htmlentities($_SESSION['delmsg']); ?>
                     <?php echo htmlentities($_SESSION['delmsg'] = ""); ?>
                 </font>
-                <div class="col-md-12">
+                <div class=" row">
                     <!--    Bordered Table  -->
-                    <div class="panel panel-default">
-                        <!-- /.panel-heading -->
-                        <div class="panel-body">
+                    <div class="panel  mt-5 panel-default">
+                        <div class="panel-body card">
                             <div class="table-responsive table-bordered">
                                 <table class="table">
                                     <thead>
@@ -113,7 +134,8 @@ if (strlen($_SESSION['alogin']) == 0) {
                                                     <?php echo htmlentities($row['creationdate']); ?>
                                                 </td>
                                                 <td>
-                                                    <a href="edit-student-profile.php?id=<?php echo $row['StudentRegno'] ?>">
+                                                    <a
+                                                        href="edit-student-profile.php?id=<?php echo $row['StudentRegno'] ?>">
                                                         <button class="btn btn-primary"><i class="fa fa-edit "></i>
                                                             Edit</button>
                                                     </a>
@@ -138,19 +160,25 @@ if (strlen($_SESSION['alogin']) == 0) {
                     </div>
                     <!--  End  Bordered Table  -->
                 </div>
-            </div>
         </div>
-    </div>
-    <!-- CONTENT-WRAPPER SECTION END-->
-    <?php include('includes/footer.php'); ?>
-    <!-- FOOTER SECTION END-->
-    <!-- JAVASCRIPT AT THE BOTTOM TO REDUCE THE LOADING TIME  -->
-    <!-- CORE JQUERY SCRIPTS -->
-    <script src="../assets/js/jquery-1.11.1.js"></script>
-    <!-- BOOTSTRAP SCRIPTS  -->
-    <script src="../assets/js/bootstrap.js"></script>
-    <!-- Add the DataTables JavaScript -->
-    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.js"></script>
+        </div>
+</div>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <!-- Popper.JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js" integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ" crossorigin="anonymous"></script>
+    <!-- Bootstrap JS -->
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm" crossorigin="anonymous"></script>
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#sidebarCollapse').on('click', function () {
+                $('#sidebar').toggleClass('active');
+                $(this).toggleClass('active');
+            });
+        });
+    </script>
+    <script type="text/javascript" charset="utf8"
+        src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.js"></script>
     <script>
         // DataTable initialization script
         $(document).ready(function () {

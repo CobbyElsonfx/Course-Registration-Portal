@@ -1,0 +1,62 @@
+div class="content-wrapper">
+        <div class="container">
+              <div class="row">
+                    <div class="col-md-12">
+                        <h1 class="page-head-line">User logs  </h1>
+                    </div>
+                </div>
+                <div class="row" >
+            
+                <div class="col-md-12">
+                    <!--    Bordered Table  -->
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                           User logs
+                        </div>
+                        <!-- /.panel-heading -->
+                        <div class="panel-body">
+                            <div class="table-responsive table-bordered">
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th>#</th>
+                                                
+                                                    <th>Student Reg no </th>
+                                            <th>IP  </th>
+                                            <th>Login Time </th>
+                                            
+                                                <th>Logout Time</th>
+                                             <th>Status</th>
+                                    
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <?php
+                                        $sql=mysqli_query($con,"select * from userlog");
+                                        $cnt=1;
+                                        while($row=mysqli_fetch_array($sql))
+                                        {
+                                        ?>
+                                        <tr>
+                                            <td><?php echo $cnt;?></td>
+                                              <td><?php echo htmlentities($row['studentRegno']);?></td>
+                                            <td><?php echo htmlentities($row['userip']);?></td>
+                                            <td><?php echo htmlentities($row['loginTime']);?></td>
+                                            <td><?php echo htmlentities($row['logout']);?></td>
+                                            <td><?php echo htmlentities($row['status']);?></td>
+                                        </tr>
+                                        <?php 
+                                        $cnt++;
+                                     } ?>
+
+                                        
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                     <!--  End  Bordered Table  -->
+                </div>
+            </div>
+        </div>
+    </div>

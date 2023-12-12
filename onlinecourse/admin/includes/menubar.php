@@ -1,17 +1,60 @@
-<header class="p-4 navbar text-white">
-    <div class="container  d-flex justify-content-center">
-        <div class="d-flex align-items-center justify-content-center ">
-            <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
-                <li class="navLink px-2 py-2 bg-transparent"><a href=" manage-students.php">Manage Students</a></li>
-                <li class="navLink px-2 py-2"><a href="student-registration.php">Registration</a></li>
-                <li class="navLink px-2 py-2"><a href="programme.php">Programme</a></li>
-                <!-- <li class="navLink px-2 py-2"><a href="semester.php">Semester </a></li> -->
-                <li class="navLink px-2 py-2"><a href="course.php">Course</a></li>
-                <li class="navLink px-2 py-2" class="navLink"><a href="session.php">Session</a></li>
-                <li class="navLink px-2 py-2"><a href="enroll-history.php">Enrollment History</a></li>
-                <li class="navLink px-2 py-2 "><a href="user-log.php">Student Logs </a></li>
-                <li class="navLink px-2 py-2"><a href="logout.php">Logout</a></li>
+
+  <nav id="sidebar">
+            <div class="sidebar-header">
+                <h3>WATICO</h3>
+            </div>
+
+            <ul class="list-unstyled components">
+                <p>ADMIN DASHBOARD</p>
+                <li class="active">
+                    <a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Manage</a>
+                    <ul class="collapse list-unstyled" id="homeSubmenu">
+                        <li>
+                            <a href="manage-students.php">Students</a>
+                        </li>
+                        <li>
+                            <a href="student-registration.php">Registration</a>
+                        </li>
+                        <li>
+                            <a href="programme.php">Programme</a>
+                        </li>
+                        <li>
+                            <a href="course.php">New Course</a>
+                        </li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="#">History</a>
+                    <a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">History</a>
+                    <ul class="collapse list-unstyled" id="pageSubmenu">
+                        <li>
+                            <a href="enroll-history.php">Enrollment History</a>
+                        </li>
+                        <li>
+                            <a href="user-log.php">User Logs</a>
+                        </li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="analytics.php">Analytics</a>
+                </li>
+                <li>
+                    <a href="#">Results</a>
+                </li>
             </ul>
-        </div>
+            
+    <div class="dropdown "  style="margin-top:4rem;">
+      <a href="#" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle" id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
+      <img class="offcanvasNavIcon m-2" src="../assets/img/logout.svg">
+        <strong>Admin</strong>
+      </a>
+      <ul class="dropdown-menu dropdown-menu-dark text-small shadow" aria-labelledby="dropdownUser1">
+        <li><a class="dropdown-item" href="#">Settings</a></li>
+        <li><a class="dropdown-item" href="#">Profile</a></li>
+        <li><hr class="dropdown-divider"></li>
+        <li><a class="dropdown-item" href="logout.php">Sign out</a></li>
+      </ul>
     </div>
-</header>
+
+     
+        </nav>
