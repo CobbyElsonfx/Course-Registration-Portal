@@ -24,7 +24,6 @@
                     </ul>
                 </li>
                 <li>
-                    <a href="#">History</a>
                     <a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">History</a>
                     <ul class="collapse list-unstyled" id="pageSubmenu">
                         <li>
@@ -35,11 +34,26 @@
                         </li>
                     </ul>
                 </li>
+
                 <li>
                     <a href="analytics.php">Analytics</a>
                 </li>
-                <li>
-                    <a href="#">Results</a>
+    <li>
+                    <a href="#assessSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Assessment</a>
+                    <ul class="collapse list-unstyled" id="assessSubmenu">
+                        <li>
+                            <a href="enroll-history.php">Level 100</a>
+                        </li>
+                        <li>
+                            <a href="enroll-history.php">Level 200</a>
+                        </li>
+                        <li>
+                            <a href="enroll-history.php">Level 300</a>
+                        </li>
+                        <li>
+                            <a href="enroll-history.php">Level 400</a>
+                        </li>
+                    </ul>
                 </li>
             </ul>
             

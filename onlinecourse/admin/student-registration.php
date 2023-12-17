@@ -8,12 +8,16 @@ if (strlen($_SESSION['alogin']) == 0) {
   if (isset($_POST['submit'])) {
     $surname = $_POST['surname'];
     $firstname = $_POST['firstname'];
+    $otherName = $_POST['otherName'];
+    $email = $_POST['email'];
+    $contactNumber = $_POST['contactNumber'];
+    $dob = $_POST['dob'];
     $level = $_POST['level'];
     $programme = $_POST['programme'];
     $studentregno = $_POST['studentregno'];
     $password = md5($_POST['password']);
     $pincode = rand(100000, 999999);
-    $ret = mysqli_query($con, "insert into students(studentregno,surname,firstname,level,programme,password,pincode) values('$studentregno','$surname','$firstname','$level', '$programme','$password','$pincode')");
+    $ret = mysqli_query($con, "insert into students(studentregno,surname,firstname,otherName,email,contactNumber,level,programme,password,pincode) values('$studentregno','$surname','$firstname','$otherName','$email','$contactNumber','$level','$programme','$password','$pincode')");
     if ($ret) {
       echo '<script>alert("Student Registered Successfully")</script>';
       echo '<script>window.location.href=manage-students.php</script>';
@@ -40,45 +44,67 @@ if (strlen($_SESSION['alogin']) == 0) {
     // Allow certain file formats
     $allowedTypes = array('xls', 'xlsx');
     if (in_array($fileType, $allowedTypes)) {
-      // Upload file to server
-      if (move_uploaded_file($_FILES["excelFile"]["tmp_name"], $targetFilePath)) {
-        // Load Excel file
-        require '../../vendor/autoload.php'; // Include the Composer autoloader
-        $spreadsheet = \PhpOffice\PhpSpreadsheet\IOFactory::load($targetFilePath);
+        // Upload file to server
+        if (move_uploaded_file($_FILES["excelFile"]["tmp_name"], $targetFilePath)) {
+            // Load Excel file
+            require '../../vendor/autoload.php'; // Include the Composer autoloader
+            $spreadsheet = \PhpOffice\PhpSpreadsheet\IOFactory::load($targetFilePath);
 
-        // Get the first worksheet
-        $worksheet = $spreadsheet->getActiveSheet();
+            // Get the first worksheet
+            $worksheet = $spreadsheet->getActiveSheet();
 
-        // Loop through rows starting from row 2 (assuming the first row is headers)
-        foreach ($worksheet->getRowIterator(2) as $row) {
-          $studentregno = $worksheet->getCellByColumnAndRow(1, $row->getRowIndex())->getValue();
-          $surname = $worksheet->getCellByColumnAndRow(2, $row->getRowIndex())->getValue();
-          $firstname = $worksheet->getCellByColumnAndRow(3, $row->getRowIndex())->getValue();
-          $programme = $worksheet->getCellByColumnAndRow(4, $row->getRowIndex())->getValue();
+            // Check if mandatory columns are present in the Excel file
+            $mandatoryColumns = array('studentRegno', 'surname', 'firstname', 'programme', 'creationDate', 'cleared', 'level', 'email', 'contactNumber');
+    
+    // Get the first row (header row) from the worksheet
+    $headerRow = $worksheet->getRowIterator(1)->current();
 
+    // Extract column names from the header row
+    $columnsInFile = [];
+    foreach ($headerRow->getCellIterator() as $cell) {
+        $columnsInFile[] = $cell->getValue();
+    }  
 
-          $query = "INSERT INTO students (surname, firstname, programme, studentregno) 
-                          VALUES ('$surname', '$firstname', '$programme', '$studentregno')
-                          ON DUPLICATE KEY UPDATE surname = VALUES(surname), firstname = VALUES(firstname),
-                          programme = VALUES(programme)";
-          mysqli_query($con, $query);
-        }
+    $missingColumns = array_diff($mandatoryColumns, $columnsInFile);
 
-        // Close Excel file and remove uploaded file
-        $spreadsheet->disconnectWorksheets();
-        unlink($targetFilePath);
-
-        echo '<script>alert("Database updated successfully!")</script>';
+    if (!empty($missingColumns)) {
+        $missingColumnsStr = implode(', ', $missingColumns);
+        echo "<script>alert('Error: The following mandatory columns are missing in the Excel file: $missingColumnsStr')</script>";
         echo '<script>window.location.href=student-registration.php</script>';
-      } else {
-        echo '<script>alert("Error uploading file. Please try again.")</script>';
-        echo '<script>window.location.href=student-registration.php</script>';
-      }
-    } else {
-      echo '<script>alert("Invalid file format. Please upload a valid Excel file.")</script>';
-      echo '<script>window.location.href=student-registration.php</script>';
+        exit(); // Stop further execution
     }
-  }
+
+
+            // Loop through rows starting from row 2 (assuming the first row is headers)
+            foreach ($worksheet->getRowIterator(2) as $row) {
+                $studentregno = $worksheet->getCellByColumnAndRow(1, $row->getRowIndex())->getValue();
+                $surname = $worksheet->getCellByColumnAndRow(2, $row->getRowIndex())->getValue();
+                $firstname = $worksheet->getCellByColumnAndRow(3, $row->getRowIndex())->getValue();
+                $programme = $worksheet->getCellByColumnAndRow(4, $row->getRowIndex())->getValue();
+
+                $query = "INSERT INTO students (surname, firstname, programme, studentregno) 
+                              VALUES ('$surname', '$firstname', '$programme', '$studentregno')
+                              ON DUPLICATE KEY UPDATE surname = VALUES(surname), firstname = VALUES(firstname),
+                programme = VALUES(programme)";
+                mysqli_query($con, $query);
+            }
+
+            // Close Excel file and remove uploaded file
+            $spreadsheet->disconnectWorksheets();
+            unlink($targetFilePath);
+
+            echo '<script>alert("Database updated successfully!")</script>';
+            echo '<script>window.location.href=student-registration.php</script>';
+        } else {
+            echo '<script>alert("Error uploading file. Please try again.")</script>';
+            echo '<script>window.location.href=student-registration.php</script>';
+        }
+    } else {
+        echo '<script>alert("Invalid file format. Please upload a valid Excel file.")</script>';
+        echo '<script>window.location.href=student-registration.php</script>';
+    }
+}
+
   ?>
 
 
@@ -135,13 +161,13 @@ if (strlen($_SESSION['alogin']) == 0) {
                 </div>
             </nav>
             
-            <div class="panel panel-default  m-auto">
+            <div class="  m-auto">
               <!-- <font color="green" align="center">
                 <?php echo htmlentities($_SESSION['msg']); ?>
                 <?php echo htmlentities($_SESSION['msg'] = ""); ?>
               </font> -->
               <div class="panel-body m-auto" class=" shadow-lg" style="width:80%">
-                <form class="card shadow-lg" name="dept" method="post">
+                <form class="card shadow-lg" name="programme" method="post">
                   <div class="d-flex flex-row justify-content-between">
                     <div class="form-group "  style="width:45%">
                       <label for="surname">Surname </label>
@@ -161,9 +187,24 @@ if (strlen($_SESSION['alogin']) == 0) {
                     </div>
                     <div class="form-group">
                       <label for="email">Email </label>
-                      <input type="text" class="form-control" id="email" name="email" placeholder="example@gmail.com"
+                      <input type="email" class="form-control" id="email" name="email" placeholder="example@gmail.com"
                          />
                     </div>
+                    <div class="d-flex justify-content-between">
+                    <div class="form-group"  style="width:45%">
+                      <label for="contactNumber">Contact Number</label>
+                      <input type="telephone" class="form-control" id="contactNumber" name="contactNumber" placeholder="example@gmail.com"
+                        required />
+                    </div>
+                    <div class="form-group"  style="width:45%">
+                      <label for="dob">Date of Birth</label>
+                      <input type="date" class="form-control" id="dob" name="dob" placeholder="example@gmail.com"
+                        required />
+                    </div>
+
+                    </div>
+
+
 
                   <div class="form-group">
                     <label for="Programme">Programme</label>
