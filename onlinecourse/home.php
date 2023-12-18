@@ -8,7 +8,7 @@ if (isset($_POST['submit'])) {
     $password = md5($_POST['password']);
 
     // Add the check for cleared account in the SQL query
-    $query = mysqli_query($con, "SELECT * FROM students WHERE StudentRegno='$regno' AND password='$password' AND cleared = 1");
+    $query = mysqli_query($con, "SELECT * FROM students WHERE studentRegno='$regno' AND password='$password' AND cleared = 1");
     $num = mysqli_fetch_array($query);
 
     if ($num > 0) {

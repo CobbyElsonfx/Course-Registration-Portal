@@ -11,7 +11,7 @@ if (strlen($_SESSION['login']) == 0) {
     $firstname = $_POST['fistname'];
     $photo = $_FILES["photo"]["name"];
     move_uploaded_file($_FILES["photo"]["tmp_name"], "studentphoto/" . $_FILES["photo"]["name"]);
-    $ret = mysqli_query($con, "update students set surname='$surname',firstname='$firstname',studentPhoto='$photo', where StudentRegno='" . $_SESSION['login'] . "'");
+    $ret = mysqli_query($con, "update students set surname='$surname',firstname='$firstname',studentPhoto='$photo', where studentRegno='" . $_SESSION['login'] . "'");
     if ($ret) {
       echo '<script>alert("Student Record updated Successf
       ully !!")</script>';
@@ -62,7 +62,7 @@ if (strlen($_SESSION['login']) == 0) {
           <?php echo htmlentities($_SESSION['msg']); ?>
           <?php echo htmlentities($_SESSION['msg'] = ""); ?>
         </font>
-        <?php $sql = mysqli_query($con, "select * from students where StudentRegno='" . $_SESSION['login'] . "'");
+        <?php $sql = mysqli_query($con, "select * from students where studentRegno='" . $_SESSION['login'] . "'");
         $cnt = 1;
         while ($row = mysqli_fetch_array($sql)) { ?>
           <div class="row">
@@ -112,7 +112,7 @@ if (strlen($_SESSION['login']) == 0) {
                       <div class="d-flex flex-row">
                         <div  class="px-3">Index/Ref Number: </div>
                         <div>
-                          <?php echo htmlentities($row['StudentRegno']); ?>
+                          <?php echo htmlentities($row['studentRegno']); ?>
                         </div>
                       </div>
                       <?php

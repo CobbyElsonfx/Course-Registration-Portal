@@ -33,7 +33,7 @@ if (strlen($_SESSION['login']) == 0) {
   }
 
   // Fetch student details based on session login
-  $sql = mysqli_query($con, "SELECT * FROM students WHERE StudentRegno='" . $_SESSION['login'] . "'");
+  $sql = mysqli_query($con, "SELECT * FROM students WHERE studentRegno='" . $_SESSION['login'] . "'");
   $row = mysqli_fetch_array($sql);
 
 
@@ -77,7 +77,7 @@ if (strlen($_SESSION['login']) == 0) {
                 <?php echo htmlentities($_SESSION['msg']); ?>
                 <?php echo htmlentities($_SESSION['msg'] = ""); ?>
               </font>
-              <?php $sql = mysqli_query($con, "select * from students where StudentRegno='" . $_SESSION['login'] . "'");
+              <?php $sql = mysqli_query($con, "select * from students where studentRegno='" . $_SESSION['login'] . "'");
               $cnt = 1;
               while ($row = mysqli_fetch_array($sql)) { ?>
                 <div class="panel-body">
@@ -105,7 +105,7 @@ if (strlen($_SESSION['login']) == 0) {
                     <div class="form-group">
                       <label for="studentregno">Student Index/Ref No.</label>
                       <input type="text" class="form-control" id="studentregno" name="studentregno"
-                        value="<?php echo htmlentities($row['StudentRegno']); ?>" placeholder="Student Reg no" readonly />
+                        value="<?php echo htmlentities($row['studentRegno']); ?>" placeholder="Student Reg no" readonly />
                     </div>
                     <!-- <div class="form-group">
                     <label for="Pincode">Student Photo</label>
@@ -122,7 +122,7 @@ if (strlen($_SESSION['login']) == 0) {
                       <?php
                       // Fetch the student's program information
                       $regno = $_SESSION['login'];
-                      $programQuery = mysqli_query($con, "SELECT programme FROM students WHERE StudentRegno = '$regno'");
+                      $programQuery = mysqli_query($con, "SELECT programme FROM students WHERE studentRegno = '$regno'");
 
                       if ($programData = mysqli_fetch_array($programQuery)) {
                         $programId = $programData['programme'];
@@ -148,7 +148,7 @@ if (strlen($_SESSION['login']) == 0) {
                       <?php
                       // Fetch the current student's level information
                       $regno = $_SESSION['login'];
-                      $levelQuery = mysqli_query($con, "SELECT level FROM students WHERE StudentRegno = '$regno'");
+                      $levelQuery = mysqli_query($con, "SELECT level FROM students WHERE studentRegno = '$regno'");
 
                       if ($levelData = mysqli_fetch_array($levelQuery)) {
                         $currentLevel = $levelData['level'];
@@ -181,8 +181,8 @@ if (strlen($_SESSION['login']) == 0) {
                   
                       // Fetch student's program and level information
                       $regno = $_SESSION['login'];
-                      $programQuery = mysqli_query($con, "SELECT programme FROM students WHERE StudentRegno = '$regno'");
-                      $levelQuery = mysqli_query($con, "SELECT level FROM students WHERE StudentRegno = '$regno'");
+                      $programQuery = mysqli_query($con, "SELECT programme FROM students WHERE studentRegno = '$regno'");
+                      $levelQuery = mysqli_query($con, "SELECT level FROM students WHERE studentRegno = '$regno'");
 
 
 

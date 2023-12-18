@@ -229,7 +229,7 @@ INSERT INTO `session` (`id`, `session`, `creationDate`) VALUES
 --
 
 CREATE TABLE `students` (
-  `StudentRegno` varchar(255) NOT NULL,
+  `studentRegno` varchar(255) NOT NULL,
   `studentPhoto` varchar(255) DEFAULT NULL,
   `password` varchar(255) DEFAULT NULL,
   `surname` varchar(255) DEFAULT NULL,
@@ -237,7 +237,6 @@ CREATE TABLE `students` (
   `programme` varchar(255) DEFAULT NULL,
   `pincode` varchar(255) DEFAULT NULL,
   `session` varchar(255) DEFAULT NULL,
-  `department` varchar(255) DEFAULT NULL,
   `semester` varchar(255) DEFAULT NULL,
   `currentSemester` varchar(255) DEFAULT NULL,
   `creationdate` timestamp NULL DEFAULT current_timestamp(),
@@ -250,7 +249,7 @@ CREATE TABLE `students` (
 -- Dumping data for table `students`
 --
 
-INSERT INTO `students` (`StudentRegno`, `studentPhoto`, `password`, `surname`, `firstname`, `programme`, `pincode`, `session`, `department`, `semester`, `currentSemester`, `creationdate`, `updationDate`, `cleared`, `level`) VALUES
+INSERT INTO `students` (`studentRegno`, `studentPhoto`, `password`, `surname`, `firstname`, `programme`, `pincode`, `session`, `department`, `semester`, `currentSemester`, `creationdate`, `updationDate`, `cleared`, `level`) VALUES
 ('200043840', NULL, '0f043135ebe409fc7569edb6f3b24f8f', 'Adusei ', 'Bright', '2', '808520', NULL, NULL, NULL, NULL, '2023-11-14 02:05:09', NULL, 1, 300),
 ('200045598', NULL, '5961676945827fa8ed6f8a6287257cdb', 'Ebenezer ', 'Adu', '3', '732781', NULL, NULL, NULL, NULL, '2023-11-14 02:09:59', NULL, 1, 400);
 

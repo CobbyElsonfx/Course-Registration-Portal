@@ -8,7 +8,7 @@ if (strlen($_SESSION['alogin']) == 0) {
 } else {
     // Code for Deletion
     if (isset($_GET['del'])) {
-        mysqli_query($con, "delete from students where StudentRegno = '" . $_GET['id'] . "'");
+        mysqli_query($con, "delete from students where studentRegno = '" . $_GET['id'] . "'");
         echo '<script>alert("Student Record Deleted Successfully !!")</script>';
         echo '<script>window.location.href=manage-students.php</script>';
     }
@@ -30,7 +30,7 @@ if (strlen($_SESSION['alogin']) == 0) {
         $randomPassword = generateRandomPassword();
 
         $newpass = md5($randomPassword);
-        mysqli_query($con, "update students set password='$newpass' where StudentRegno = '" . $_GET['id'] . "'");
+        mysqli_query($con, "update students set password='$newpass' where studentRegno = '" . $_GET['id'] . "'");
         echo '<script>alert("Password Reset. New Password is ' . $randomPassword . '")</script>';
         echo '<script>window.location.href=manage-students.php</script>';
     }
@@ -125,7 +125,7 @@ if (strlen($_SESSION['alogin']) == 0) {
                                                     <?php echo $cnt; ?>
                                                 </td>
                                                 <td>
-                                                    <?php echo htmlentities($row['StudentRegno']); ?>
+                                                    <?php echo htmlentities($row['studentRegno']); ?>
                                                 </td>
                                                 <td>
                                                     <?php echo htmlentities($row['surname'] . " " . $row['firstname']); ?>
@@ -135,15 +135,15 @@ if (strlen($_SESSION['alogin']) == 0) {
                                                 </td>
                                                 <td>
                                                     <a
-                                                        href="edit-student-profile.php?id=<?php echo $row['StudentRegno'] ?>">
+                                                        href="edit-student-profile.php?id=<?php echo $row['studentRegno'] ?>">
                                                         <button class="btn btn-primary"><i class="fa fa-edit "></i>
                                                             Edit</button>
                                                     </a>
-                                                    <a href="manage-students.php?id=<?php echo $row['StudentRegno'] ?>&del=delete"
+                                                    <a href="manage-students.php?id=<?php echo $row['studentRegno'] ?>&del=delete"
                                                         onClick="return confirm('Are you sure you want to delete?')">
                                                         <button class="btn btn-primary">Delete</button>
                                                     </a>
-                                                    <a href="manage-students.php?id=<?php echo $row['StudentRegno'] ?>&pass=update"
+                                                    <a href="manage-students.php?id=<?php echo $row['studentRegno'] ?>&pass=update"
                                                         onClick="return confirm('Are you sure you want to reset password?')">
                                                         <button type="submit" name="submit" id="submit"
                                                             class="btn btn-default">Reset Password</button>

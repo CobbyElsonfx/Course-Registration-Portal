@@ -8,13 +8,13 @@ if (strlen($_SESSION['a_login']) == 0) {
         $studentIndex = trim($_POST['studentIndex']); // Trim whitespaces
         $studentIndex = mysqli_real_escape_string($con, $studentIndex); // Escape the string for use in a query
         $studentIndex = $_POST['studentIndex'];
-        $sql = "SELECT * FROM students WHERE StudentRegno = '$studentIndex'";
+        $sql = "SELECT * FROM students WHERE studentRegno = '$studentIndex'";
         $result = mysqli_query($con, $sql);
     }
 
     if (isset($_POST['markCleared'])) {
         $studentIndex = $_POST['studentIndex'];
-        $updateQuery = "UPDATE students SET cleared = 1 WHERE StudentRegno = '$studentIndex'";
+        $updateQuery = "UPDATE students SET cleared = 1 WHERE studentRegno = '$studentIndex'";
         $updateResult = mysqli_query($con, $updateQuery);
 
         echo '<script>alert("Student marked as cleared and portal activated!");</script>';
@@ -92,7 +92,7 @@ if (strlen($_SESSION['a_login']) == 0) {
                                             <?php while ($row = mysqli_fetch_array($result)) { ?>
                                                 <tr>
                                                     <td>
-                                                        <?php echo htmlentities($row['StudentRegno']); ?>
+                                                        <?php echo htmlentities($row['studentRegno']); ?>
                                                     </td>
                                                     <td>
                                                         <?php echo htmlentities($row['surname']); ?>

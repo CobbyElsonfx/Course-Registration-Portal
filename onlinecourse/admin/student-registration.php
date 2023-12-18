@@ -17,7 +17,7 @@ if (strlen($_SESSION['alogin']) == 0) {
     $studentregno = $_POST['studentregno'];
     $password = md5($_POST['password']);
     $pincode = rand(100000, 999999);
-    $ret = mysqli_query($con, "insert into students(studentregno,surname,firstname,otherName,email,contactNumber,level,programme,password,pincode) values('$studentregno','$surname','$firstname','$otherName','$email','$contactNumber','$level','$programme','$password','$pincode')");
+    $ret = mysqli_query($con, "insert into students(studentRegno,surname,firstname,otherName,email,contactNumber,level,programme,password,pincode) values('$studentregno','$surname','$firstname','$otherName','$email','$contactNumber','$level','$programme','$password','$pincode')");
     if ($ret) {
       echo '<script>alert("Student Registered Successfully")</script>';
       echo '<script>window.location.href=manage-students.php</script>';
@@ -32,7 +32,6 @@ if (strlen($_SESSION['alogin']) == 0) {
     $targetDir = "uploads/";
     $fileName = basename($_FILES["excelFile"]["name"]);
     $targetFilePath = $targetDir . $fileName;
-    $fileName = basename($_FILES["excelFile"]["name"]);
     $fileType = pathinfo($fileName, PATHINFO_EXTENSION);
 
     $sanitizedFileName = preg_replace("/[^a-zA-Z0-9_-]/", "", $fileName);
@@ -53,39 +52,22 @@ if (strlen($_SESSION['alogin']) == 0) {
             // Get the first worksheet
             $worksheet = $spreadsheet->getActiveSheet();
 
-            // Check if mandatory columns are present in the Excel file
-            $mandatoryColumns = array('studentRegno', 'surname', 'firstname', 'programme', 'creationDate', 'cleared', 'level', 'email', 'contactNumber');
-    
-    // Get the first row (header row) from the worksheet
-    $headerRow = $worksheet->getRowIterator(1)->current();
-
-    // Extract column names from the header row
-    $columnsInFile = [];
-    foreach ($headerRow->getCellIterator() as $cell) {
-        $columnsInFile[] = $cell->getValue();
-    }  
-
-    $missingColumns = array_diff($mandatoryColumns, $columnsInFile);
-
-    if (!empty($missingColumns)) {
-        $missingColumnsStr = implode(', ', $missingColumns);
-        echo "<script>alert('Error: The following mandatory columns are missing in the Excel file: $missingColumnsStr')</script>";
-        echo '<script>window.location.href=student-registration.php</script>';
-        exit(); // Stop further execution
-    }
-
-
             // Loop through rows starting from row 2 (assuming the first row is headers)
             foreach ($worksheet->getRowIterator(2) as $row) {
-                $studentregno = $worksheet->getCellByColumnAndRow(1, $row->getRowIndex())->getValue();
-                $surname = $worksheet->getCellByColumnAndRow(2, $row->getRowIndex())->getValue();
-                $firstname = $worksheet->getCellByColumnAndRow(3, $row->getRowIndex())->getValue();
-                $programme = $worksheet->getCellByColumnAndRow(4, $row->getRowIndex())->getValue();
+                $studentregno = $worksheet->getCell('A' . $row->getRowIndex())->getValue();
+                $surname = $worksheet->getCell('D' . $row->getRowIndex())->getValue();
+                $firstname = $worksheet->getCell('E' . $row->getRowIndex())->getValue();
+                $othername = $worksheet->getCell('F' . $row->getRowIndex())->getValue();
+                $programme = $worksheet->getCell('G' . $row->getRowIndex())->getValue();
+                $level = $worksheet->getCell('K' . $row->getRowIndex())->getValue();
+                $email = $worksheet->getCell('L' . $row->getRowIndex())->getValue();
+                $contactNumber = $worksheet->getCell('M' . $row->getRowIndex())->getValue();
+                $dob = $worksheet->getCell('N' . $row->getRowIndex())->getValue();
 
-                $query = "INSERT INTO students (surname, firstname, programme, studentregno) 
-                              VALUES ('$surname', '$firstname', '$programme', '$studentregno')
-                              ON DUPLICATE KEY UPDATE surname = VALUES(surname), firstname = VALUES(firstname),
-                programme = VALUES(programme)";
+                $query = "INSERT INTO students (studentRegno,surname, firstname, otherName, programme ,level, email, contactNumber,dob ) 
+                          VALUES ('$studentregno','$surname', '$firstname', '$othername' , '$programme', '$level','$email','$contactNumber', '$dob' )
+                          ON DUPLICATE KEY UPDATE surname = VALUES(surname), firstname = VALUES(firstname),
+                          programme = VALUES(programme)";
                 mysqli_query($con, $query);
             }
 
@@ -104,6 +86,7 @@ if (strlen($_SESSION['alogin']) == 0) {
         echo '<script>window.location.href=student-registration.php</script>';
     }
 }
+
 
   ?>
 
@@ -251,7 +234,14 @@ if (strlen($_SESSION['alogin']) == 0) {
                     <input type="file" class="form-control" id="excelFile" name="excelFile" accept=".xls, .xlsx"
                       required />
                   </div>
+                  <div class="d-flex justify-content-between">
                   <button type="submit" name="upload" class="btn mt-5 btn-default">Upload Excel</button>
+                  <a href="./uploads/1702831760_657f2690aa30b.xlsx" download="excel_template">             
+                  <button type="button" class="btn mt-5 btn-default">Download Template</button>
+</a>
+
+                    
+                  </div>
                 </form>
               </div>
             </div>

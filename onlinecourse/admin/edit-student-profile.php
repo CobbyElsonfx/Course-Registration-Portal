@@ -18,7 +18,7 @@ if (strlen($_SESSION['alogin']) == 0) {
 
     $photo = $_FILES["photo"]["name"];
     move_uploaded_file($_FILES["photo"]["tmp_name"], "studentphoto/" . $_FILES["photo"]["name"]);
-    $ret = mysqli_query($con, "update students set surname='$surname', firstname='$firstname', otherName= '$otherName',dob = '$dob',email= '$email', contactNumber='$contactNumber', programme='$programme' ,studentPhoto='$photo' where StudentRegno='$regid'");
+    $ret = mysqli_query($con, "update students set surname='$surname', firstname='$firstname', otherName= '$otherName',dob = '$dob',email= '$email', contactNumber='$contactNumber', programme='$programme' ,studentPhoto='$photo' where studentRegno='$regid'");
     if ($ret) {
       echo '<script>alert("Student Record updated Successfully !!")</script>';
       echo '<script>window.location.href=manage-students.php</script>';
@@ -79,7 +79,7 @@ if (strlen($_SESSION['alogin']) == 0) {
               <?php
               $regid = intval($_GET['id']);
 
-              $sql = mysqli_query($con, "select * from students where StudentRegno='$regid'");
+              $sql = mysqli_query($con, "select * from students where studentRegno='$regid'");
               $cnt = 1;
               while ($row = mysqli_fetch_array($sql)) { ?>
 
@@ -123,7 +123,7 @@ if (strlen($_SESSION['alogin']) == 0) {
                     <div class="form-group">
                       <label for="studentregno">Student Index/Ref No </label>
                       <input type="text" class="form-control" id="studentregno" name="studentregno"
-                        value="<?php echo htmlentities($row['StudentRegno']); ?>" placeholder="Student Reg no" readonly />
+                        value="<?php echo htmlentities($row['studentRegno']); ?>" placeholder="Student Reg no" readonly />
                     </div>
                     <div class="form-group">
                       <label for="studentphoto">Student Photo </label>
