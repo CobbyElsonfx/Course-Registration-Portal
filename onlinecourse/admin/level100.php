@@ -6,20 +6,15 @@ if (strlen($_SESSION['alogin']) == 0) {
 } else {
 
   if (isset($_POST['submit'])) {
-    $surname = $_POST['surname'];
-    $firstname = $_POST['firstname'];
-    $otherName = $_POST['otherName'];
-    $email = $_POST['email'];
-    $contactNumber = $_POST['contactNumber'];
-    $dob = $_POST['dob'];
     $level = $_POST['level'];
-    $programme = $_POST['programme'];
-    $studentregno = $_POST['studentregno'];
-    $password = md5($_POST['password']);
-    $pincode = rand(100000, 999999);
-    $ret = mysqli_query($con, "insert into students(studentRegno,surname,firstname,otherName,email,contactNumber,level,programme,password,pincode,dob) values('$studentregno','$surname','$firstname','$otherName','$email','$contactNumber','$level','$programme','$password','$pincode', '$dob')");
+    $semester = $_POST['sem'];
+    $courseCode = $_POST['courseCode'];
+    $grade = $_POST['grade'];
+    $studentRegno = $_POST['studentRegno'];
+  
+    $ret = mysqli_query($con, "insert into results(studentRegno,courseCode,level,grade,semester) values('$studentRegno','$courseCode','$level','$grade','$semester')");
     if ($ret) {
-      echo '<script>alert("Student Registered Successfully")</script>';
+      echo '<script>alert("Results Uploaded Successfully")</script>';
       echo '<script>window.location.href=manage-students.php</script>';
     } else {
       echo '<script>alert("Something went wrong. Please try again.")</script>';
@@ -55,19 +50,14 @@ if (strlen($_SESSION['alogin']) == 0) {
             // Loop through rows starting from row 2 (assuming the first row is headers)
             foreach ($worksheet->getRowIterator(2) as $row) {
                 $studentregno = $worksheet->getCell('A' . $row->getRowIndex())->getValue();
-                $surname = $worksheet->getCell('D' . $row->getRowIndex())->getValue();
-                $firstname = $worksheet->getCell('E' . $row->getRowIndex())->getValue();
-                $othername = $worksheet->getCell('F' . $row->getRowIndex())->getValue();
-                $programme = $worksheet->getCell('G' . $row->getRowIndex())->getValue();
-                $level = $worksheet->getCell('K' . $row->getRowIndex())->getValue();
-                $email = $worksheet->getCell('L' . $row->getRowIndex())->getValue();
-                $contactNumber = $worksheet->getCell('M' . $row->getRowIndex())->getValue();
-                $dob = $worksheet->getCell('N' . $row->getRowIndex())->getValue();
+                $courseCode = $worksheet->getCell('D' . $row->getRowIndex())->getValue();
+                $grade = $worksheet->getCell('E' . $row->getRowIndex())->getValue();
+                $semester = $worksheet->getCell('F' . $row->getRowIndex())->getValue();
+                $level = $worksheet->getCell('G' . $row->getRowIndex())->getValue();
+               
 
-                $query = "INSERT INTO students (studentRegno,surname, firstname, otherName, programme ,level, email, contactNumber,dob ) 
-                          VALUES ('$studentregno','$surname', '$firstname', '$othername' , '$programme', '$level','$email','$contactNumber', '$dob' )
-                          ON DUPLICATE KEY UPDATE surname = VALUES(surname), firstname = VALUES(firstname),
-                          programme = VALUES(programme)";
+                $query = "INSERT INTO course (studentRegno,courseCode, grade, semester,level ) 
+                          VALUES ('$studentregno','$courseCode', '$grade', '$semester', '$level')";
                 mysqli_query($con, $query);
             }
 
@@ -76,14 +66,14 @@ if (strlen($_SESSION['alogin']) == 0) {
             unlink($targetFilePath);
 
             echo '<script>alert("Database updated successfully!")</script>';
-            echo '<script>window.location.href=student-registration.php</script>';
+            echo '<script>window.location.href=level400.php</script>';
         } else {
             echo '<script>alert("Error uploading file. Please try again.")</script>';
-            echo '<script>window.location.href=student-registration.php</script>';
+            echo '<script>window.location.href=level400.php</script>';
         }
     } else {
         echo '<script>alert("Invalid file format. Please upload a valid Excel file.")</script>';
-        echo '<script>window.location.href=student-registration.php</script>';
+        echo '<script>window.location.href=level400.php</script>';
     }
 }
 
@@ -100,7 +90,7 @@ if (strlen($_SESSION['alogin']) == 0) {
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
     <meta name="description" content="" />
     <meta name="author" content="" />
-    <title>Admin | Student Registration</title>
+    <title>Admin | Level 100 results</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
       integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
@@ -150,99 +140,94 @@ if (strlen($_SESSION['alogin']) == 0) {
                 <?php echo htmlentities($_SESSION['msg'] = ""); ?>
               </font> -->
               <div class="panel-body m-auto" class=" shadow-lg" style="width:80%">
-                <form class="card shadow-lg" name="programme" method="post">
-                  <div class="d-flex flex-row justify-content-between">
-                    <div class="form-group "  style="width:45%">
-                      <label for="surname">Surname </label>
-                      <input type="text" class="form-control" id="surname" name="surname" placeholder="surname"
-                        required />
-                    </div>
-                    <div class="form-group"  style="width:45%">
-                      <label for="firtname">Firstname </label>
-                      <input type="text" class="form-control" id="firtname" name="firstname" placeholder="firstname"
-                        required />
-                    </div>
-                  </div>
-                  <div class="form-group">
-                      <label for="otherName">Other Name</label>
-                      <input type="text" class="form-control" id="otherName" name="otherName" placeholder="Other Name"
-                         />
-                    </div>
-                    <div class="form-group">
-                      <label for="email">Email </label>
-                      <input type="email" class="form-control" id="email" name="email" placeholder="example@gmail.com"
-                         />
-                    </div>
-                    <div class="d-flex justify-content-between">
-                    <div class="form-group"  style="width:45%">
-                      <label for="contactNumber">Contact Number</label>
-                      <input type="telephone" class="form-control" id="contactNumber" name="contactNumber" placeholder="+233 **** *** ***"
-                        required />
-                    </div>
-                    <div class="form-group"  style="width:45%">
-                      <label for="dob">Date of Birth</label>
-                      <input type="date" class="form-control" id="dob" name="dob" placeholder="example@gmail.com"
-                        required />
-                    </div>
+            
+                <form class="card shadow-lg"  method="post">
+                <div>
+                <h4>Add Results</h4>
+              </div>
+                <div class="form-group">
+                    <label for="studentRegno">Student Index/Ref Number </label>
+                    <input type="text" class="form-control" id="studentRegno" name="studentRegno"
+                       placeholder="eg: 200045681" required />
 
-                    </div>
-                    <div class="d-flex flex-row justify-content-between">
-                    <div class="form-group"   style="width:45%">
-                    <label for="Programme">Programme</label>
-                    <select class="form-control" name="programme" required="required">
-                      <option value="">Select Programme</option>
-                      <?php
-
-                      $sql = mysqli_query($con, "SELECT * FROM programme");
-                      while ($row = mysqli_fetch_array($sql)) {
-                        ?>
-                        <option value="<?php echo htmlentities($row['id']); ?>">
-                          <?php echo htmlentities($row['category'] . ' - ' . $row['program']); ?>
-                        </option>
-                      <?php } ?>
-                    </select>
                   </div>
-                  <div class="form-group mx-2"  style="width:20%">
+                  <div class="d-flex justify-content-between"> 
+                  <div class="form-group" style="width:65%">
                     <label for="level">Level</label>
                     <select class="form-control" id="level" name="level" required>
                       <option value="100">Level 100</option>
-                      <option value="200">Level 200</option>
-                      <option value="300">Level 300</option>
-                      <option value="400">Level 400</option>
                     </select>
                   </div>
-                  <div class="form-group">
-                    <label for="studentregno">Student Index/Ref Number </label>
-                    <input type="text" class="form-control" id="studentregno" name="studentregno"
-                      onBlur="userAvailability()" placeholder="Student Reg no" required />
-                    <span id="user-availability-status1" style="font-size:12px;">
-                  </div>
+                  <div class="form-group"  style="width:30%">
+                      <label for="Semester">Semester</label>
+                      <select class="form-control" name="sem" required="required">
+                        <option value="">Select Semester</option>
+                        <?php
+                        $sql_sem = mysqli_query($con, "select * from semester");
+                        while ($row_sem = mysqli_fetch_array($sql_sem)) {
+                          ?>
+                          <option value="<?php echo htmlentities($row_sem['id']); ?>">
+                            <?php echo htmlentities($row_sem['semester']); ?>
+                          </option>
+                        <?php } ?>
+                      </select>
                     </div>
+                    
 
-
-
-       
-                  <div class="form-group">
-                    <label for="password">Password </label>
-                    <input type="password" minlength="6" maxlength="10" class="form-control" id="password" name="password"
-                      placeholder="Enter password" required />
                   </div>
-                  <button type="submit" name="submit" id="submit" class="btn btn-default mt-4">Submit</button>
+           
+                    
+
+                <div  class="d-flex justify-content-between">
+                <div class="form-group" style="width:85%">
+                      <label for="course">Courese Code</label>
+                      <select class="form-control" name="sem" required="required">
+                        <option value="">Select Course</option>
+                        <?php
+                        $level_id = 1;
+                        $sql_course = mysqli_query($con, "SELECT * FROM  course WHERE  level_id='$level_id' ");
+                        while ($row_course = mysqli_fetch_array($sql_course)) {
+                          ?>
+                          <option value="<?php echo htmlentities($row_course['id']); ?>">
+                            <?php echo htmlentities($row_course['courseCode']." - " .$row_course['courseName']); ?>
+                          </option>
+                        <?php } ?>
+                      </select>
+                    </div>
+                    <div class="form-group">
+                    <label for="grade">Grade</label>
+                    <select  style="width:7rem" class="form-control" id="grade" name="grade" required>
+                      <option value="A">A</option>
+                      <option value="B+">B+</option>
+                      <option value="B">B</option>
+                      <option value="C+">C+</option>
+                      <option value="C ">C</option>
+                      <option value="D+">D+</option>
+                      <option value="D">D</option>
+                      <option value="E">E</option>
+                      <option value="F">F</option>s
+
+
+
+                    </select>
+                  </div>
+                </div>
+                
+                  <button type="submit" name="submit" id="submit" class="btn btn-default mt-4">Add New Result</button>
                 </form>
 
                 <!-- Form for Excel file upload -->
                 <form class="card shadow-lg mt-4" method="post" enctype="multipart/form-data">
-                <p>Please </p>
-                <div class="form-group">
+                  <div class="form-group">
                     <label for="excelFile">Upload Excel File</label>
                     <input type="file" class="form-control" id="excelFile" name="excelFile" accept=".xls, .xlsx"
                       required />
                   </div>
                   <div class="d-flex justify-content-between">
-                  <button type="submit" name="upload" class="btn mt-5 btn-default">Upload Excel</button>
+                  <button type="submit" name="upload" class="btn mt-5 btn-default">Upload File</button>
                   <a href="./uploads/1702831760_657f2690aa30b.xlsx" download="excel_template">             
                   <button type="button" class="btn mt-5 btn-default">Download Template</button>
-                  </a>
+</a>
 
                     
                   </div>
@@ -270,21 +255,8 @@ if (strlen($_SESSION['alogin']) == 0) {
             });
         });
     </script>
-    <script>
-      function userAvailability() {
-        $("#loaderIcon").show();
-        jQuery.ajax({
-          url: "check_availability.php",
-          data: 'regno=' + $("#studentregno").val(),
-          type: "POST",
-          success: function (data) {
-            $("#user-availability-status1").html(data);
-            $("#loaderIcon").hide();
-          },
-          error: function () { }
-        });
-      }
-    </script>
+    
+    
 
   </body>
 

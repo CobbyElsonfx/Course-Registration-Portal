@@ -1,0 +1,55 @@
+body {
+    background-color: #f8f9fa;
+}
+
+
+
+.card {
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.card-title {
+    text-align: center;
+    color: #007bff;
+}
+
+.card-body {
+    padding: 20px;
+}
+
+.schoolLogo {
+    height: auto;
+    max-width: 5rem;
+}
+
+li {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.table th, .table td {
+    text-align: center;
+}
+
+.table thead {
+    background-color: #007bff;
+    color: #fff;
+}
+
+.table tbody tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+.table-bordered {
+    border: 1px solid #dee2e6;
+}
+
+.mt-4 {
+    margin-top: 1.5rem;
+}
+
+
+/* Add additional styles as needed */

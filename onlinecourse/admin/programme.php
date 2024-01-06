@@ -138,7 +138,7 @@ if (strlen($_SESSION['alogin']) == 0) {
                           <?php echo htmlentities($row['creationDate']); ?>
                         </td>
                         <td>
-                          <a href="department.php?id=<?php echo $row['id'] ?>&del=delete"
+                          <a href="programme.php?id=<?php echo $row['id'] ?>&del=delete"
                             onClick="return confirm('Are you sure you want to delete?')">
                             <button class="btn btn-primary">Delete</button>
                           </a>

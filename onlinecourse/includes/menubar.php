@@ -29,6 +29,10 @@
               <a href="enroll-history.php">Enroll History</a>
             </li>
             <li class="navLink  px-3 py-2">
+              <img class="navIcon" src="./assets/img/history.svg">
+              <a href="results.php">Results</a>
+            </li>
+            <li class="navLink  px-3 py-2">
               <img class="navIcon" src="./assets/img/logout.svg">
               <a href="logout.php">
 
@@ -57,7 +61,7 @@
           data-bs-dismiss="offcanvas" aria-label="Close" />
       </div>
       <div class="offcanvas-body d-flex justify-content-center align-items-center ">
-        <ul class="navbar-nav justify-content-between  align-items-center mt-3 flex-grow-1 pe-3c">
+        <ul class="navbar-nav justify-content-between  align-items-start mt-3 flex-grow-1 pe-3c">
           <li class="navLink px-3 py-2 d-flex justify-content-between">
             <img class="offcanvasNavIcon" src="./assets/img/profile.svg">
             <a href="my-profile.php">My Profile</a>

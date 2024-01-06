@@ -21,6 +21,9 @@
                         <li>
                             <a href="course.php">New Course</a>
                         </li>
+                        <li>
+                            <a href="session.php">Academic Year</a>
+                        </li>
                     </ul>
                 </li>
                 <li>
@@ -42,16 +45,16 @@
                     <a href="#assessSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Assessment</a>
                     <ul class="collapse list-unstyled" id="assessSubmenu">
                         <li>
-                            <a href="enroll-history.php">Level 100</a>
+                            <a href="level100.php">Level 100</a>
                         </li>
                         <li>
-                            <a href="enroll-history.php">Level 200</a>
+                            <a href="level200.php">Level 200</a>
                         </li>
                         <li>
-                            <a href="enroll-history.php">Level 300</a>
+                            <a href="level300.php">Level 300</a>
                         </li>
                         <li>
-                            <a href="enroll-history.php">Level 400</a>
+                            <a href="level400.php">Level 400</a>
                         </li>
                     </ul>
                 </li>

@@ -10,6 +10,7 @@ if (strlen($_SESSION['alogin']) == 0) {
         $coursename = $_POST['coursename'];
         $courseunit = $_POST['courseunit'];
         $level = $_POST['level'];
+        $semester = $_POST['semester'] ;
         $program = isset($_POST['isCore']) ? null : $_POST['program'];
         $isCore = isset($_POST['isCore']) ? 1 : 0;
 
@@ -21,7 +22,7 @@ if (strlen($_SESSION['alogin']) == 0) {
             echo '<script>alert("Error: Course with the same code and level already exists.")</script>';
         } else {
             // Insert the new course
-            $insertQuery = mysqli_query($con, "INSERT INTO course(courseCode, courseName, courseUnit, level_id, programme_id, isCore) VALUES ('$coursecode', '$coursename', '$courseunit', '$level', '$program', '$isCore')");
+            $insertQuery = mysqli_query($con, "INSERT INTO course(courseCode, courseName, courseUnit, level_id, semester_id, programme_id, isCore) VALUES ('$coursecode', '$coursename', '$courseunit', '$level', '$semester', '$program', '$isCore')");
 
             if ($insertQuery) {
                 echo '<script>alert("Course added successfully!")</script>';
@@ -122,6 +123,19 @@ if (strlen($_SESSION['alogin']) == 0) {
                                             placeholder="Course Unit" required />
                                     </div>
 
+                                    
+                                    <div class="form-group mb-2">
+                                        <label for="semester">Select Semester</label>
+                                        <select class="form-control" id="semester" name="semester" required>
+                                            <?php
+                                            $semester = mysqli_query($con, "SELECT * FROM semester");
+                                            while ($row = mysqli_fetch_assoc($semester)) {
+                                                echo "<option value='" . $row['id'] . "'>" . $row['semester'] . "</option>";
+                                            }
+                                            ?>
+                                        </select>
+                                    </div>
+
                                     <div class="form-group mb-2">
                                         <label for="level">Select Level</label>
                                         <select class="form-control" id="level" name="level" required>
@@ -157,6 +171,78 @@ if (strlen($_SESSION['alogin']) == 0) {
                     <?php echo htmlentities($_SESSION['delmsg'] = ""); ?>
                 </font>
                 <div class="col-md-12">
+                <?php
+                    // Fetch courses for level 100
+                    $levelId = 1;
+                    $stmt = $con->prepare("SELECT * FROM course WHERE level_id = ?");
+                    $stmt->bind_param("i", $levelId);
+                    $stmt->execute();
+
+                    $result = $stmt->get_result();
+
+                    if ($result) {
+                        // Display your data here
+                        ?>
+                        <div class="panel panel-default">
+                            <div class="table-heading">Level <?php echo $levelId; ?> Courses</div>
+                            <div class="panel-body">
+                                <div class="table-responsive table-bordered">
+                                    <table class="table">
+                                        <thead>
+                                            <tr>
+                                                <th>#</th>
+                                                <th>Course Code</th>
+                                                <th>Course Title</th>
+                                                <th>Creation Date</th>
+                                                <th>Action</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <?php
+                                            $cnt = 1;
+                                            while ($row = $result->fetch_assoc()) {
+                                                ?>
+                                                <tr>
+                                                    <td>
+                                                        <?php echo $cnt; ?>
+                                                    </td>
+                                                    <td>
+                                                        <?php echo htmlentities($row['courseCode']); ?>
+                                                    </td>
+                                                    <td>
+                                                        <?php echo htmlentities($row['courseName']); ?>
+                                                    </td>
+                                                    <td>
+                                                        <?php echo htmlentities($row['creationDate']); ?>
+                                                    </td>
+                                                    <td>
+                                                        <a href="edit-course.php?id=<?php echo $row['id'] ?>">
+                                                            <button class="btn btn-primary"><i class="fa fa-edit"></i> Edit</button>
+                                                        </a>
+                                                        <a href="course.php?id=<?php echo $row['id'] ?>&del=delete"
+                                                            onClick="return confirm('Are you sure you want to delete?')">
+                                                            <button class="btn">Delete</button>
+                                                        </a>
+                                                    </td>
+                                                </tr>
+                                                <?php
+                                                $cnt++;
+                                            }
+                                            ?>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                        <?php
+                        $result->free_result();
+                    } else {
+                        // Handle query error
+                        echo "Error: " . $con->error;
+                    }
+                    ?>
+                </div>
+                  
                     <?php
 
 

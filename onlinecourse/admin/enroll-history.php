@@ -74,22 +74,18 @@ if (strlen($_SESSION['alogin']) == 0) {
                                     <th>Student Name </th>
                                     <th>Student Reg no </th>
                                     <th>Course Name </th>
-                                    <th>Session </th>
                                     <th>Semester</th>
                                     <th>Enrollment Date</th>
-                                    <th>Action</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <?php
-                                $sql = mysqli_query($con, "select courseenrolls.id as enrollId, 
-                                courseenrolls.course as cid, course.courseName as courname,session.session
-                                 as session,programme.program as progr,courseenrolls.enrollDate as edate 
+                                $sql = mysqli_query($con, "SELECT courseenrolls.id as enrollId, 
+                                courseenrolls.course as cid, course.courseName as courname,programme.program as progr,courseenrolls.enrollDate as edate 
                                  ,semester.semester as sem,students.surname as sname,students.firstname as 
-                                 fname ,students.studentRegno as sregno from courseenrolls join course on 
-                                 course.id=courseenrolls.course join session on 
-                                 session.id=courseenrolls.session join Programme on 
-                                 programme.id=courseenrolls.programme  join semester on 
+                                 fname ,students.studentRegno as sregno from courseenrolls JOIN course on 
+                                 course.id=courseenrolls.course  JOIN Programme on 
+                                 programme.id=courseenrolls.programme  JOIN semester on 
                                  semester.id=courseenrolls.semester JOIN students on
                                   students.studentRegno=courseenrolls.studentRegno ");
                                 $cnt = 1;
@@ -117,17 +113,7 @@ if (strlen($_SESSION['alogin']) == 0) {
                                         <td>
                                             <?php echo htmlentities($row['edate']); ?>
                                         </td>
-                                        <td>
-                                            <a href="print.php?id=<?php echo $row['cid'] ?>" target="_blank">
-                                                <button class="btn btn-primary"><i class="fa fa-print"></i>
-                                                    Print</button>
-                                            </a>
-                                            <a href="enroll-history.php?del=<?php echo $row['enrollId'] ?>"
-                                                onClick="return confirm('Are you sure you want to delete?')">
-                                                <button class="btn btn-danger"><i class="fa fa-trash"></i>
-                                                    Delete</button>
-                                            </a>
-                                        </td>
+                                       
                                     </tr>
                                     <?php
                                     $cnt++;

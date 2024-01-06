@@ -6,21 +6,7 @@ if (strlen($_SESSION['login']) == 0) {
   header('location:index.php');
 } else {
 
-  if (isset($_POST['submit'])) {
-    $surname = $_POST['surname'];
-    $firstname = $_POST['fistname'];
-    $photo = $_FILES["photo"]["name"];
-    move_uploaded_file($_FILES["photo"]["tmp_name"], "studentphoto/" . $_FILES["photo"]["name"]);
-    $ret = mysqli_query($con, "update students set surname='$surname',firstname='$firstname',studentPhoto='$photo', where studentRegno='" . $_SESSION['login'] . "'");
-    if ($ret) {
-      echo '<script>alert("Student Record updated Successf
-      ully !!")</script>';
-      echo '<script>window.location.href=my-profile.php</script>';
-    } else {
-      echo '<script>alert("Something went wrong . Please try again.!")</script>';
-      echo '<script>window.location.href=my-profile.php</script>';
-    }
-  }
+ 
   ?>
 
   <!DOCTYPE html>

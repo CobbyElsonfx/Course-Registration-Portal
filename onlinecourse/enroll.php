@@ -7,11 +7,11 @@ if (strlen($_SESSION['login']) == 0) {
   header('location:index.php');
 } else {
   if (isset($_POST['submit'])) {
-    $studentregno = $_SESSION['login']; // Retrieve student registration number from session
+    $studentregno = $_SESSION['login'];
     $session = $_POST['session'];
     $progr = $_POST['programme'];
     $level = $_POST['level'];
-    $courses = $_POST['courses']; // An array of selected course IDs
+    $courses = $_POST['courses'];
     $sem = $_POST['sem'];
 
     if (!empty($courses)) {
@@ -35,10 +35,6 @@ if (strlen($_SESSION['login']) == 0) {
   // Fetch student details based on session login
   $sql = mysqli_query($con, "SELECT * FROM students WHERE studentRegno='" . $_SESSION['login'] . "'");
   $row = mysqli_fetch_array($sql);
-
-
-  // Fetch courses based on the student's program
-
   ?>
 
   <!DOCTYPE html>
@@ -50,13 +46,15 @@ if (strlen($_SESSION['login']) == 0) {
     <meta name="description" content="" />
     <meta name="author" content="" />
     <title>Course Enroll</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+      integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
       integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
       crossorigin="anonymous"></script>
     <link href="../assets/css/font-awesome.css" rel="stylesheet" />
     <link href="assets/css/style.css" rel="stylesheet" />
   </head>
+
   <body>
     <div class="studensPortalHeader">
       <h1 class="studentPortal">Course Enroll</h1>
@@ -83,39 +81,12 @@ if (strlen($_SESSION['login']) == 0) {
                 <div class="panel-body">
                   <form name="dept" method="post" class="card shadow-lg text-left" enctype="multipart/form-data"
                     id="student-info-form">
-                    <div class="d-flex g-3 justify-content-between">
-                      <div class="form-group mr-2">
-                        <label for="surname">Surname</label>
-                        <input type="text" class="form-control" id="surname" name="surname"
-                          value="<?php echo htmlentities($row['surname']); ?>" readonly />
-                      </div>
-                      <div class="form-group ml-2">
-                        <label for="firstname">Firstname</label>
-                        <input type="text" class="form-control" id="firstname" name="firstname"
-                          value="<?php echo htmlentities($row['firstname']); ?>" readonly />
-                      </div>
-                    </div>
-                    
-                    <div class="form-group">
-                      <label for="otherName">Other Name</label>
-                      <input type="text" class="form-control" id="otherName" name="otheName"
-                        value="<?php echo htmlentities($row['otherName']); ?>" placeholder="Other Name" readonly />
-                    </div>
 
                     <div class="form-group">
                       <label for="studentregno">Student Index/Ref No.</label>
                       <input type="text" class="form-control" id="studentregno" name="studentregno"
                         value="<?php echo htmlentities($row['studentRegno']); ?>" placeholder="Student Reg no" readonly />
                     </div>
-                    <!-- <div class="form-group">
-                    <label for="Pincode">Student Photo</label>
-                    <?php if ($row['studentPhoto'] == "") { ?>
-                      <img src="studentphoto/noimage.png" width="200" height="200">
-                    <?php } else { ?>
-                      <img src="studentphoto/<?php echo htmlentities($row['studentPhoto']); ?>" width="200" height="200">
-                    <?php } ?>
-                  </div> -->
-
 
                     <div class="form-group">
                       <label for="Programme">Programme</label>
@@ -161,38 +132,19 @@ if (strlen($_SESSION['login']) == 0) {
                     </div>
 
 
-                    <div class="form-group">
-                      <label for="Semester">Semester</label>
-                      <select class="form-control" name="sem" required="required">
-                        <option value="">Select Semester</option>
-                        <?php
-                        $sql_sem = mysqli_query($con, "select * from semester");
-                        while ($row_sem = mysqli_fetch_array($sql_sem)) {
-                          ?>
-                          <option value="<?php echo htmlentities($row_sem['id']); ?>">
-                            <?php echo htmlentities($row_sem['semester']); ?>
-                          </option>
-                        <?php } ?>
-                      </select>
-                    </div>
+          
                     <div class="form-group">
                       <?php
-                      // Fetch the student's program information
-                  
-                      // Fetch student's program and level information
                       $regno = $_SESSION['login'];
-                      $programQuery = mysqli_query($con, "SELECT programme FROM students WHERE studentRegno = '$regno'");
-                      $levelQuery = mysqli_query($con, "SELECT level FROM students WHERE studentRegno = '$regno'");
 
-
-
-
-                      $programData = mysqli_fetch_array($programQuery);
-                      $levelData = mysqli_fetch_array($levelQuery);
+                      // Fetch the student's program and level
+                      $programQuery = mysqli_query($con, "SELECT programme, level FROM students WHERE studentRegno = '$regno'");
+                      $programData = mysqli_fetch_assoc($programQuery);
 
                       $programId = $programData['programme'];
-                      $currentLevel = $levelData['level'];
+                      $currentLevel = $programData['level'];
 
+                      // Fetch the level ID
                       $stmt = $con->prepare("SELECT id FROM level WHERE level = ?");
                       $stmt->bind_param("s", $currentLevel);
                       $stmt->execute();
@@ -200,7 +152,7 @@ if (strlen($_SESSION['login']) == 0) {
                       $row = $result->fetch_assoc();
                       $id = $row['id'];
 
-                     
+
                       // Fetch courses based on the student's program and level
                       $coursesQuery = $con->prepare("SELECT * FROM course WHERE (level_id = ? AND programme_id = ?) OR (level_id = ? AND isCore = 1)");
                       $coursesQuery->bind_param("iii", $id, $programId, $id);
@@ -213,48 +165,54 @@ if (strlen($_SESSION['login']) == 0) {
 
                       $coursesResult = $coursesQuery->get_result();
 
+
                       if ($coursesResult) {
                         $allCourses = array();
 
                         while ($courseRow = $coursesResult->fetch_assoc()) {
                           $allCourses[] = $courseRow;
                         }
+
+                        if (!empty($allCourses)) {
+                          echo '<label>Select Courses</label><br>';
+
+                          foreach ($allCourses as $course) {
+                            echo "<div class='form-check'>";
+                            echo "<input class='form-check-input' type='checkbox' name='courses[]' value='" . $course['id'] . "'>";
+                            echo "<label class='form-check-label'>" . $course['courseCode'] . " - " . $course['courseName'] . "</label>";
+                            echo "</div>";
+                          }
+                        } else {
+                          echo 'No courses found.';
+                        }
                       } else {
                         // Handle query error
                         echo "Error: " . $con->error;
                       }
+
                       ?>
-                      <label>Select Courses</label><br>
-                      <?php
-                      if (!empty($allCourses)) {
-                        foreach ($allCourses as $course) {
-                          echo "<div class='form-check'>";
-                          echo "<input class='form-check-input' type='checkbox' name='courses[]' value='" . $course['id'] . "'>";
-                          echo "<label class='form-check-label'>" . $course['courseCode'] . " - " . $course['courseName'] . "</label>";
-                          echo "</div>";
-                        }
-                      }
-              }
-              ?>
-                  </div>
 
-                  <!-- Add an "Enroll" button -->
-                  <div class="form-group">
-                    <button type="submit" name="submit" class="btn btn-primary">Enroll</button>
-                  </div>
+                    </div>
 
-                </form>
-              </div>
-            <?php } ?>
+
+                    <!-- Add an "Enroll" button -->
+                    <div class="form-group">
+                      <button type="submit" name="submit" class="btn btn-primary">Register</button>
+                    </div>
+
+                  </form>
+                </div>
+              <?php } ?>
+            </div>
           </div>
         </div>
       </div>
     </div>
-  </div>
 
-  <?php include('includes/footer.php'); ?>
-  <script src="assets/js/jquery-1.11.1.js"></script>
-  <script src="assets/js/bootstrap.js"></script>
-</body>
+    <?php include('includes/footer.php'); ?>
+    <script src="assets/js/jquery-1.11.1.js"></script>
+    <script src="assets/js/bootstrap.js"></script>
+  </body>
 
-</html>
+  </html>
+<?php } ?>
