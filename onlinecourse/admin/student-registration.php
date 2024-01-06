@@ -232,7 +232,21 @@ if (strlen($_SESSION['alogin']) == 0) {
 
                 <!-- Form for Excel file upload -->
                 <form class="card shadow-lg mt-4" method="post" enctype="multipart/form-data">
-                <p>Please </p>
+                <div class="alert alert-warning" role="alert">
+    <strong>Warning!</strong> The Excel file to be uploaded must match the headers order and spelling:
+    <ul>
+        <li>studentRegno</li>
+        <li>surname</li>
+        <li>firstname</li>
+        <li>otherName</li>
+        <li>programme</li>
+        <li>level</li>
+        <li>email</li>
+        <li>contactNumber</li>
+        <li>dob</li>
+    </ul>
+</div>
+
                 <div class="form-group">
                     <label for="excelFile">Upload Excel File</label>
                     <input type="file" class="form-control" id="excelFile" name="excelFile" accept=".xls, .xlsx"

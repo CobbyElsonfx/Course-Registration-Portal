@@ -19,9 +19,6 @@ function reverseProgression($studentRegno, $con) {
         // Decrease the promotion count
         mysqli_query($con, "UPDATE students SET promotionCount = promotionCount - 1 WHERE studentRegno = '$studentRegno'");
 
-        echo "Progression reversed for student with Reg No $studentRegno. Current Level: $newLevel\n";
-    } else {
-        echo "Student has not been promoted, cannot reverse progression.\n";
     }
 }
 

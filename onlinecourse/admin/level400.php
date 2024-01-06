@@ -219,6 +219,17 @@ if (strlen($_SESSION['alogin']) == 0) {
                 <!-- Form for Excel file upload -->
                 <form class="card shadow-lg mt-4" method="post" enctype="multipart/form-data">
                   <div class="form-group">
+                  <div class="alert alert-warning" role="alert">
+    <strong>Warning!</strong> The Excel file to be uploaded must match the headers order and spelling:
+    <ul>
+        <li>studentRegno</li>
+        <li>courseCode</li>
+        <li>level</li>
+        <li>semester</li>
+        <li>grade</li>
+        
+    </ul>
+</div>
                     <label for="excelFile">Upload Excel File</label>
                     <input type="file" class="form-control" id="excelFile" name="excelFile" accept=".xls, .xlsx"
                       required />

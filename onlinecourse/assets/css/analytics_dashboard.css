@@ -40,8 +40,8 @@ p {
 }
 
 .chart-box {
-    height: 300px;
-    overflow: hidden;
+
+    grid-column: span 2;
 }
 
 .course-box {

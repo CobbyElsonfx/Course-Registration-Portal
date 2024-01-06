@@ -91,8 +91,8 @@ if (strlen($_SESSION['alogin']) == 0) {
 
             <div >
                 <div class="row">
-                    <div class="col-md-3"></div>
-                    <div class="col-md-6">
+                    <div class="col-md-2"></div>
+                    <div class="col-md-8">
                         <div class="panel panel-default">
                             <font color="green" align="center">
                                 <?php echo htmlentities($_SESSION['msg']); ?>
@@ -101,30 +101,36 @@ if (strlen($_SESSION['alogin']) == 0) {
 
                             <div class="panel-body card ">
                                 <form name="programme" method="post">
-                                    <div class="form-group mb-2">
+                                    <div class="d-flex justify-content-between">
+                                    <div class="form-group mb-2" style="width:35%">
                                         <label for="coursecode">Course Code </label>
                                         <input type="text" class="form-control" id="coursecode" name="coursecode"
                                             placeholder="Course Code" required />
                                     </div>
 
-                                    <div class="form-group mb-2">
+
+
+                                    <div class="form-group mb-2"  style="width:62%">
                                         <label for="coursename">Course Title </label>
                                         <input type="text" class="form-control" id="coursename" name="coursename"
                                             placeholder="Course Name" required />
                                     </div>
-                                    <div class="form-group mb-2">
-                                        <label for="isCore">Is Core Course?</label>
-                                        <input type="checkbox" id="isCore" name="isCore" value="1">
                                     </div>
+                                    <div class="form-group mb-2"  >
+                                        <label for="isCore">Is Core Course?</label>
+                                        <input style="width:2rem;"  type="checkbox" id="isCore" name="isCore" value="1">
+                                    </div>
+                                    <div class="d-flex justify-content-between">
+                                
 
-                                    <div class="form-group mb-2">
+                                    <div class="form-group mb-2"  style="width:28%">
                                         <label for="courseunit">Credit Hours</label>
                                         <input type="text" class="form-control" id="courseunit" name="courseunit"
                                             placeholder="Course Unit" required />
                                     </div>
 
                                     
-                                    <div class="form-group mb-2">
+                                    <div class="form-group mb-2"  style="width:70%">
                                         <label for="semester">Select Semester</label>
                                         <select class="form-control" id="semester" name="semester" required>
                                             <?php
@@ -135,8 +141,24 @@ if (strlen($_SESSION['alogin']) == 0) {
                                             ?>
                                         </select>
                                     </div>
+                                 
 
-                                    <div class="form-group mb-2">
+                                    
+                                    </div>
+                            
+                                   <div class="d-flex justify-content-between"">
+                                   <div class="form-group mb-2" style="width:70%;">
+                                        <label for="program">Select Program</label>
+                                        <select class="form-control" id="program" name="program" required <?php echo isset($_POST['isCore']) ? 'disabled' : ''; ?>>
+                                            <?php
+                                            $programs = mysqli_query($con, "SELECT * FROM programme");
+                                            while ($row = mysqli_fetch_assoc($programs)) {
+                                                echo "<option value='" . $row['id'] . "'>" . $row['program'] . "</option>";
+                                            }
+                                            ?>
+                                        </select>
+                                    </div>
+                                   <div class="form-group mb-2" style="width:28%;">
                                         <label for="level">Select Level</label>
                                         <select class="form-control" id="level" name="level" required>
                                             <?php
@@ -148,19 +170,11 @@ if (strlen($_SESSION['alogin']) == 0) {
                                         </select>
                                     </div>
 
-                                    <div class="form-group mb-2">
-                                        <label for="program">Select Program</label>
-                                        <select class="form-control" id="program" name="program" required <?php echo isset($_POST['isCore']) ? 'disabled' : ''; ?>>
-                                            <?php
-                                            $programs = mysqli_query($con, "SELECT * FROM programme");
-                                            while ($row = mysqli_fetch_assoc($programs)) {
-                                                echo "<option value='" . $row['id'] . "'>" . $row['program'] . "</option>";
-                                            }
-                                            ?>
-                                        </select>
-                                    </div>
+                            
 
-                                    <button type="submit" name="submit" class="btn btn-default mt-3">Submit</button>
+                                   </div>
+
+                                    <button type="submit" name="submit" class="form-control btn btn-default mt-3">Submit</button>
                                 </form>
                             </div>
                         </div>

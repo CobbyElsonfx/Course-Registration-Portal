@@ -7,7 +7,9 @@ if (strlen($_SESSION['alogin']) == 0) {
 
   if (isset($_POST['submit'])) {
     $programme = $_POST['programme'];
-    $ret = mysqli_query($con, "insert into programme(program) values('$programme')");
+    $category = $_POST['category'];
+
+    $ret = mysqli_query($con, "insert into programme(program,category) values('$programme', '$category')");
     if ($ret) {
       echo '<script>alert("programme Created Successfully !!")</script>';
       echo '<script>window.location.href=deprtment.php</script>';
@@ -78,7 +80,7 @@ if (strlen($_SESSION['alogin']) == 0) {
 
         <div>
           <div>
-            <div class="panel panel-default m-auto card" style="width:70%;">
+            <div class="panel panel-default m-auto card" style="width:50%;">
               <font color="green" align="center">
                 <?php echo htmlentities($_SESSION['msg']); ?>
                 <?php echo htmlentities($_SESSION['msg'] = ""); ?>
@@ -92,7 +94,15 @@ if (strlen($_SESSION['alogin']) == 0) {
                     <input type="text" class="form-control" id="Programme" name="programme" placeholder="programme"
                       required />
                   </div>
-                  <button type="submit" name="submit" class="btn btn-default mt-4">Submit</button>
+                  <div class="form-group " >
+                    <label for="category">Category</label>
+                    <select class="form-control" id="category" name="category" required>
+                      <option value="JHS Education">JHS Education</option>
+                      <option value="Primary Education">Primary Education</option>
+                      <option value="Early Childhood Education">Early Childhood Education</option>
+                    </select>
+                  </div>
+                  <button type="submit" name="submit" class="btn btn-default mt-4 form-control">Submit</button>
                 </form>
               </div>
             </div>
@@ -117,7 +127,7 @@ if (strlen($_SESSION['alogin']) == 0) {
                     <tr>
                       <th>#</th>
                       <th>programme</th>
-                      <th>Creation Date</th>
+                      <th>Category</th>
                       <th>Action</th>
                     </tr>
                   </thead>
@@ -135,7 +145,7 @@ if (strlen($_SESSION['alogin']) == 0) {
                           <?php echo htmlentities($row['program']); ?>
                         </td>
                         <td>
-                          <?php echo htmlentities($row['creationDate']); ?>
+                          <?php echo htmlentities($row['category']); ?>
                         </td>
                         <td>
                           <a href="programme.php?id=<?php echo $row['id'] ?>&del=delete"

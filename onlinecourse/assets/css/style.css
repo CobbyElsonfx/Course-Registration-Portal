@@ -1,4 +1,4 @@
-﻿@import url(http://fonts.googleapis.com/css?family=Roboto);
+@import url(http://fonts.googleapis.com/css?family=Roboto);
 * {
   padding: 0;
   box-sizing: border-box;
@@ -463,3 +463,89 @@ footer a {
   text-align: justify;
 }
 
+.reverseBtn,
+.progressBtn, .deleteBtn {
+    background-color: #dc3545; /* Bootstrap's danger color */
+    color: #fff;
+    margin-inline: 5px;
+    border: 1px solid #dc3545;
+    padding: 3px 10px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    border-radius: 4px;
+}
+
+.reverseBtn:hover,
+.progressBtn:hover, .deleteBtn:hover {
+    background-color: #c82333; /* Darker shade on hover */
+}
+
+.reverseBtn:active,
+.progressBtn:active, .deleteBtn:active {
+    background-color: #bd2130; /* Even darker shade on click */
+}
+
+
+.page-instructions {
+  background-color: #d4edda; /* Bootstrap's light success color */
+  color: #155724; /* Bootstrap's dark success color */
+  padding: 15px;
+  margin-bottom: 20px;
+  border: 1px solid #c3e6cb; /* Border color for consistency */
+  border-radius: 4px;
+}
+
+.caution-message {
+  background-color: #f8d7da; /* Bootstrap's light danger color */
+  color: #721c24; /* Bootstrap's dark danger color */
+  padding: 10px;
+  margin-bottom: 20px;
+  border: 1px solid #f5c6cb; /* Border color for consistency */
+  border-radius: 4px;
+}
+
+
+.warning-card {
+            max-width: 100%;
+            margin-bottom: 20px;
+            border: 1px solid #dc3545; /* Bootstrap's danger color */
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .card-header {
+            background-color: #dc3545; /* Bootstrap's danger color */
+            color: #fff; /* White text */
+            padding: 10px;
+        }
+
+        .card-body {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .card-title {
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .card-text {
+            margin-bottom: 20px;
+        }
+
+        .action-button {
+            border: 2px solid #dc3545; /* Bootstrap's danger color */
+            background-color: #dc3545; /* Bootstrap's danger color */
+            color: #fff; /* White text */
+            padding: 15px;
+            border-radius: 8px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .action-button:hover {
+            background-color: #c82333; /* Darker shade of Bootstrap's danger color on hover */
+        }

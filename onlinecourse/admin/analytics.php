@@ -45,14 +45,18 @@ if (strlen($_SESSION['alogin']) == 0) {
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
       integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
       crossorigin="anonymous"></script>
+      <link href="../assets/css/style.css" rel="stylesheet" />
+
     <link href="../assets/css/font-awesome.css" rel="stylesheet" />
-    <link href="../assets/css/style.css" rel="stylesheet" />
     <link href="../assets/css/analytics_dashboard.css" rel="stylesheet" />
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
     
     <link href= "../assets/css/admin_side_nav.css"rel="stylesheet"/>
     <title>Admin | Analytics</title>
+
+
+    
 </head>
 
 <body>
@@ -138,6 +142,11 @@ if (strlen($_SESSION['alogin']) == 0) {
             <h2>Programs</h2>
             <canvas id="programChart"></canvas>
         </div>
+        <div class="grid-box chart-box">
+            <h2>Programs</h2>
+            <canvas id="anotherChart"></canvas>
+        </div>
+
 
         <!-- Grid for Courses with Side Filter -->
         <div class="grid-box course-box">
@@ -166,7 +175,76 @@ if (strlen($_SESSION['alogin']) == 0) {
     <!-- Bootstrap JS -->
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm" crossorigin="anonymous"></script>
     <script>
+
     $(document).ready(function () {
+
+  
+        var programChart; // Declare the chart variable outside of the function
+
+// Function to update the pie chart for programs
+// Function to update the pie chart for programs
+function updateProgramChart(data) {
+    var ctx = document.getElementById('programChart').getContext('2d');
+
+    var chartData = {
+        labels: data.map(program => program.program),
+        datasets: [{
+            data: data.map(program => program.id),
+            backgroundColor: [
+                'rgba(255, 99, 132, 0.5)',
+                'rgba(54, 162, 235, 0.5)',
+                'rgba(255, 206, 86, 0.5)',
+                'rgba(75, 192, 192, 0.5)',
+                'rgba(153, 102, 255, 0.5)',
+                'rgba(255, 159, 64, 0.5)',
+                'rgba(50, 200, 50, 0.5)',
+                'rgba(200, 50, 50, 0.5)',
+            ],
+            borderColor: [
+                'rgba(255, 99, 132, 1)',
+                'rgba(54, 162, 235, 1)',
+                'rgba(255, 206, 86, 1)',
+                'rgba(75, 192, 192, 1)',
+                'rgba(153, 102, 255, 1)',
+                'rgba(255, 159, 64, 1)',
+                'rgba(50, 200, 50, 1)',
+                'rgba(200, 50, 50, 1)',
+            ],
+            borderWidth: 1,
+        }],
+    };
+
+    // Destroy the existing chart to prevent duplicates
+    if (programChart) {
+        programChart.destroy();
+    }
+
+    // Create a new pie chart for programs
+    window.programChart = new Chart(ctx, {
+        type: 'pie',
+        data: chartData,
+    });
+}
+
+// Fetch initial data for programs
+$.ajax({
+    type: 'POST',
+    url: 'fetch_programmes.php',
+    dataType: 'json',
+    success: function (response) {
+        // Log the response to the console
+        console.log(response);
+
+        // Process the response and update the chart
+        updateProgramChart(response);
+    },
+    error: function (xhr, status, error) {
+        console.log('Error in AJAX request for programs:', status, error);
+    },
+});
+
+
+
         // Function to update the stacked bar chart
         function updateStackedBarChart(data) {
             var ctx = document.getElementById('courseChart').getContext('2d');
