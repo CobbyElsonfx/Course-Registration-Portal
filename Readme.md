@@ -1,10 +1,11 @@
-# PHP Enrollment System
+# Online General Portal (Under Development)
 
-The **PHP Enrollment System** is a web-based application designed to manage student course enrollments in an educational institution. The system allows students to enroll in courses, view enrollment history, and generate printable enrollment details.
+The **PHP Online General Portal** is a web-based application designed to manage student course enrollments in an educational institution. The system allows students to enroll in courses, view enrollment history, and generate printable enrollment details and also view their results for every semester.
 
 ## Table of Contents
 
 - [Features](#features)
+- [Media](#screenshots)
 - [Requirements](#requirements)
 - [Installation](#installation)
 - [Usage](#usage)
@@ -32,6 +33,14 @@ The **PHP Enrollment System** is a web-based application designed to manage stud
 
 5. **Responsive Design:**
    - User-friendly interface accessible on various devices.
+  
+## Media 
+![Wiaw](https://github.com/CobbyElsonfx/Course-Registration-Portal/assets/109095646/abdc4f69-5f7b-4ec2-949e-260736b100a7)
+
+![UI](https://github.com/CobbyElsonfx/Course-Registration-Portal/assets/109095646/9fcc2d78-e13e-4b02-9c38-22b4aab7d8aa)
+![excel](https://github.com/CobbyElsonfx/Course-Registration-Portal/assets/109095646/b0c09b55-3531-4ccd-9e8f-e307c8988b2c)
+
+![Boui](https://github.com/CobbyElsonfx/Course-Registration-Portal/assets/109095646/e038c44e-1a92-490f-aee4-5198c79155db)
 
 ## Requirements
 
