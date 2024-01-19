@@ -94,6 +94,20 @@ header {
   position: relative;
 }
 
+.waticoBrand {
+  color: rgba(3, 4, 38, 0.94);
+  font-size: 2rem;
+  transition:"all 0.5s ease-in-out";
+}
+
+
+.waticoBrand:hover {
+  color: rgb(231, 231, 3);
+  text-decoration: none;
+   
+
+}
+
 .masthead .overlay{
   position: absolute;
   top: 0;
@@ -210,6 +224,13 @@ header {
   border-left: 2px solid rgb(10, 2, 37);
   padding: 1rem;
 }
+
+
+.getInTouch {
+  background-color: rgba(3, 4, 38, 0.94);
+  color: white;
+}
+
 
 .homeIcon {
   position: relative;
@@ -348,6 +369,17 @@ header {
     "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
 }
 
+.footerHome ul li {
+  padding: 10px;
+  margin: 17px;
+  transition: margin-left 0.4s ease-in-out;
+
+}
+
+
+.footerHome ul li:hover {
+  margin-left: 10px;
+}
 .footerHome h2 {
   color: rgb(231, 231, 3);
 }
@@ -385,7 +417,7 @@ body {
 
 hr {
   margin: 1rem 0;
-  color: inherit;
+  color:  in herit;
   border: 0;
   border-top: 1px solid;
   opacity: 0.25;

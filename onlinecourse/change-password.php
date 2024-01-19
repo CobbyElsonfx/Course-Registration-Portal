@@ -93,7 +93,7 @@ if (strlen($_SESSION['login']) == 0) {
 
 
               <div class="panel-body">
-                <form name="chngpwd" method="post" class="card shadow-lg text-left" onSubmit="return valid();">
+                <form name="chngpwd" method="post" class="p-4 shadow-lg text-left" onSubmit="return valid();">
                   <div class="form-group">
                     <label for="exampleInputPassword1">Current Password</label>
                     <input type="password" class="form-control" id="exampleInputPassword1" name="cpass"

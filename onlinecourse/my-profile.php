@@ -57,7 +57,7 @@ if (strlen($_SESSION['login']) == 0) {
                 <div class="user-heading round">
                   <a href="#">
                     <?php if ($row['studentPhoto'] == "") { ?>
-                      <img src="studentphoto/noimage.png" class="rounded-3" width="200" height="200">
+                      <img src="studentphoto/noimage.jpg" class="rounded-full" width="200" height="200">
                     <?php } else { ?>
                       <img class="profile" src="studentphoto/<?php echo htmlentities($row['studentPhoto']); ?>" width="200" height="200">
                     <?php } ?>
@@ -80,23 +80,22 @@ if (strlen($_SESSION['login']) == 0) {
                   Welcome to your Personal Dashboard 
                 </div>
                 <div class="panel-body bio-graph-info mt-2">
-                  <h1>Personal Details</h1>
                   <div class="row">
                     <div class="col-sm-12 col-md-6">
                       <div class="d-flex flex-row">
-                        <div class="px-3">Name: </div>
+                        <div class="px-3 title fw-bold">Name: </div>
                         <div>
                           <?php echo htmlentities($row['surname'] . " " . $row['firstname'] . " " . $row['otherName']); ?>
                         </div>
                       </div>
                       <div class="d-flex flex-row">
-                        <div  class="px-3">Date Of Birth: </div>
+                        <div  class="px-3 title fw-bold">Date Of Birth: </div>
                         <div>
                           <?php echo htmlentities($row['dob']); ?>
                         </div>
                       </div>
                       <div class="d-flex flex-row">
-                        <div  class="px-3">Index/Ref Number: </div>
+                        <div  class="px-3 title fw-bold">Index/Ref Number: </div>
                         <div>
                           <?php echo htmlentities($row['studentRegno']); ?>
                         </div>
@@ -117,7 +116,7 @@ if (strlen($_SESSION['login']) == 0) {
                       }
                       ?>
                       <div class="d-flex flex-row">
-                        <div  class="px-3">Programme:</div>
+                        <div  class="px-3 title fw-bold title">Programme:</div>
                         <div>
                           <?php echo $programName; ?>
                         </div>
@@ -126,21 +125,21 @@ if (strlen($_SESSION['login']) == 0) {
                     </div>
                     <div class="col-sm-12 col-md-6">
                       <div class="d-flex flex-row">
-                        <div class="px-3">Country of Origin: </div>
+                        <div class="px-3 title fw-bold">Country of Origin: </div>
                         <div>
                           <span>Ghana</span>
                         </div>
                       </div>
                       <div class="d-flex flex-row">
-                        <div class="px-3">Email Address:</div>
+                        <div class="px-3 title fw-bold">Email Address:</div>
                         <div>
                           <span><?php echo htmlentities($row['email']); ?></span>
                         </div>
                       </div>
                       <div class="d-flex flex-row">
-                        <div class="px-3">Contact Number:</div>
+                        <div class="px-3 title fw-bold">Contact Number:</div>
                         <div>
-                          <span><?php echo htmlentities($row['contactNumber']); ?></span>
+                          <span>+233<?php echo htmlentities($row['contactNumber']); ?></span>
                         </div>
                       </div>
 

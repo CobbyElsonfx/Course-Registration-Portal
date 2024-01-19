@@ -2,7 +2,6 @@
 session_start();
 include('includes/config.php');
 error_reporting(1);
-
 if (strlen($_SESSION['login']) == 0) {
     header('location:index.php');
 } else {
@@ -11,7 +10,7 @@ if (strlen($_SESSION['login']) == 0) {
         $courseId = $_GET['del'];
 
         mysqli_query($con, "DELETE FROM courseenrolls WHERE (course = '$courseId' AND  studentRegno='" . $_SESSION['login'] . "')");
-        echo '<script>alert("' . $courseId . ' none")</script>';
+       echo '<script>alert("' . $courseId . ' none")</script>';
     }
     ?>
     <!DOCTYPE html>
@@ -45,94 +44,83 @@ if (strlen($_SESSION['login']) == 0) {
                 <div class="row">
 
                     <div class="col-md-12">
-                        <?php
-                        $sql = mysqli_query($con, "SELECT DISTINCT
-                        level.level as level,
-                        semester.semester as sem
-                        FROM courseenrolls
-                        JOIN level ON level.level = courseenrolls.level
-                        JOIN semester ON semester.id = courseenrolls.semester
-                        WHERE courseenrolls.studentRegno='" . $_SESSION['login'] . "'");
-
-                        while ($row = mysqli_fetch_array($sql)) {
-                            ?>
-                            <div class="panel panel-default">
-                                <div class="panel-body p-3">
-                                    <h3>Semester: <?php echo htmlentities($row['sem']); ?> | Level: <?php echo htmlentities($row['level']); ?></h3>
-                                    <div class="table-responsive table-bordered">
-                                        <table class="table">
-                                            <thead>
+                        <!--    Bordered Table  -->
+                        <div class="panel panel-default">
+                            <!-- /.panel-heading -->
+                            <div class="panel-body p-3">
+                                <div>
+                                    <h3 class="text-center fs-sm-1">Enrollment History</h3>
+                                </div>
+                                <div class="table-responsive table-bordered">
+                                    <table class="table">
+                                        <thead>
+                                            <tr>
+                                                <th>#</th>
+                                                <th>Course Name </th>
+                                                <th>Course Code</th>
+                                                
+                                                <th>Enrollment Date</th>
+                                                <th>Action</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <?php
+                                            $sql = mysqli_query($con, "SELECT
+                                            courseenrolls.course as cid, course.id as courseId,
+                                            course.courseName as courname,course.courseCode as ccode,
+                                            level.level as level,
+                                            courseenrolls.enrollDate as edate
+                                           
+                                        FROM courseenrolls
+                                        JOIN course ON course.id = courseenrolls.course
+                                        JOIN level ON level.level = courseenrolls.level
+                                        
+                                        WHERE courseenrolls.studentRegno='" . $_SESSION['login'] . "'");
+                                            $cnt = 1; 
+                                            while ($row = mysqli_fetch_array($sql)) {
+                                                ?>
                                                 <tr>
-                                                    <th>#</th>
-                                                    <th>Course Name </th>
-                                                    <th>Level</th>
-                                                    <th>Semester</th>
-                                                    <th>Enrollment Date</th>
-                                                    <th>Action</th>
+                                                    <td>
+                                                        <?php echo $cnt; ?>
+                                                    </td>
+                                                    <td>
+                                                        <?php echo htmlentities($row['courname']); ?>
+                                                    </td>
+
+                                                    <td>
+                                                        <?php echo htmlentities($row['ccode']); ?>
+                                                    </td>
+                                                
+                                                    <td>
+                                                        <?php echo htmlentities($row['edate']); ?>
+                                                    </td>
+                                                    <td>
+                                                        <a href="enroll-history.php?del=<?php echo $row['courseId'] ?>"
+                                                            onClick="return confirm('Are you sure you want to delete?')">
+                                                            <button class="btn btn-danger"><i class="fa fa-trash"></i>
+                                                             Delete</button>
+                                                        </a>
+                                                    </td>
                                                 </tr>
-                                            </thead>
-                                            <tbody>
                                                 <?php
-                                      $sql_courses = mysqli_query($con, "SELECT
-                                      courseenrolls.course as cid, course.id as courseId,
-                                      course.courseName as courname,
-                                      level.level as level,
-                                      courseenrolls.enrollDate as edate,
-                                      semester.semester as sem
-                                  FROM courseenrolls
-                                  JOIN course ON course.id = courseenrolls.course
-                                  JOIN level ON level.level = courseenrolls.level
-                                  JOIN semester ON semester.id = courseenrolls.semester
-                                  WHERE courseenrolls.studentRegno='" . $_SESSION['login'] . "'
-                                  AND level.level = '" . $row['level'] . "'
-                                  AND semester.semester = '" . $row['sem'] . "'");
-                                  
-
-                                                $cnt = 1;
-
-                                                while ($row_courses = mysqli_fetch_array($sql_courses)) {
-                                                    ?>
-                                                    <tr>
-                                                        <td>
-                                                            <?php echo $cnt; ?>
-                                                        </td>
-                                                        <td>
-                                                            <?php echo htmlentities($row_courses['courname']); ?>
-                                                        </td>
-
-                                                        <td>
-                                                            <?php echo htmlentities($row_courses['level']); ?>
-                                                        </td>
-                                                        <td>
-                                                            <?php echo htmlentities($row_courses['sem']); ?>
-                                                        </td>
-                                                        <td>
-                                                            <?php echo htmlentities($row_courses['edate']); ?>
-                                                        </td>
-                                                        <td>
-                                                            <a href="enroll-history.php?del=<?php echo $row_courses['courseId'] ?>"
-                                                                onClick="return confirm('Are you sure you want to delete?')">
-                                                                <button class="btn btn-danger"><i class="fa fa-trash"></i> Delete</button>
-                                                            </a>
-                                                        </td>
-                                                    </tr>
-                                                    <?php
-                                                    $cnt++;
-                                                } ?>
-                                            </tbody>
-                                        </table>
-                                        <a href="print.php?level=<?php echo $row['level']; ?>&sem=<?php echo $row['sem']; ?>" target="_blank">
-                                            <button class="btn mt-4 btn-primary"><i class="fa fa-print "></i> Print</button>
-                                        </a>
-                                    </div>
+                                                $cnt++;
+                                            } ?>
+                                        </tbody>
+                                    </table>
+                                    <a href="print.php" target="_blank">
+                                        <button class="btn mt-4 btn-primary"><i class="fa fa-print "></i>
+                                            Print
+                                        </button> 
+                                    </a>
                                 </div>
                             </div>
-                        <?php } ?>
+                        </div>
+                        <!--  End  Bordered Table  -->
                     </div>
                 </div>
             </div>
         </div>
-
+        
         <?php include('includes/footer.php'); ?>
         <script src="assets/js/jquery-1.11.1.js"></script>
     </body>

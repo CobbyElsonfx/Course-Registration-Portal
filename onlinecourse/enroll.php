@@ -3,6 +3,7 @@ session_start();
 include('includes/config.php');
 error_reporting(1);
 
+
 if (strlen($_SESSION['login']) == 0) {
   header('location:index.php');
 } else {
@@ -11,30 +12,55 @@ if (strlen($_SESSION['login']) == 0) {
     $session = $_POST['session'];
     $progr = $_POST['programme'];
     $level = $_POST['level'];
-    $courses = $_POST['courses'];
+    // No need to retrieve $courses from $_POST as we are not using checkboxes
     $sem = $_POST['sem'];
 
-    if (!empty($courses)) {
-      foreach ($courses as $courseId) {
-        // Insert each selected course into the courseenrolls table
+    // Fetch courses based on the student's program and level
+    $regno = $_SESSION['login'];
+    $programQuery = mysqli_query($con, "SELECT programme, level FROM students WHERE studentRegno = '$regno'");
+    $programData = mysqli_fetch_assoc($programQuery);
+
+    $programId = $programData['programme'];
+    $currentLevel = $programData['level'];
+
+    $stmt = $con->prepare("SELECT id FROM level WHERE level = ?");
+    $stmt->bind_param("s", $currentLevel);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    $row = $result->fetch_assoc();
+    $id = $row['id'];
+
+    $coursesQuery = $con->prepare("SELECT * FROM course WHERE (level_id = ? AND programme_id = ?) OR (level_id = ? AND isCore = 1)");
+    $coursesQuery->bind_param("iii", $id, $programId, $id);
+    $coursesQuery->execute();
+
+    if ($coursesQuery->error) {
+      die("Error: " . $coursesQuery->error);
+    }
+
+    $coursesResult = $coursesQuery->get_result();
+
+    if ($coursesResult) {
+      while ($courseRow = $coursesResult->fetch_assoc()) {
+        $courseId = $courseRow['id'];
+        // Insert each course into the courseenrolls table
         $ret = mysqli_query($con, "INSERT INTO courseenrolls(studentRegno, session, programme, level, course, semester) VALUES ('$studentregno', '$session', '$progr', '$level', '$courseId', '$sem')");
       }
 
       if ($ret) {
         echo '<script>alert("Enroll Successfully !!")</script>';
-        // echo '<script>window.location.href=enroll.php</script>';
       } else {
-        echo '<script>alert("Error: Not Enroll")</script>';
-        // echo '<script>window.location.href=enroll.php</script>';
+        echo ' <script>alert("Sorry there was an error")</script>';
       }
-    } else {
-      echo '<script>alert("Please select at least one course")</script>';
-    }
-  }
-
+    } 
+  
+  
   // Fetch student details based on session login
   $sql = mysqli_query($con, "SELECT * FROM students WHERE studentRegno='" . $_SESSION['login'] . "'");
   $row = mysqli_fetch_array($sql);
+}
+
+
   ?>
 
   <!DOCTYPE html>
@@ -132,7 +158,7 @@ if (strlen($_SESSION['login']) == 0) {
                     </div>
 
 
-          
+
                     <div class="form-group">
                       <?php
                       $regno = $_SESSION['login'];
@@ -152,7 +178,6 @@ if (strlen($_SESSION['login']) == 0) {
                       $row = $result->fetch_assoc();
                       $id = $row['id'];
 
-
                       // Fetch courses based on the student's program and level
                       $coursesQuery = $con->prepare("SELECT * FROM course WHERE (level_id = ? AND programme_id = ?) OR (level_id = ? AND isCore = 1)");
                       $coursesQuery->bind_param("iii", $id, $programId, $id);
@@ -165,7 +190,6 @@ if (strlen($_SESSION['login']) == 0) {
 
                       $coursesResult = $coursesQuery->get_result();
 
-
                       if ($coursesResult) {
                         $allCourses = array();
 
@@ -174,32 +198,25 @@ if (strlen($_SESSION['login']) == 0) {
                         }
 
                         if (!empty($allCourses)) {
-                          echo '<label>Select Courses</label><br>';
-
+                          echo '<label>Select Courses</label>';
+                          // Display a list of courses using ul and li
+                          echo "<ul>";
                           foreach ($allCourses as $course) {
-                            echo "<div class='form-check'>";
-                            echo "<input class='form-check-input' type='checkbox' name='courses[]' value='" . $course['id'] . "'>";
-                            echo "<label class='form-check-label'>" . $course['courseCode'] . " - " . $course['courseName'] . "</label>";
-                            echo "</div>";
+                            echo "<li>" . $course['courseCode'] . " - " . $course['courseName'] . "</li>";
                           }
+                          echo "</ul>";
+
+                          // Display a single "Register" button
+                          echo "<button type='submit' name='submit' class='btn btn-primary'>Register</button>";
                         } else {
                           echo 'No courses found.';
                         }
                       } else {
-                        // Handle query error
                         echo "Error: " . $con->error;
                       }
 
                       ?>
-
                     </div>
-
-
-                    <!-- Add an "Enroll" button -->
-                    <div class="form-group">
-                      <button type="submit" name="submit" class="btn btn-primary">Register</button>
-                    </div>
-
                   </form>
                 </div>
               <?php } ?>

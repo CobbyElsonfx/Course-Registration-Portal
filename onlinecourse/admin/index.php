@@ -59,13 +59,6 @@ if (isset($_POST['submit'])) {
                         <a href="../index.php">Home </a>
                     </li>
 
-                    <li class="navLink px-3 py-2 d-flex  align-items-center gap-0">
-                        <img class="navIcon" src="../assets/img/login.svg">
-
-                        <a href="index.php">
-                            Admin Login </a>
-                    </li>
-
                 </ul>
 
             </div>
@@ -104,6 +97,9 @@ if (isset($_POST['submit'])) {
                             <div class="mb-1 form-check ">
                                 <input type="checkbox" class="form-check-input" id="exampleCheck1">
                                 <label class="form-check-label" for="exampleCheck1">Check me out</label>
+                            </div>
+                            <div class="mb-1 d-flex  justify-content-center">
+                                <a href="" >Forgot Password ?</a>
                             </div>
                             <button type="submit" name="submit" class="btn btn-primary">Submit</button>
                         </form>

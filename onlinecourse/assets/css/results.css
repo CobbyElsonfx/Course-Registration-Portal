@@ -21,7 +21,7 @@ body {
 
 .schoolLogo {
     height: auto;
-    max-width: 5rem;
+    max-width: 8rem;
 }
 
 li {
@@ -51,5 +51,36 @@ li {
     margin-top: 1.5rem;
 }
 
+.generateResults {
+    background-color: #f8f9fa;
+    border: 1px solid #ced4da;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
 
-/* Add additional styles as needed */
+.generateResults label {
+    font-weight: bold;
+}
+
+.generateResults .d-flex {
+    align-items: center;
+}
+
+.generateResults select,
+.generateResults button {
+    margin-left: 10px;
+}
+
+.instructionText {
+    margin-top: 20px;
+    font-size: 16px;
+    color: #6c757d;
+}
+
+.noResultsText {
+    margin-top: 20px;
+    font-size: 18px;
+    color: #dc3545;
+    font-weight: bold;
+}

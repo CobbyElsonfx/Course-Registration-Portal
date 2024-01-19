@@ -107,3 +107,7 @@
     margin: 0 0 20px;
     color: var(--seconddary);
 }
+
+.px-3.title {
+    color: var(--seconddary);
+}

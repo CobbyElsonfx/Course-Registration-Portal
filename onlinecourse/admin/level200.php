@@ -11,8 +11,10 @@ if (strlen($_SESSION['alogin']) == 0) {
     $courseCode = $_POST['courseCode'];
     $grade = $_POST['grade'];
     $studentRegno = $_POST['studentRegno'];
-  
-    $ret = mysqli_query($con, "insert into results(studentRegno,courseCode,level,grade,semester) values('$studentRegno','$courseCode','$level','$grade','$semester')");
+
+
+    $ret = mysqli_query($con, "insert into results(studentRegno,courseCode,level,grade,semester) 
+    values('$studentRegno','$courseCode','$level','$grade','$semester')");
     if ($ret) {
       echo '<script>alert("Results Uploaded Successfully")</script>';
       echo '<script>window.location.href=manage-students.php</script>';
@@ -48,15 +50,15 @@ if (strlen($_SESSION['alogin']) == 0) {
             $worksheet = $spreadsheet->getActiveSheet();
 
             // Loop through rows starting from row 2 (assuming the first row is headers)
-            foreach ($worksheet->getRowIterator(2) as $row) {
-                $studentregno = $worksheet->getCell('A' . $row->getRowIndex())->getValue();
-                $courseCode = $worksheet->getCell('D' . $row->getRowIndex())->getValue();
-                $grade = $worksheet->getCell('E' . $row->getRowIndex())->getValue();
-                $semester = $worksheet->getCell('F' . $row->getRowIndex())->getValue();
-                $level = $worksheet->getCell('G' . $row->getRowIndex())->getValue();
+            foreach ($worksheet->getRowIterator(4) as $row) {
+                $studentregno = $worksheet->getCell('B' . $row->getRowIndex())->getValue();
+                $courseCode = $worksheet->getCell('C' . $row->getRowIndex())->getValue();
+                $grade = $worksheet->getCell('F' . $row->getRowIndex())->getValue();
+                $semester = $worksheet->getCell('D' . $row->getRowIndex())->getValue();
+                $level = $worksheet->getCell('E' . $row->getRowIndex())->getValue();
                
 
-                $query = "INSERT INTO course (studentRegno,courseCode, grade, semester,level ) 
+                $query = "INSERT INTO results (studentRegno,courseCode, grade, semester,level ) 
                           VALUES ('$studentregno','$courseCode', '$grade', '$semester', '$level')";
                 mysqli_query($con, $query);
             }
@@ -125,12 +127,7 @@ if (strlen($_SESSION['alogin']) == 0) {
                         <i class="fas fa-align-justify"></i>
                     </button>
 
-                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                        <ul class="nav navbar-nav ">
-                            <li class="nav-item active">
-                                <a class="nav-link" href="#">Page</a>
-                            </li>
-                    </div>
+               
                 </div>
             </nav>
             
@@ -160,7 +157,7 @@ if (strlen($_SESSION['alogin']) == 0) {
                   </div>
                   <div class="form-group"  style="width:30%">
                       <label for="Semester">Semester</label>
-                      <select class="form-control" name="sem" required="required">
+                      <select class="form-control" name="sem" required>
                         <option value="">Select Semester</option>
                         <?php
                         $sql_sem = mysqli_query($con, "select * from semester");
@@ -181,7 +178,7 @@ if (strlen($_SESSION['alogin']) == 0) {
                 <div  class="d-flex justify-content-between">
                 <div class="form-group" style="width:85%">
                       <label for="course">Courese Code</label>
-                      <select class="form-control" name="sem" required="required">
+                      <select class="form-control" name="courseCode" required>
                         <option value="">Select Course</option>
                         <?php
                         $level_id = 2;

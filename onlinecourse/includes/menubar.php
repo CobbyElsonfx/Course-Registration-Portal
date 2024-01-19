@@ -11,28 +11,28 @@
         <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
 
           <ul class="navbar-nav">
-            <li class="navLink px-3 py-2 d-flex">
+            <li class="navLink px-3 py-2 d-flex  flex-column  justify-content-center align-items-center">
               <img class="navIcon" src="./assets/img/profile.svg">
               <a href="my-profile.php">My Profile</a>
             </li>
-            <li class="navLink px-3 py-2 d-flex ">
+            <li class="navLink px-3 py-2 d-flex  flex-column  justify-content-center align-items-center ">
               <img class="navIcon px-1" src="./assets/img/online-course-list.svg">
               <a href="enroll.php">Enroll for Course </a>
             </li>
 
-            <li class="navLink  px-3 py-2">
+            <li class="navLink  px-3 py-2 d-flex  flex-column  justify-content-center align-items-center">
               <img class="navIcon" src="./assets/img/password.svg">
               <a href="change-password.php">Change Password</a>
             </li>
-            <li class="navLink  px-3 py-2">
+            <li class="navLink  px-3 py-2 d-flex  flex-column  justify-content-center align-items-center">
               <img class="navIcon" src="./assets/img/history.svg">
               <a href="enroll-history.php">Enroll History</a>
             </li>
-            <li class="navLink  px-3 py-2">
-              <img class="navIcon" src="./assets/img/history.svg">
+            <li class="navLink  px-3 py-2 d-flex  flex-column  justify-content-center align-items-center ">
+              <img class="navIcon" src="./assets/img/results.svg">
               <a href="results.php">Results</a>
             </li>
-            <li class="navLink  px-3 py-2">
+            <li class="navLink  px-3 py-2 d-flex  flex-column  justify-content-center align-items-center">
               <img class="navIcon" src="./assets/img/logout.svg">
               <a href="logout.php">
 
@@ -81,8 +81,8 @@
             <a style="color: white ;" class="nav-link " href="enroll-history.php">Enroll History</a>
           </li>
           <li class="navLink px-3 py-2 d-flex justify-content-between">
-            <img class="offcanvasNavIcon m-2" src="./assets/img/password.svg">
-            <a style="color: white ;" class="nav-link " href="change-password.php">Results</a>
+            <img class="offcanvasNavIcon m-2" src="./assets/img/results.svg">
+            <a style="color: white ;" class="nav-link " href="results.php">Results</a>
           </li>
           <li class="navLink px-3 py-2 d-flex justify-content-between ">
           <img class="offcanvasNavIcon m-2" src="./assets/img/logout.svg">

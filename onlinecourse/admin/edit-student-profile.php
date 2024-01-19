@@ -17,7 +17,7 @@ if (strlen($_SESSION['alogin']) == 0) {
     $dob = $_POST['dob'];
 
     $photo = $_FILES["photo"]["name"];
-    move_uploaded_file($_FILES["photo"]["tmp_name"], "studentphoto/" . $_FILES["photo"]["name"]);
+    move_uploaded_file($_FILES["photo"]["tmp_name"], "../studentphoto/" . $_FILES["photo"]["name"]);
     $ret = mysqli_query($con, "update students set surname='$surname', firstname='$firstname', otherName= '$otherName',dob = '$dob',email= '$email', contactNumber='$contactNumber', programme='$programme' ,studentPhoto='$photo' where studentRegno='$regid'");
     if ($ret) {
       echo '<script>alert("Student Record updated Successfully !!")</script>';
@@ -71,17 +71,17 @@ if (strlen($_SESSION['alogin']) == 0) {
                         <i class="fas fa-align-justify"></i>
                     </button>
 
-                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                        <ul class="nav navbar-nav ">
-                            <li class="nav-item active">
-                                <a class="nav-link" href="#">Page</a>
-                            </li>
-                    </div>
+                  
                 </div>
             </nav>
  
- 
+           
+    
     <!-- MENU SECTION END-->
+    <div>
+      <a class="btn btn-primary" href="manage-students.php" role="button"><i class="fa fa-caret-left"></i>Back</a>
+
+    </div>
       <div>
         <div>
           <div class="row">
@@ -112,7 +112,7 @@ if (strlen($_SESSION['alogin']) == 0) {
                     <div class="form-group my-4 ">
                         <label for="studentphoto">Student Photo </label>
                         <?php if ($row['studentPhoto'] == "") { ?>
-                          <img src="../studentphoto/noimage.png" width="200" height="200"  style="border-radius: 50%;  border:2px solid gray">
+                          <img src="../studentphoto/noimage.jpg" width="200" height="200"  style="border-radius: 50%;  border:2px solid gray">
                         <?php } else { ?>
                           <img src="../studentphoto/<?php echo htmlentities($row['studentPhoto']); ?>" width="200" height="200" style="border-radius: 50%;border:2px solid gray">
                         <?php } ?>

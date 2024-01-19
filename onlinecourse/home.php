@@ -23,7 +23,7 @@ if (isset($_POST['submit'])) {
         // Log the login attempt
         $log = mysqli_query($con, "INSERT INTO userlog(studentRegno, userip, status) VALUES('" . $_SESSION['login'] . "','$uip','$status')");
 
-        // Redirect to the change password page
+        // Redirect to the profile page
         header("location:http:my-profile.php");
     } else {
         // Account is not cleared, show error message
@@ -60,10 +60,9 @@ if (isset($_POST['submit'])) {
     <div class="pageHeadline">
         <div class="pageHeadlineText">
             <h1 class="welcHeadLine"> WELCOME TO</h1>
-            <h3> THE COURSE  REGISTRATION
-                PORTAL
+            <h3> THE STUDENTS' PORTAL
             </h3>
-            <small>Register your Semester Courses Here</small>
+            <small>Login With Your Credentials</small>
         </div>
         <img class="schoolLogo" src="./assets/img/schoolLogo.png" />
 
@@ -94,7 +93,7 @@ if (isset($_POST['submit'])) {
                     <img class="studentSVG" src="./assets/img/book-lovers.svg">
                 </div>
                 <div class="col-md-6">
-                    <h4 class="page-head-line">Please Login To Enter </h4>
+                    <h4 class="page-head-line">Please Enter Your details to Login </h4>
                     <span style="color:red;">
                         <?php echo htmlentities($_SESSION['errmsg']); ?>
                         <?php echo htmlentities($_SESSION['errmsg'] = ""); ?>

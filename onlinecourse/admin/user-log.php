@@ -4,6 +4,20 @@ include('includes/config.php');
 if(strlen($_SESSION['alogin'])==0) {   
     header('location:index.php');
 } else {
+        // Handle "Clear All" button click
+        if (isset($_POST['clearAll'])) {
+            $studentregno = $_SESSION['login'];
+    
+            // Execute a query to delete all course enrolls for the current use
+            $num =  1;
+            $clearAllQuery = mysqli_query($con, "DELETE FROM userlog WHERE status = '$num' ");
+    
+            if ($clearAllQuery) {
+                echo '<script>alert("All course enrolls cleared successfully!")</script>';
+            } else {
+                echo '<script>alert("Error clearing course enrolls")</script>';
+            }
+        }
 ?>
 
 <!DOCTYPE html>
@@ -50,18 +64,21 @@ if(strlen($_SESSION['alogin'])==0) {
                 <button class="btn btn-dark d-inline-block d-lg-none ml-auto" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                     <i class="fas fa-align-justify"></i>
                 </button>
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <ul class="nav navbar-nav ">
-                        <li class="nav-item active">
-                            <a class="nav-link" href="#">Page</a>
-                        </li>
-                    </ul>
-                </div>
+        
             </div>
         </nav>
 
+
         <div class="content-wrapper">
             <div class="container">
+                <form>
+                <div class="d-flex justify-content-end">
+                
+                <button type="submit" name="clearAll" class="btn text-right btn-danger p-3 actio">Clear All</button>
+    
+                </div>
+                </form>
+            
         
                 <div class="row">
                     <div class="col-md-12">
@@ -117,17 +134,7 @@ if(strlen($_SESSION['alogin'])==0) {
     <!-- Bootstrap JS -->
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm" crossorigin="anonymous"></script>
 
-<script type="text/javascript">
-    $(document).ready(function () {
-        $('#sidebarCollapse').on('click', function () {
-            $('#sidebar').toggleClass('active');
-            $(this).toggleClass('active');
-        });
 
-        // Initialize DataTable
-        $('#userLogsTable').DataTable();
-    });
-</script>
 </body>
 </html>
 <?php } ?>

@@ -1,4 +1,5 @@
 <?php
+
 include('includes/config.php');
 
 // Perform database query to fetch programs
@@ -21,4 +22,6 @@ echo json_encode($programs);
 
 // Close the database connection
 mysqli_close($con);
+
 ?>
+

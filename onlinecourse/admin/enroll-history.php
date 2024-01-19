@@ -6,10 +6,22 @@ error_reporting(1);
 if (strlen($_SESSION['alogin']) == 0) {
     header('location:index.php');
 } else {
+    // Handle "Clear All" button click
+    if (isset($_POST['clearAll'])) {
+        $studentregno = $_SESSION['login'];
+
+        // Execute a query to delete all course enrolls for the current user
+        $clearAllQuery = mysqli_query($con, "DELETE   FROM courseenrolls");
+
+        if ($clearAllQuery) {
+            echo '<script>alert("All course enrolls cleared successfully!")</script>';
+        } else {
+            echo '<script>alert("Error clearing course enrolls")</script>';
+        }
+    }
     ?>
     <!DOCTYPE html>
     <html xmlns="http://www.w3.org/1999/xhtml">
-
     <head>
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
@@ -50,17 +62,17 @@ if (strlen($_SESSION['alogin']) == 0) {
                         <i class="fas fa-align-justify"></i>
                     </button>
 
-                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                        <ul class="nav navbar-nav ">
-                            <li class="nav-item active">
-                                <a class="nav-link" href="#">Page</a>
-                            </li>
-                    </div>
+                   
                 </div>
             </nav>
             
             <div class="row">
-        <div class="col-md-12">
+        <div class="col-md-12 ">
+            <div class="d-flex justify-content-end">
+            <button type="submit" name="clearAll" class="btn text-right btn-danger p-3 actio">Clear All</button>
+
+            </div>
+
             <div class="panel panel-default card">
                 <div class="panel-heading">
                     Enroll History
@@ -74,20 +86,18 @@ if (strlen($_SESSION['alogin']) == 0) {
                                     <th>Student Name </th>
                                     <th>Student Reg no </th>
                                     <th>Course Name </th>
-                                    <th>Semester</th>
                                     <th>Enrollment Date</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <?php
                                 $sql = mysqli_query($con, "SELECT courseenrolls.id as enrollId, 
-                                courseenrolls.course as cid, course.courseName as courname,programme.program as progr,courseenrolls.enrollDate as edate 
-                                 ,semester.semester as sem,students.surname as sname,students.firstname as 
-                                 fname ,students.studentRegno as sregno from courseenrolls JOIN course on 
-                                 course.id=courseenrolls.course  JOIN Programme on 
-                                 programme.id=courseenrolls.programme  JOIN semester on 
-                                 semester.id=courseenrolls.semester JOIN students on
-                                  students.studentRegno=courseenrolls.studentRegno ");
+                                courseenrolls.course as cid, course.courseName as courname,courseenrolls.enrollDate as edate ,
+                                 students.surname as sname,students.firstname as 
+                                 fname , students.otherName as 
+                                otherName,students.studentRegno as sregno from courseenrolls JOIN course on 
+                                 course.id=courseenrolls.course    JOIN students on
+                                  students.studentRegno=courseenrolls.studentRegno  ");
                                 $cnt = 1;
                                 while ($row = mysqli_fetch_array($sql)) {
                                     ?>
@@ -96,19 +106,13 @@ if (strlen($_SESSION['alogin']) == 0) {
                                             <?php echo $cnt; ?>
                                         </td>
                                         <td>
-                                            <?php echo htmlentities($row['sname'] . ' ' . $row['fname']); ?>
+                                            <?php echo htmlentities($row['sname'] . ' ' . $row['fname'] .' ' . $row['otherName']); ?>
                                         </td>
                                         <td>
                                             <?php echo htmlentities($row['sregno']); ?>
                                         </td>
                                         <td>
                                             <?php echo htmlentities($row['courname']); ?>
-                                        </td>
-                                        <td>
-                                            <?php echo htmlentities($row['progr']); ?>
-                                        </td>
-                                        <td>
-                                            <?php echo htmlentities($row['sem']); ?>
                                         </td>
                                         <td>
                                             <?php echo htmlentities($row['edate']); ?>

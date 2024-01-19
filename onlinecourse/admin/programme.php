@@ -68,12 +68,7 @@ if (strlen($_SESSION['alogin']) == 0) {
                         <i class="fas fa-align-justify"></i>
                     </button>
 
-                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                        <ul class="nav navbar-nav ">
-                            <li class="nav-item active">
-                                <a class="nav-link" href="#">Page</a>
-                            </li>
-                    </div>
+              
                 </div>
             </nav>
             
