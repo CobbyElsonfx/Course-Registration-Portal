@@ -11,7 +11,6 @@ error_reporting(1);
 if (strlen($_SESSION['alogin']) == 0) {
     header('location:index.php');
 } else {
-    // Code for Promotion
     // Code for Deletion
     if (isset($_GET['del'])) {
         mysqli_query($con, "delete from students where studentRegno = '" . $_GET['id'] . "'");

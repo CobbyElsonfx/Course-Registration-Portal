@@ -6,19 +6,7 @@ error_reporting(1);
 if (strlen($_SESSION['alogin']) == 0) {
     header('location:index.php');
 } else {
-    // Handle "Clear All" button click
-    if (isset($_POST['clearAll'])) {
-        $studentregno = $_SESSION['login'];
 
-        // Execute a query to delete all course enrolls for the current user
-        $clearAllQuery = mysqli_query($con, "DELETE   FROM courseenrolls");
-
-        if ($clearAllQuery) {
-            echo '<script>alert("All course enrolls cleared successfully!")</script>';
-        } else {
-            echo '<script>alert("Error clearing course enrolls")</script>';
-        }
-    }
     ?>
     <!DOCTYPE html>
     <html xmlns="http://www.w3.org/1999/xhtml">
@@ -68,10 +56,7 @@ if (strlen($_SESSION['alogin']) == 0) {
             
             <div class="row">
         <div class="col-md-12 ">
-            <div class="d-flex justify-content-end">
-            <button type="submit" name="clearAll" class="btn text-right btn-danger p-3 actio">Clear All</button>
-
-            </div>
+         
 
             <div class="panel panel-default card">
                 <div class="panel-heading">

@@ -21,9 +21,9 @@
                         <li>
                             <a href="course.php">New Course</a>
                         </li>
-                        <!-- <li>
-                            <a href="session.php">Academic Year</a>
-                        </li> -->
+                        <li>
+                            <a href="graduates.php">Graduates</a>
+                        </li>
                     </ul>
                 </li>
                 <li>

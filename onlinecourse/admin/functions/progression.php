@@ -21,11 +21,14 @@ function handleProgression($studentRegno, $enrollmentDate, $level, $promotionCri
 
         if ($monthsCovered >= $promotionCriteria) {
             // Perform promotion
-            $newLevel = $level + 100;
+            if($level >= 0){
+                $newLevel = $level + 100;
+            }
+          
+            $promotionCount = getPromotionCount($con, $studentRegno);
 
             // Check if promotion is within the limit
-            if ($newLevel <= 400) {
-                // Update student's level
+            if ($newLevel <= 400 && $promotionCount < $promotionLimit ) {
                 $updateQuery = "UPDATE students SET level = '$newLevel' WHERE studentRegno = '$studentRegno'";
                 if (!mysqli_query($con, $updateQuery)) {
                     throw new Exception("Error updating student's level: " . mysqli_error($con));
@@ -33,9 +36,18 @@ function handleProgression($studentRegno, $enrollmentDate, $level, $promotionCri
             }
 
             // Check if the student has reached level 00
-            if ($newLevel == 500) {
+            if ($newLevel == 500 ) {
             // Insert into graduation table
-            $insertQuery = "INSERT INTO graduation (studentRegno, graduationDate, additionalInfo) VALUES ('$studentRegno', NOW(), 'Graduated from Level 400')";
+            $studentQuery = "SELECT * FROM students WHERE studentRegno = '$studentRegno'";
+            $studentResult = mysqli_query($con, $studentQuery);
+            $studentRow = mysqli_fetch_assoc($studentResult);
+            $surname = $studentRow["surname"];
+            $firstname = $studentRow["firstname"];
+            $othername = $studentRow["othername"];
+            
+            $insertQuery = "INSERT INTO graduation (studentRegno, graduationDate, additionalInfo, surname, firstname, othername)
+                VALUES ('$studentRegno', NOW(), 'Graduated from Level 400', '$surname', '$firstname', '$othername')";
+
             if (!mysqli_query($con, $insertQuery)) {
                 throw new Exception("Error inserting into graduation table: " . mysqli_error($con));
             }
@@ -46,15 +58,15 @@ function handleProgression($studentRegno, $enrollmentDate, $level, $promotionCri
                 throw new Exception("Error updating student's level to 0: " . mysqli_error($con));
             }
 
+            // Delete student from students table
+            $deleteQuery = "DELETE FROM students WHERE studentRegno = '$studentRegno'";
+            if (!mysqli_query($con, $deleteQuery)) {
+                throw new Exception("Error deleting student from students table: " . mysqli_error($con));
+            }
+
             echo "Student has graduated!\n";
-        }
+               }
 
-
-
-          
-
-            // Check if promotion limit is reached
-            $promotionCount = getPromotionCount($con, $studentRegno);
             if ($promotionCount <= $promotionLimit) {
                   // Update promotion count
             $updatePromotionCountQuery = "UPDATE students SET promotionCount = promotionCount + 1 WHERE studentRegno = '$studentRegno'";
@@ -70,7 +82,6 @@ function handleProgression($studentRegno, $enrollmentDate, $level, $promotionCri
     }
 }
 
-// Function to get promotion count
 function getPromotionCount($con, $studentRegno) {
     try {
         $result = mysqli_query($con, "SELECT promotionCount FROM students WHERE studentRegno = '$studentRegno'");
@@ -81,9 +92,8 @@ function getPromotionCount($con, $studentRegno) {
         $row = mysqli_fetch_assoc($result);
         return $row['promotionCount'];
     } catch (Exception $e) {
-        // Handle exceptions
         echo "Error: " . $e->getMessage();
-        return 0; // Return a default value
+        return 0; 
     }
 }
 ?>

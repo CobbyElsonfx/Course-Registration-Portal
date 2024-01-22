@@ -75,7 +75,7 @@ if (strlen($_SESSION['login']) == 0) {
               </div>
             </div>
             <div class="profile-info col-md-9">
-              <div class="panel card shadow-md">
+              <div class="panel p-2  shadow-md ">
                 <div class="bio-graph-heading ">
                   Welcome to your Personal Dashboard 
                 </div>

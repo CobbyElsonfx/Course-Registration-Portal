@@ -105,7 +105,7 @@ if (strlen($_SESSION['login']) == 0) {
               $cnt = 1;
               while ($row = mysqli_fetch_array($sql)) { ?>
                 <div class="panel-body">
-                  <form name="dept" method="post" class="card shadow-lg text-left" enctype="multipart/form-data"
+                  <form name="dept" method="post" class="p-3 shadow-lg text-left" enctype="multipart/form-data"
                     id="student-info-form">
 
                     <div class="form-group">
