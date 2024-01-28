@@ -98,9 +98,9 @@ include("includes/config.php");
                 <h2>Our Core Values</h2>
                 <ul class="values">
                     <li>
-                        <b>EXCELENCE</b> – A community striving for excellence in all our academic pursuits
+                        <b>EXCELLENCE</b> – A community striving for excellence in all our academic pursuits
                     </li>
-                    <li><b>INTIGRETY</b> – We are open, truthful and straightforward with our interactions with others
+                    <li><b>INTEGRITY</b> – We are open, truthful and straightforward with our interactions with others
                     </li>
                     <li><b>STUDENT FOCUS</b> – We are dedicated to ensuring the personal and professional growth of our
                         students
@@ -135,7 +135,7 @@ include("includes/config.php");
                          Equipping teacher trainees to be knowledgeable <br>and self-motivated in a tertiary environment
 
                          </li>
-                        <li>
+</ul>
 
                     </p>
                 </div>
@@ -148,8 +148,8 @@ include("includes/config.php");
     <script>
   
   const subheading = () => {
-    new TypeIt("#subheading", {
-        speed: 200,
+    const typing = new TypeIt("#subheading", {
+        speed: 50,
         waitUntilVisible: true,
     }).type("THE COURSE REGISTRATION PORTAL")
         .pause(500)
@@ -165,19 +165,35 @@ include("includes/config.php");
         .delete(17)
         .type("THE GENERAL PORTAL")
         .go();
+
+    // Hide the cursor after the animation is complete
+    typing.exec(() => {
+        const cursor = document.querySelector("#subheading .ti-cursor");
+        if (cursor) {
+            cursor.style.display = "none";
+        }
+    });
 }
 
 const expectedType = (callback) => {
-    new TypeIt("#welcomeHome", {
+    const typing = new TypeIt("#welcomeHome", {
         strings: "WELCOME TO",
         speed: 300,
         waitUntilVisible: true,
     }).go();
+
+    // Hide the cursor after the animation is complete
+    typing.exec(() => {
+        const cursor = document.querySelector("#welcomeHome .ti-cursor");
+        if (cursor) {
+            cursor.style.display = "none";
+        }
+    });
+
     setTimeout(callback, 2000);
 }
 
 expectedType(subheading);
-
 
 
     </script>

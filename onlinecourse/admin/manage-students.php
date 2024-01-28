@@ -1,44 +1,21 @@
 <?php
 session_start();
 include('includes/config.php');
+
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
+require '../vendor/autoload.php';
 
-require '../vendor/autoload.php'; 
+include_once 'functions/progression.php';
+include_once 'functions/reverse-progression.php';
+include_once 'functions/sendPasswordResetEmail.php';
+
 
 error_reporting(1);
 
 if (strlen($_SESSION['alogin']) == 0) {
     header('location:index.php');
 } else {
-    // Code for Deletion
-    if (isset($_GET['del'])) {
-        mysqli_query($con, "delete from students where studentRegno = '" . $_GET['id'] . "'");
-        echo '<script>alert("Student Record Deleted Successfully !!")</script>';
-        echo '<script>window.location.href=manage-students.php</script>';
-    }
-
-    // Code for Password Reset
-    if (isset($_GET['pass'])) {
-        // Function to generate a random password
-        function generateRandomPassword($length = 8)
-        {
-            $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
-            $password = '';
-            for ($i = 0; $i < $length; $i++) {
-                $password .= $characters[rand(0, strlen($characters) - 1)];
-            }
-            return $password;
-        }
-
-        // Generate a random password
-        $randomPassword = generateRandomPassword();
-
-        $newpass = md5($randomPassword);
-        mysqli_query($con, "update students set password='$newpass' where studentRegno = '" . $_GET['id'] . "'");
-        echo '<script>alert("Password Reset. New Password is ' . $randomPassword . '")</script>';
-        echo '<script>window.location.href=manage-students.php</script>';
-    }
 }
 
 ?>
@@ -51,15 +28,12 @@ if (strlen($_SESSION['alogin']) == 0) {
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
     <meta name="description" content="" />
     <meta name="author" content="" />
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
-        crossorigin="anonymous"></script>
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/nprogress/0.2.0/nprogress.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/simple-notify@0.5.5/dist/simple-notify.min.js"></script>
 
-<!-- Add NProgress JavaScript -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/nprogress/0.2.0/nprogress.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/simple-notify@0.5.5/dist/simple-notify.min.css" />
+
     <link href="../assets/css/font-awesome.css" rel="stylesheet" />
     <link href="../assets/css/style.css" rel="stylesheet" />
     <!-- Add the DataTables CSS -->
@@ -72,24 +46,78 @@ if (strlen($_SESSION['alogin']) == 0) {
 <body>
 
     <div class="wrapper">
-        <!-- Sidebar Holder -->
         <?php if ($_SESSION['alogin'] != "") {
             include('includes/menubar.php');
         }
         ?>
 
+
+
+
+
         <!-- Page Content Holder -->
         <div id="content">
+            <?php
+
+            // Code for Deletion
+            if (isset($_GET['del'])) {
+                mysqli_query($con, "delete from students where studentRegno = '" . $_GET['id'] . "'");
+                echo '<script>
+        new Notify({
+            title: "Manage Students",
+            text: "Student Record deleted successfully",
+            autoclose: true,
+            autotimeout: 6000,
+            status: "success"
+        });
+      </script>';
+            }
+
+
+            if (isset($_GET['pass'])) {
+                // Function to generate a random password
+                function generateRandomPassword($length = 8)
+                {
+                    $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+                    $password = '';
+                    for ($i = 0; $i < $length; $i++) {
+                        $password .= $characters[rand(0, strlen($characters) - 1)];
+                    }
+                    return $password;
+                }
+
+                $emailQuery =  mysqli_query($con, "select * from students where studentRegno = '" . $_GET['id'] . "'");
+                $fetchArr = mysqli_fetch_array($emailQuery);
+                $email = $fetchArr["email"];
+
+                $hasError = false;
+                $randomPassword = generateRandomPassword();
+
+                $message = 'Your password for your portal has been reset, please keep your new password safe: ' .  $randomPassword;
+                sendPasswordResetEmail($email, $randomPassword, $hasError, $message);
+
+                $newpass = md5($randomPassword);
+                mysqli_query($con, "update students set password='$newpass' where studentRegno = '" . $_GET['id'] . "'");
+                echo '<script>
+        new Notify({
+            title: "Manage Students",
+            text: "Password Reset. New Password is ' . $randomPassword . '",
+            autoclose: true,
+            autotimeout: 20000,
+            status: "success"
+        });
+      </script>';
+            }
+            ?>
 
             <div aria-live="polite" aria-atomic="true" class="position-relative">
 
                 <div class="toast-container position-absolute top-0 end-0 p-3">
 
                     <!-- Then put toasts within -->
-                    <div class="toast" data-bs-delay="10000" id="customToast" role="alert" aria-live="assertive"
-                        aria-atomic="true">
+                    <div class="toast" data-bs-delay="10000" id="customToast" role="alert" aria-live="assertive" aria-atomic="true">
                         <div class="toast-header">
-                            <strong class="me-auto">Bootstrap</strong>
+                            <strong class="me-auto"></strong>
                             <small class="text-muted">just now</small>
                             <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
                         </div>
@@ -107,9 +135,7 @@ if (strlen($_SESSION['alogin']) == 0) {
                         <span></span>
                         <span></span>
                     </button>
-                    <button class="btn btn-dark d-inline-block d-lg-none ml-auto" type="button" data-toggle="collapse"
-                        data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
+                    <button class="cutomBtn btn-dark d-inline-block d-lg-none ml-auto" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                         <i class="fas fa-align-justify"></i>
                     </button>
 
@@ -142,6 +168,14 @@ if (strlen($_SESSION['alogin']) == 0) {
                 <strong>Caution:</strong> The following buttons require careful handling. Ensure you understand the
                 implications before clicking. 1. Delete , 2. Progress , 3. Repeat
             </div>
+            <div class="container d-flex justify-content-end mt-5">
+                <a href="manage-students.php">
+                    <button class="cutomBtn    " data-bs-toggle="tooltip" data-bs-placement="top" title="refresh page">
+                        <i class="fas fa-sync-alt"></i> Refresh
+                    </button>
+                </a>
+
+            </div>
 
 
             <div>
@@ -170,7 +204,7 @@ if (strlen($_SESSION['alogin']) == 0) {
                                         $sql = mysqli_query($con, "select * from students");
                                         $cnt = 1;
                                         while ($row = mysqli_fetch_array($sql)) {
-                                            ?>
+                                        ?>
                                             <tr>
                                                 <td>
                                                     <?php echo $cnt; ?>
@@ -189,39 +223,31 @@ if (strlen($_SESSION['alogin']) == 0) {
                                                 </td>
                                                 <td>
                                                     <div class="d-flex flex-row align-items-center">
-                                                        <a
-                                                            href="edit-student-profile.php?id=<?php echo $row['studentRegno'] ?>">
-                                                            <button class="btn btn-primary"><i class="fa fa-edit "></i>
+                                                        <a href="edit-student-profile.php?id=<?php echo $row['studentRegno'] ?>">
+                                                            <button class="cutomBtn    "><i class="fa fa-edit "></i>
                                                                 Edit</button>
                                                         </a>
 
                                                         <!-- Form for individual progression -->
                                                         <!-- Form for individual reversal -->
                                                         <form method="get" action="manage-students.php">
-                                                            <input type="hidden" name="id"
-                                                                value="<?php echo $row['studentRegno']; ?>">
+                                                            <input type="hidden" name="id" value="<?php echo $row['studentRegno']; ?>">
                                                             <input type="hidden" name="reverse" value="update">
-                                                            <button type="submit" class="reverseBtn mt-1"><i
-                                                                    class="fa fa-backward"></i> </button>
+                                                            <button type="submit" class="reverseBtn mt-1" data-bs-toggle="tooltip" data-bs-placement="top" title="reverse button"><i class="fa fa-backward"></i> </button>
                                                         </form>
 
                                                         <form method="get" action="manage-students.php">
-                                                            <input type="hidden" name="id"
-                                                                value="<?php echo $row['studentRegno']; ?>">
+                                                            <input type="hidden" name="id" value="<?php echo $row['studentRegno']; ?>">
                                                             <input type="hidden" name="progress" value="update">
-                                                            <button type="submit" class=" progressBtn mt-1"><i
-                                                                    class="fa fa-forward"></i></button>
+                                                            <button type="submit" class=" progressBtn mt-1" data-bs-toggle="tooltip" data-bs-placement="top" title="progress button"><i class="fa fa-forward"></i></button>
                                                         </form>
                                                     </div>
                                                     <div class="mt-1">
-                                                        <a href="manage-students.php?id=<?php echo $row['studentRegno'] ?>&pass=update"
-                                                            onClick="return confirm('Are you sure you want to reset password?')">
-                                                            <button type="submit" name="submit" id="submit"
-                                                                class="btn btn-primary fs-6">Reset Password</button>
+                                                        <a href="manage-students.php?id=<?php echo $row['studentRegno'] ?>&pass=update" onClick="return confirm('Are you sure you want to reset password?')">
+                                                            <button type="submit" name="submit" id="submit" class="cutomBtn     fs-6">Reset Password</button>
                                                         </a>
-                                                        <a href="manage-students.php?id=<?php echo $row['studentRegno'] ?>&del=delete"
-                                                            onClick="return confirm('Are you sure you want to delete?')">
-                                                            <button class=" deleteBtn"><i class="fa fa-trash"></i></button>
+                                                        <a href="manage-students.php?id=<?php echo $row['studentRegno'] ?>&del=delete" onClick="return confirm('Are you sure you want to delete?')">
+                                                            <button class=" deleteBtn" data-bs-toggle="tooltip" data-bs-placement="top" title="delete button"><i class="fa fa-trash"></i></button>
                                                         </a>
 
 
@@ -229,7 +255,7 @@ if (strlen($_SESSION['alogin']) == 0) {
 
                                                 </td>
                                             </tr>
-                                            <?php
+                                        <?php
                                             $cnt++;
                                         } ?>
                                     </tbody>
@@ -244,7 +270,6 @@ if (strlen($_SESSION['alogin']) == 0) {
                     </div>
                     <?php
 
-
                     if (isset($_POST["passwordReset"])) {
                         $level = $_POST["levelToReset"];
 
@@ -258,66 +283,63 @@ if (strlen($_SESSION['alogin']) == 0) {
                             return $password;
                         }
 
-
                         $selectedLevelQuery = mysqli_query($con, "SELECT * FROM students WHERE level = '$level' ");
 
                         // Batch email array
                         $batchEmails = array();
+                        $hasError = false;
 
                         while ($selectedLevel = mysqli_fetch_array($selectedLevelQuery)) {
                             $studentEmail = $selectedLevel['email'];
-                            $newPassword = md5(generateRandomPassword());
+                            $newPassword = generateRandomPassword();
+                            $hashed =  md5($newPassword);
 
                             // Update the database with the new password
-                            mysqli_query($con, "UPDATE students SET password = '$newPassword' WHERE email = '$studentEmail'");
+                            $updateQuery = mysqli_query($con, "UPDATE students SET password = ' $hashed' WHERE email = '$studentEmail'");
 
                             // Add to batch email array
-                            $batchEmails[] = array('email' => $studentEmail, 'newPassword' => $newPassword);
+                            $batchEmails[] = array('email' => $studentEmail, 'newPassword' => $newPassword, 'hasError' => !$updateQuery);
+
+                            // Set $hasError to true if any email has an error
+                            $hasError = $hasError || !$updateQuery;
                         }
 
                         // Send batch emails
                         sendBatchPasswordResetEmails($batchEmails);
 
-                        echo '<script>alert("Password reset completed. Check email for the new passwords.")</script>';
+                        if ($hasError) {
+                            echo '<script>
+                                new Notify({
+                                    title: "Password Reset Not Successful",
+                                    text: "Some emails were not valid.",
+                                    autoclose: true,
+                                    autotimeout: 6000,
+                                    status: "error"
+                                });
+                            </script>';
+                                        
+                                        } else {
+                                            echo '<script>
+                                new Notify({
+                                    title: "Password Reset Completed",
+                                    text: "Check email for the new passwords.",
+                                    autoclose: true,
+                                    autotimeout: 6000,
+                                    status: "success"
+                                });
+                            </script>';
+                        }
                     }
 
                     function sendBatchPasswordResetEmails($batchEmails)
                     {
                         foreach ($batchEmails as $batchEmail) {
-                            sendPasswordResetEmail($batchEmail['email'], $batchEmail['newPassword']);
+                            $message = 'Your password for your portal has been reset, please keep your new password safe: ' . $batchEmail['newPassword'];
+                            sendPasswordResetEmail($batchEmail['email'], $batchEmail['newPassword'], $batchEmail['hasError'], $message);
                         }
-                    }
+                    } ?>
 
-                    function sendPasswordResetEmail($email, $newPassword)
-                    {
-                        $mail = new PHPMailer(true);
 
-                        try {
-                            //Server settings
-                            $mail->isSMTP();
-                            $mail->Host = 'smtp.gmail.com'; // Specify your SMTP server
-                            $mail->SMTPAuth = true;
-                            $mail->Username = 'andohfrancis9187@gmail.com';
-                            $mail->Password = 'mdgu tsjx utef vgcw';
-                            $mail->SMTPSecure = 'tls';
-                            $mail->Port = 587;
-
-                            //Recipients
-                            $mail->setFrom('andohfrancis9187@gmail.com', 'Wiawso College of Education');
-                            $mail->addAddress($email);
-
-                            //Content
-                            $mail->isHTML(true);
-                            $mail->Subject = 'Password Reset';
-                            $mail->Body = 'Your password for your  portal has been reset, please keep your new password safe: ' . $newPassword;
-
-                            $mail->send();
-                        } catch (Exception $e) {
-                            echo '<script>alert("Password reset not successfull,some emails were not valid")</script>';
-                            echo '<script>window.location.href=manage-students.php</script>';
-                        }
-                    }
-                    ?>
 
                     <div class="warning-card">
                         <div class="card-header">Warning</div>
@@ -341,8 +363,7 @@ if (strlen($_SESSION['alogin']) == 0) {
                                             <option value="400">Level 400</option>
                                         </select>
                                     </div>
-                                    <button class="action-button form-control" id="passwordReset" type="submit"
-                                        name="passwordReset">
+                                    <button class="action-button form-control" id="passwordReset" type="submit" name="passwordReset">
                                         Reset Password</button>
                                 </form>
                             </div>
@@ -350,16 +371,15 @@ if (strlen($_SESSION['alogin']) == 0) {
                     </div>
 
                     <?php
-                    include 'functions/progression.php';
-                    include 'functions/reverse-progression.php';
+               
 
 
                     // Reopen the database connection before batch processing
-                    
+
                     if (isset($_POST['batchProgression'])) {
                         $promotionCriteria = 12; // Promote after 12 months
                         $promotionLimit = 4; // Promote for up to 4 years
-                    
+
                         // Set a limit for the number of records to process in each iteration
                         $limit = 100;
 
@@ -386,7 +406,7 @@ if (strlen($_SESSION['alogin']) == 0) {
                     if (isset($_POST['batchReversal'])) {
                         // Set a limit for the number of records to process in each iteration
                         $limit = 100;
-                        
+
 
                         // Calculate the number of iterations required
                         $totalStudents = mysqli_query($con, "SELECT COUNT(*) as total FROM students WHERE level <= 400");
@@ -424,8 +444,7 @@ if (strlen($_SESSION['alogin']) == 0) {
                             <div class="col-4">
 
                                 <form method="post">
-                                    <button class="action-button  form-control" id="batchProgression" type="submit"
-                                        name="batchProgression">Batch
+                                    <button class="action-button  form-control" id="batchProgression" type="submit" name="batchProgression">Batch
                                         Progression</button>
                                 </form>
                             </div>
@@ -446,8 +465,7 @@ if (strlen($_SESSION['alogin']) == 0) {
                             </div>
                             <div class="col-4">
                                 <form method="post">
-                                    <button class="action-button form-control" id="batchReversal" type="submit"
-                                        name="batchReversal">
+                                    <button class="action-button form-control" id="batchReversal" type="submit" name="batchReversal">
                                         Reverse Progression</button>
                                 </form>
                             </div>
@@ -460,19 +478,13 @@ if (strlen($_SESSION['alogin']) == 0) {
             </div>
         </div>
     </div>
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
-        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
-        crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <!-- Popper.JS -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"
-        integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ"
-        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js" integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ" crossorigin="anonymous"></script>
     <!-- Bootstrap JS -->
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"
-        integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm"
-        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm" crossorigin="anonymous"></script>
     <script type="text/javascript">
-        $(document).ready(function () {
+        $(document).ready(function() {
             <?php
             if (isset($_GET['progress'])) {
                 $studentRegno = $_GET['id'];
@@ -483,37 +495,38 @@ if (strlen($_SESSION['alogin']) == 0) {
                 while ($row = mysqli_fetch_array($sql)) {
                     handleProgression($row['studentRegno'], $row['enrollmentDate'], $row['level'], $promotionCriteria, $promotionLimit, $con);
                 }
-                ?>
+            ?>
                 $('#customToast .toast-body').html('Progression completed for student with Reg No: <?php echo $studentRegno; ?>');
                 $('#customToast').toast('show');
-                <?php
+
+            <?php
 
             }
 
             if (isset($_GET['reverse'])) {
                 $studentRegno = $_GET['id'];
                 reverseProgression($studentRegno, $con);
-                ?>
+            ?>
                 $('#customToast .toast-body').html('Reversal completed for student with Reg No: <?php echo $studentRegno; ?>');
                 $('#customToast').toast('show');
-                <?php
+            <?php
             }
             ?>
         });
     </script>
     <script type="text/javascript">
-        $(document).ready(function () {
-            $('#sidebarCollapse').on('click', function () {
+        $(document).ready(function() {
+            $('#sidebarCollapse').on('click', function() {
                 $('#sidebar').toggleClass('active');
                 $(this).toggleClass('active');
             });
         });
     </script>
-    <script type="text/javascript" charset="utf8"
-        src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.js"></script>
+
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.js"></script>
     <script>
         // DataTable initialization script
-        $(document).ready(function () {
+        $(document).ready(function() {
             $('.table').DataTable();
         });
     </script>

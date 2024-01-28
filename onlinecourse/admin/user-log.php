@@ -1,23 +1,11 @@
 <?php
 session_start();
 include('includes/config.php');
+error_reporting(1);
 if(strlen($_SESSION['alogin'])==0) {   
     header('location:index.php');
 } else {
-        // Handle "Clear All" button click
-        if (isset($_POST['clearAll'])) {
-            $studentregno = $_SESSION['login'];
-    
-            // Execute a query to delete all course enrolls for the current use
-            $num =  1;
-            $clearAllQuery = mysqli_query($con, "DELETE FROM userlog WHERE status = '$num' ");
-    
-            if ($clearAllQuery) {
-                echo '<script>alert("All course enrolls cleared successfully!")</script>';
-            } else {
-                echo '<script>alert("Error clearing course enrolls")</script>';
-            }
-        }
+       
 ?>
 
 <!DOCTYPE html>
@@ -33,6 +21,10 @@ if(strlen($_SESSION['alogin'])==0) {
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
     integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
     crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/simple-notify@0.5.5/dist/simple-notify.min.js"></script>
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/simple-notify@0.5.5/dist/simple-notify.min.css" />
+
     <link href="../assets/css/font-awesome.css" rel="stylesheet" />
     <link href="../assets/css/style.css" rel="stylesheet" />
     <link href="../assets/css/admin_side_nav.css" rel="stylesheet" />
@@ -54,6 +46,30 @@ if(strlen($_SESSION['alogin'])==0) {
     }
     ?>
     <div id="content">
+    <?php
+     if (isset($_POST['clearAll'])) {
+        $studentregno = $_SESSION['login'];
+
+        // Execute a query to delete all course enrolls for the current use
+        $num =  1;
+        $clearAllQuery = mysqli_query($con, "DELETE FROM userlog");
+
+
+        if ($clearAllQuery) {
+            echo '<script>
+    new Notify({
+        title: "Course Enrolls",
+        text: "All course enrolls cleared successfully",
+        autoclose: true,
+        autotimeout: 3000,
+        status: "success"
+    });
+  </script>';
+        } 
+    }
+
+    ?>
+
         <nav class="navbar navbar-expand-lg ">
             <div class="container-fluid ">
                 <button type="button" id="sidebarCollapse" class="navbar-btn">
@@ -61,7 +77,7 @@ if(strlen($_SESSION['alogin'])==0) {
                     <span></span>
                     <span></span>
                 </button>
-                <button class="btn btn-dark d-inline-block d-lg-none ml-auto" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <button class="cutomBtn btn-dark d-inline-block d-lg-none ml-auto" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                     <i class="fas fa-align-justify"></i>
                 </button>
         
@@ -71,13 +87,13 @@ if(strlen($_SESSION['alogin'])==0) {
 
         <div class="content-wrapper">
             <div class="container">
-                <form>
                 <div class="d-flex justify-content-end">
-                
-                <button type="submit" name="clearAll" class="btn text-right btn-danger p-3 actio">Clear All</button>
-    
+                 <form method="post" >
+                        <div class="d-flex justify-content-end">
+                            <button type="submit" name="clearAll" class="cutomBtn text-right btn-danger p-3 actio">Clear All</button>
+                        </div>
+                    </form>
                 </div>
-                </form>
             
         
                 <div class="row">

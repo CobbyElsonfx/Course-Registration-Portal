@@ -28,7 +28,6 @@ if (strlen($_SESSION['login']) == 0) {
             crossorigin="anonymous"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.5.0-beta4/html2canvas.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-        <link href="../assets/css/bootstrap.css" rel="stylesheet" />
         <link href="../assets/css/font-awesome.css" rel="stylesheet" />
         <link href="assets/css/style.css" rel="stylesheet" />
         <link href="assets/css/results.css" rel="stylesheet" />
@@ -94,7 +93,7 @@ if (strlen($_SESSION['login']) == 0) {
                     </div>
                 </div>
             </div>
-            <button type="button" class="btn px-3" id="generateBtn">Generate</button>
+            <button type="button" class="cutomBtn px-3" id="generateBtn">Generate</button>
         </div>
     </div>
 

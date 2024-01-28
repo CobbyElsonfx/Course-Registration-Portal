@@ -81,8 +81,12 @@ if (isset($_POST['submit'])) {
                     </span>
 
                     <div class="panel-body">
+
                         <form class="adminForm card shadow-lg" name="admin" method="post">
-                            <div class="mb-1">
+                           
+
+                        
+                        <div class="mb-1">
                                 <label for="exampleInputEmail1" class="form-label">Username</label>
                                 <input type="text" name="username" class="form-control" required id="exampleInputEmail1"
                                     aria-describedby="emailusername">
@@ -99,9 +103,13 @@ if (isset($_POST['submit'])) {
                                 <label class="form-check-label" for="exampleCheck1">Check me out</label>
                             </div>
                             <div class="mb-1 d-flex  justify-content-center">
-                                <a href="" >Forgot Password ?</a>
+                            <a href="./verify.php">Forgot Password?</a>
+
+
                             </div>
-                            <button type="submit" name="submit" class="btn btn-primary">Submit</button>
+                            <button type="submit" name="submit" class="cutomBtn    ">Submit</button>
+    
+                        
                         </form>
                     </div>
 

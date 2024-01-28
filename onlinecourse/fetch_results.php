@@ -93,36 +93,60 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
                 <!-- Courses and Grades -->
                 <table class="table">
-                    <thead>
-                        <tr>
-                            <th>Course Code</th>
-                            <th>Course Name</th>
-                            <th>Grade</th>
-                        </tr>
-                    </thead>
-                    <tbody>
+    <thead>
+        <tr>
+            <th>Course Code</th>
+            <th>Course Name</th>
+            <th>Grade</th>
+        </tr>
+    </thead>
+    <tbody>
+        <?php
+        // Define grade points for each grade
+        $gradePoints = array(
+            'A' => 4.0,
+            'B+' => 3.5,
+            'B' => 3.0,
+            'C+' => 2.5,
+            'C' => 2.0,
+            'D+' => 1.5,
+            'D' => 1.0,
+            'F' => 0.0,
+        );
 
-                        <?php
+        // Initialize variables for CGPA calculation
+        $totalCreditHours = 0;
+        $totalGradePoints = 0;
 
+        foreach ($results as $result) {
+            echo "<tr>";
+            echo "<td>" . htmlentities($result['courseCode']) . "</td>";
+            echo "<td>" . htmlentities($result['courseName']) . "</td>";
+            echo "<td>" . htmlentities($result['grade']) . "</td>";
+            echo "</tr>";
 
-                        foreach ($results as $result) {
-                            $courseCodeId = $result['courseCode'];
-                            $courseCodeQuery = "SELECT courseCode , courseName FROM course WHERE course.id = '$courseCodeId'";
-                            $courseCodeResult = mysqli_query($con, $courseCodeQuery);
-                            $courseCodeRow = mysqli_fetch_assoc($courseCodeResult);
+            // Calculate grade points for the current result
+            $creditHours = (int) $result['courseUnit'];
+            $grade = strtoupper($result['grade']);
+            $gradePoint = isset($gradePoints[$grade]) ? $gradePoints[$grade] : 0;
 
-                            echo "<tr>";
-                            echo "<td>" . htmlentities($courseCodeRow['courseCode']) . "</td>";
-                            echo "<td>" . htmlentities($courseCodeRow['courseName']) . "</td>";
-                            echo "<td>" . htmlentities($result['grade']) . "</td>";
-                            echo "</tr>";
-                        }
-                        ?>
-                    </tbody>
-                </table>
+            // Update total grade points and credit hours
+            $totalGradePoints += ($creditHours * $gradePoint);
+            $totalCreditHours += $creditHours;
+        }
+
+        // Calculate CGPA
+        $cgpa = ($totalCreditHours > 0) ? round($totalGradePoints / $totalCreditHours, 2) : 0;
+
+        echo "<div>";
+        echo "<h5>CGPA: <span style='font-weight: bold;'>$cgpa</span></h5>";
+        echo "</div>";
+        ?>
+    </table>
+
                 <div class="d-flex justify-content-end">
 
-                <button class="btn mt-4 btn-primary m-auto" onclick="generatePDF()" >
+                <button class="cutomBtn mt-4     m-auto" onclick="generatePDF()" >
                                            print
                                         </button> 
                 </div>

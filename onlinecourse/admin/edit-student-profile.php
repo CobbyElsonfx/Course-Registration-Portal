@@ -6,27 +6,6 @@ if (strlen($_SESSION['alogin']) == 0) {
   header('location:index.php');
 } else {
 
-  if (isset($_POST['submit'])) {
-    $regid = intval($_GET['id']);
-    $surname = $_POST['surname'];
-    $programme = $_POST['programme'];
-    $firstname = $_POST['firstname'];
-    $otherName = $_POST['otherName'];
-    $contactNumber = $_POST['contactNumber'];
-    $email = $_POST['email'];
-    $dob = $_POST['dob'];
-
-    $photo = $_FILES["photo"]["name"];
-    move_uploaded_file($_FILES["photo"]["tmp_name"], "../studentphoto/" . $_FILES["photo"]["name"]);
-    $ret = mysqli_query($con, "update students set surname='$surname', firstname='$firstname', otherName= '$otherName',dob = '$dob',email= '$email', contactNumber='$contactNumber', programme='$programme' ,studentPhoto='$photo' where studentRegno='$regid'");
-    if ($ret) {
-      echo '<script>alert("Student Record updated Successfully !!")</script>';
-      echo '<script>window.location.href=manage-students.php</script>';
-    } else {
-      echo '<script>alert("Error : Student Record not update")</script>';
-      echo '<script>window.location.href=manage-students.php</script>';
-    }
-  }
   ?>
 
   <!DOCTYPE html>
@@ -43,6 +22,9 @@ if (strlen($_SESSION['alogin']) == 0) {
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
             integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
             crossorigin="anonymous"></script>
+            <script src="https://cdn.jsdelivr.net/npm/simple-notify@0.5.5/dist/simple-notify.min.js"></script>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/simple-notify@0.5.5/dist/simple-notify.min.css" />
         <link href="../assets/css/font-awesome.css" rel="stylesheet" />
         <link href="../assets/css/style.css" rel="stylesheet" />
         <link href="../assets/css/admin_side_nav.css" rel="stylesheet" />
@@ -58,6 +40,44 @@ if (strlen($_SESSION['alogin']) == 0) {
 
         <!-- Page Content Holder -->
         <div id="content">
+         <?php 
+         
+  if (isset($_POST['submit'])) {
+    $regid = intval($_GET['id']);
+    $surname = $_POST['surname'];
+    $programme = $_POST['programme'];
+    $firstname = $_POST['firstname'];
+    $otherName = $_POST['otherName'];
+    $contactNumber = $_POST['contactNumber'];
+    $email = $_POST['email'];
+    $dob = $_POST['dob'];
+
+    $photo = $_FILES["photo"]["name"];
+    move_uploaded_file($_FILES["photo"]["tmp_name"], "../studentphoto/" . $_FILES["photo"]["name"]);
+    $ret = mysqli_query($con, "update students set surname='$surname', firstname='$firstname', otherName= '$otherName',dob = '$dob',email= '$email', contactNumber='$contactNumber', programme='$programme' ,studentPhoto='$photo' where studentRegno='$regid'");
+    if ($ret) {
+      echo '<script>
+      new Notify({
+          title: "Update Profile",
+          text: "Student Record updated Successfully !!",
+          autoclose: true,
+          autotimeout: 3000,
+          status: "success"
+      });
+  </script>';
+    } else {
+      echo '<script>
+      new Notify({
+          title: "Update Profile",
+          text: "Student Record failed to update!!",
+          autoclose: true,
+          autotimeout: 3000,
+          status: "success"
+      });
+  </script>';    }
+  }
+
+         ?>
 
             <nav class="navbar navbar-expand-lg ">
                 <div class="container-fluid ">
@@ -67,19 +87,16 @@ if (strlen($_SESSION['alogin']) == 0) {
                         <span></span>
                         <span></span>
                     </button>
-                    <button class="btn btn-dark d-inline-block d-lg-none ml-auto" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <button class="cutomBtn btn-dark d-inline-block d-lg-none ml-auto" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                         <i class="fas fa-align-justify"></i>
                     </button>
 
                   
                 </div>
             </nav>
- 
-           
-    
     <!-- MENU SECTION END-->
     <div>
-      <a class="btn btn-primary" href="manage-students.php" role="button"><i class="fa fa-caret-left"></i>Back</a>
+      <a class="cutomBtn    " href="manage-students.php" role="button"><i class="fa fa-caret-left"></i>Back</a>
 
     </div>
       <div>
@@ -108,7 +125,7 @@ if (strlen($_SESSION['alogin']) == 0) {
 
                   <div class="panel-body card">
                     <form name="dept" method="post" enctype="multipart/form-data">
-
+                    
                     <div class="form-group my-4 ">
                         <label for="studentphoto">Student Photo </label>
                         <?php if ($row['studentPhoto'] == "") { ?>
@@ -128,17 +145,17 @@ if (strlen($_SESSION['alogin']) == 0) {
                       <div class="d-flex  flex-row justify-content-between">
                         <div class="form-group" style="width:35%">
                           <label for="surname">Surname </label>
-                          <input type="text" class="form-control" id="surname" name="surname"
+                          <input type="text" style="text-transform: uppercase" class="form-control" id="surname" name="surname"
                             value="<?php echo htmlentities($row['surname']); ?>" />
                         </div>
                         <div class="form-group mx-2"   style="width:35%">
                           <label for="firstname">First Name</label>
-                          <input type="text" class="form-control" id="firstname" name="firstname"
+                          <input type="text" style="text-transform: uppercase" class="form-control" id="firstname" name="firstname"
                             value="<?php echo htmlentities($row['firstname']); ?>" />
                         </div>
                         <div class="form-group "   style="width:35%">
                           <label for="otherName">Other Name</label>
-                          <input type="text" class="form-control" id="otherName" name="otherName"
+                          <input type="text" style="text-transform: uppercase" class="form-control" id="otherName" name="otherName"
                             value="<?php echo htmlentities($row['otherName']); ?>" />
                         </div>
                       </div>
@@ -147,7 +164,7 @@ if (strlen($_SESSION['alogin']) == 0) {
                         <div class="d-flex  flex-row justify-content-between">
                         <div class="form-group">
                           <label for="dob">Date Of Birth</label>
-                          <input type="text" class="form-control" id="dob" name="dob"
+                          <input type="date" class="form-control" id="dob" name="dob"
                             value="<?php echo htmlentities($row['dob']); ?>" />
                         </div>
                         <div class="form-group mx-2"  style="width:45%">
@@ -181,19 +198,15 @@ if (strlen($_SESSION['alogin']) == 0) {
                       
                       <div class="form-group ml-2"  style="width:35%">
                         <label for="studentregno">Student Index/Ref No </label>
-                        <input type="text" class="form-control" id="studentregno" name="studentregno"
+                        <input type="text" style="text-transform: uppercase" class="form-control" id="studentregno" name="studentregno"
                           value="<?php echo htmlentities($row['studentRegno']); ?>" placeholder="Student Reg no" readonly />
                       </div>
 
                         </div>
                         
-
-
-                  
-
                 <?php } ?>
 
-                <button type="submit" name="submit" id="submit" class="btn btn-default mt-2 form-control">Update</button>
+                <button type="submit" name="submit" id="submit" class="cutomBtn btn-default mt-2 form-control">Update</button>
                 </form>
               </div>
             </div> 

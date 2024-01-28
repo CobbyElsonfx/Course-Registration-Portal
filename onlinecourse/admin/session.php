@@ -78,7 +78,7 @@ if (strlen($_SESSION['alogin']) == 0) {
                                         <input type="text" class="form-control" id="sesssion" name="sesssion"
                                             placeholder="Session" />
                                     </div>
-                                    <button type="submit" name="submit" class="btn btn-default">Submit</button>
+                                    <button type="submit" name="submit" class="cutomBtn btn-default">Submit</button>
                                 </form>
                             </div>
                         </div>
@@ -128,7 +128,7 @@ if (strlen($_SESSION['alogin']) == 0) {
                                                 <td>
                                                     <a href="session.php?id=<?php echo $row['id'] ?>&del=delete" onClick="return
                                                 confirm('Are you sure you want to delete?')">
-                                                        <button class="btn btn-danger">Delete</button>
+                                                        <button class="cutomBtn btn-danger">Delete</button>
                                                     </a>
                                                 </td>
                                             </tr>

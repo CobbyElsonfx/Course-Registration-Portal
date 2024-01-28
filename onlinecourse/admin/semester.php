@@ -82,7 +82,7 @@ echo '<script>window.location.href=semester.php</script>';
                     <label for="semester">Add Semester  </label>
                     <input type="text" class="form-control" id="semester" name="semester" placeholder="semester" required />
                 </div>
-                <button type="submit" name="submit" class="btn btn-default">Submit</button>
+                <button type="submit" name="submit" class="cutomBtn btn-default">Submit</button>
                 </form>
                                             </div>
                                             </div>
@@ -123,7 +123,7 @@ echo '<script>window.location.href=semester.php</script>';
                                             <td><?php echo htmlentities($row['creationDate']);?></td>
                                             <td>
                                             <a href="semester.php?id=<?php echo $row['id']?>&del=delete" onClick="return confirm('Are you sure you want to delete?')">
-                                            <button class="btn btn-danger">Delete</button>
+                                            <button class="cutomBtn btn-danger">Delete</button>
 </a>
                                             </td>
                                         </tr>

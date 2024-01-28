@@ -262,8 +262,8 @@ if (typeof jQuery === 'undefined') { throw new Error('Bootstrap\'s JavaScript re
   // ===============
 
   $(document).on('click.bs.button.data-api', '[data-toggle^="button"]', function (e) {
-    var $btn = $(e.target)
-    if (!$btn.hasClass('btn')) $btn = $btn.closest('.btn')
+    var $cutomBtn = $(e.target)
+    if (!$btn.hasClass('btn')) $cutomBtn = $btn.closest('.btn')
     Plugin.call($btn, 'toggle')
     e.preventDefault()
   })

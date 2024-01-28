@@ -35,6 +35,9 @@ if (strlen($_SESSION['alogin']) == 0) {
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
       integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
       crossorigin="anonymous"></script>
+      <script src="https://cdn.jsdelivr.net/npm/simple-notify@0.5.5/dist/simple-notify.min.js"></script>
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/simple-notify@0.5.5/dist/simple-notify.min.css" />
     <link href="../assets/css/style.css" rel="stylesheet" />
 
     <link href="../assets/css/font-awesome.css" rel="stylesheet" />
@@ -61,7 +64,7 @@ if (strlen($_SESSION['alogin']) == 0) {
               <span></span>
               <span></span>
             </button>
-            <button class="btn btn-dark d-inline-block d-lg-none ml-auto" type="button" data-toggle="collapse"
+            <button class="cutomBtn btn-dark d-inline-block d-lg-none ml-auto" type="button" data-toggle="collapse"
               data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
               aria-label="Toggle navigation">
               <i class="fas fa-align-justify"></i>
@@ -72,7 +75,7 @@ if (strlen($_SESSION['alogin']) == 0) {
         </nav>
         <div class="container">
           <div>
-            <a class="btn btn-primary" href="course.php" role="button"><i class="fa fa-caret-left"></i>Back</a>
+            <a class="cutomBtn    " href="course.php" role="button"><i class="fa fa-caret-left"></i>Back</a>
 
           </div>
           <div class="row">
@@ -123,7 +126,7 @@ if (strlen($_SESSION['alogin']) == 0) {
 
 
                     <?php } ?>
-                    <button type="submit" name="submit" class="btn btn-default my-3 "><i class=" fa fa-refresh "></i>
+                    <button type="submit" name="submit" class="cutomBtn btn-default my-3 "><i class=" fa fa-refresh "></i>
                       Update</button>
                   </form>
                 </div>

@@ -25,15 +25,15 @@ function handleProgression($studentRegno, $enrollmentDate, $level, $promotionCri
                 $newLevel = $level + 100;
             }
           
-            $promotionCount = getPromotionCount($con, $studentRegno);
 
             // Check if promotion is within the limit
-            if ($newLevel <= 400 && $promotionCount < $promotionLimit ) {
+            if ($newLevel <= 400) {
                 $updateQuery = "UPDATE students SET level = '$newLevel' WHERE studentRegno = '$studentRegno'";
                 if (!mysqli_query($con, $updateQuery)) {
                     throw new Exception("Error updating student's level: " . mysqli_error($con));
                 }
             }
+
 
             // Check if the student has reached level 00
             if ($newLevel == 500 ) {
@@ -66,6 +66,9 @@ function handleProgression($studentRegno, $enrollmentDate, $level, $promotionCri
 
             echo "Student has graduated!\n";
                }
+
+               $promotionCount = getPromotionCount($con, $studentRegno);
+
 
             if ($promotionCount <= $promotionLimit) {
                   // Update promotion count

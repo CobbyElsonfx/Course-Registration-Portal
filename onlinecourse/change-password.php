@@ -40,7 +40,6 @@ if (strlen($_SESSION['login']) == 0) {
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
       integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
       crossorigin="anonymous"></script>
-    <link href="../assets/css/bootstrap.css" rel="stylesheet" />
     <link href="../assets/css/font-awesome.css" rel="stylesheet" />
     <link href="assets/css/style.css" rel="stylesheet" />
   </head>
@@ -110,7 +109,7 @@ if (strlen($_SESSION['login']) == 0) {
                       placeholder="Password" />
                   </div>
 
-                  <button type="submit" name="submit" class="btn my-4 btn-default">Submit</button>
+                  <button type="submit" name="submit" class="cutomBtn my-4 btn-default">Submit</button>
                   <hr />
                 </form>
               </div>

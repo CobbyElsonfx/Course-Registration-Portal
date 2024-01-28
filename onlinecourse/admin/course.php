@@ -5,38 +5,7 @@ include('includes/config.php');
 if (strlen($_SESSION['alogin']) == 0) {
     header('location:index.php');
 } else {
-    if (isset($_POST['submit'])) {
-        $coursecode = $_POST['coursecode'];
-        $coursename = $_POST['coursename'];
-        $courseunit = $_POST['courseunit'];
-        $level = $_POST['level'];
-        $semester = $_POST['semester'] ;
-        $program = isset($_POST['isCore']) ? null : $_POST['program'];
-        $isCore = isset($_POST['isCore']) ? 1 : 0;
 
-        // Check if the course with the same code and level already exists
-        $checkQuery = mysqli_query($con, "SELECT * FROM course WHERE courseCode='$coursecode' AND level_id='$level'");
-        $existingRecord = mysqli_fetch_array($checkQuery);
-
-        if ($existingRecord) {
-            echo '<script>alert("Error: Course with the same code and level already exists.")</script>';
-        } else {
-            // Insert the new course
-            $insertQuery = mysqli_query($con, "INSERT INTO course(courseCode, courseName, courseUnit, level_id, semester_id, programme_id, isCore) VALUES ('$coursecode', '$coursename', '$courseunit', '$level', '$semester', '$program', '$isCore')");
-
-            if ($insertQuery) {
-                echo '<script>alert("Course added successfully!")</script>';
-            } else {
-                echo '<script>alert("Error: Unable to add the course.")</script>';
-            }
-        }
-    }
-
-    if (isset($_GET['del'])) {
-        $courseId = $_GET['id'];
-        mysqli_query($con, "DELETE FROM course WHERE id = '$courseId'");
-        echo '<script>alert("Course deleted!!")</script>';
-    }
     ?>
 
     <!DOCTYPE html>
@@ -49,6 +18,9 @@ if (strlen($_SESSION['alogin']) == 0) {
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
             integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
             crossorigin="anonymous"></script>
+            <script src="https://cdn.jsdelivr.net/npm/simple-notify@0.5.5/dist/simple-notify.min.js"></script>
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/simple-notify@0.5.5/dist/simple-notify.min.css" />
         <link href="../assets/css/font-awesome.css" rel="stylesheet" />
         <link href="../assets/css/style.css" rel="stylesheet" />
         <link href="../assets/css/course.css" rel="stylesheet" />
@@ -67,6 +39,63 @@ if (strlen($_SESSION['alogin']) == 0) {
 
         <!-- Page Content Holder -->
         <div id="content">
+            <?php 
+                if (isset($_POST['submit'])) {
+                    $coursecode = $_POST['coursecode'];
+                    $coursename = $_POST['coursename'];
+                    $courseunit = $_POST['courseunit'];
+                    $level = $_POST['level'];
+                    $semester = $_POST['semester'] ;
+                    $program = isset($_POST['isCore']) ? null : $_POST['program'];
+                    $isCore = isset($_POST['isCore']) ? 1 : 0;
+            
+                    // Check if the course with the same code and level already exists
+                    $checkQuery = mysqli_query($con, "SELECT * FROM course WHERE courseCode='$coursecode' AND level_id='$level'");
+                    $existingRecord = mysqli_fetch_array($checkQuery);
+            
+                    if ($existingRecord) {
+                        echo '<script>alert("Error: Course with the same code and level already exists.")</script>';
+                    } else {
+                        // Insert the new course
+                        $insertQuery = mysqli_query($con, "INSERT INTO course(courseCode, courseName, courseUnit, level_id, semester_id, programme_id, isCore) VALUES ('$coursecode', '$coursename', '$courseunit', '$level', '$semester', '$program', '$isCore')");
+            
+                        if ($insertQuery) {
+                            echo '<script>
+                            new Notify({
+                                title: "Manage Courses",
+                                text: "Course Added Successfully",
+                                autoclose: true,
+                                autotimeout: 2000,
+                                status: "success"
+                            })';
+                        } else {
+                            echo '<script>
+                            new Notify({
+                                title: "Manage Courses",
+                                text: "Unable to add course",
+                                autoclose: true,
+                                autotimeout: 2000,
+                                status: "success"
+                            })';
+                        }
+                    }
+                }
+            
+                if (isset($_GET['del'])) {
+                    $courseId = $_GET['id'];
+                    mysqli_query($con, "DELETE FROM course WHERE id = '$courseId'");
+                    echo '<script>
+                    new Notify({
+                        title: "Manage Courses",
+                        text: "Course Deleted Successfully",
+                        autoclose: true,
+                        autotimeout: 2000,
+                        status: "success"
+                    });
+                    </script>';
+                }
+
+            ?>
 
             <nav class="navbar navbar-expand-lg ">
                 <div class="container-fluid ">
@@ -76,11 +105,19 @@ if (strlen($_SESSION['alogin']) == 0) {
                         <span></span>
                         <span></span>
                     </button>
-                    <button class="btn btn-dark d-inline-block d-lg-none ml-auto" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <button class="cutomBtn btn-dark d-inline-block d-lg-none ml-auto" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                         <i class="fas fa-align-justify"></i>
                     </button>
                 </div>
             </nav>
+            <div class="container d-flex justify-content-end mt-5">
+                <a href="course.php">
+                    <button class="cutomBtn    " data-bs-toggle="tooltip" data-bs-placement="top" title="refresh page">
+                        <i class="fas fa-sync-alt"></i> Refresh
+                    </button>
+                </a>
+
+            </div>
 
             <div >
                 <div class="row">
@@ -97,7 +134,7 @@ if (strlen($_SESSION['alogin']) == 0) {
                                     <div class="d-flex justify-content-between">
                                     <div class="form-group mb-2" style="width:35%">
                                         <label for="coursecode">Course Code </label>
-                                        <input type="text" class="form-control" id="coursecode" name="coursecode"
+                                        <input type="text" style="text-transform: uppercase" class="form-control" id="coursecode" name="coursecode"
                                             placeholder="Course Code" required />
                                     </div>
 
@@ -105,7 +142,7 @@ if (strlen($_SESSION['alogin']) == 0) {
 
                                     <div class="form-group mb-2"  style="width:62%">
                                         <label for="coursename">Course Title </label>
-                                        <input type="text" class="form-control" id="coursename" name="coursename"
+                                        <input type="text" style="text-transform: uppercase" class="form-control" id="coursename" name="coursename"
                                             placeholder="Course Name" required />
                                     </div>
                                     </div>
@@ -167,7 +204,7 @@ if (strlen($_SESSION['alogin']) == 0) {
 
                                    </div>
 
-                                    <button type="submit" name="submit" class="form-control btn btn-default mt-3">Submit</button>
+                                    <button type="submit" name="submit" class="form-control cutomBtn btn-default mt-3">Submit</button>
                                 </form>
                             </div>
                         </div>
@@ -224,7 +261,7 @@ if (strlen($_SESSION['alogin']) == 0) {
                                                     </td>
                                                     <td>
                                                         <a href="edit-course.php?id=<?php echo $row['id'] ?>">
-                                                            <button class="btn btn-primary"><i class="fa fa-edit"></i> Edit</button>
+                                                            <button class="cutomBtn    "><i class="fa fa-edit"></i> Edit</button>
                                                         </a>
                                                         <a href="course.php?id=<?php echo $row['id'] ?>&del=delete"
                                                             onClick="return confirm('Are you sure you want to delete?')">
@@ -319,7 +356,7 @@ if (strlen($_SESSION['alogin']) == 0) {
                                                                 </td>
                                                                 <td>
                                                                     <a href="edit-course.php?id=<?php echo $row['id'] ?>">
-                                                                        <button class="btn btn-primary"><i class="fa fa-edit"></i> Edit</button>
+                                                                        <button class="cutomBtn    "><i class="fa fa-edit"></i> Edit</button>
                                                                     </a>
                                                                     <a href="course.php?id=<?php echo $row['id'] ?>&del=delete"
                                                                         onClick="return confirm('Are you sure you want to delete?')">

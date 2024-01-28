@@ -207,7 +207,7 @@ if (strlen($_SESSION['login']) == 0) {
                           echo "</ul>";
 
                           // Display a single "Register" button
-                          echo "<button type='submit' name='submit' class='btn btn-primary'>Register</button>";
+                          echo "<button type='submit' name='submit' class='cutomBtn    '>Register</button>";
                         } else {
                           echo 'No courses found.';
                         }

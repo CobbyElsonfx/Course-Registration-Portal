@@ -8,13 +8,6 @@ error_reporting(0);
 if (strlen($_SESSION['alogin']) == 0) {
     header('location:index.php');
 } else {
-
-    // Code for Deletion
-    if (isset($_GET['del'])) {
-        mysqli_query($con, "delete from graduation where studentRegno = '" . $_GET['id'] . "'");
-        echo '<script>alert("Student Record Deleted Successfully !!")</script>';
-        echo '<script>window.location.href=graduates.php</script>';
-    }
 }
 
 ?>
@@ -27,12 +20,11 @@ if (strlen($_SESSION['alogin']) == 0) {
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
     <meta name="description" content="" />
     <meta name="author" content="Francis Andoh" />
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
-        crossorigin="anonymous"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/nprogress/0.2.0/nprogress.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/simple-notify@0.5.5/dist/simple-notify.min.js"></script>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/simple-notify@0.5.5/dist/simple-notify.min.css" />
 
     <link href="../assets/css/font-awesome.css" rel="stylesheet" />
     <link href="../assets/css/style.css" rel="stylesheet" />
@@ -50,8 +42,40 @@ if (strlen($_SESSION['alogin']) == 0) {
             include('includes/menubar.php');
         }
         ?>
+        <?php
+        // Code for Deletion
+        if (isset($_GET['del'])) {
+            mysqli_query($con, "delete from graduation where studentRegno = '" . $_GET['id'] . "'");
+            echo '<script>
+        new Notify({
+            title: "Graduation Records",
+            text: "Record deleted for Index No.: ' . $_GET['id'] . '",
+            autoclose: true,
+            autotimeout: 4000,
+            status: "success"
+        });
+      </script>';
+        }
 
-        <!-- Page Content Holder -->
+        // Code for Deletion
+        if (isset($_POST['deleteRecords'])) {
+            $graduationDate = $_POST["dateToDelete"];
+
+
+            mysqli_query($con, "DELETE FROM graduation WHERE graduationDate = '$graduationDate'");
+            echo '<script>
+        new Notify({
+            title: "Graduation Records",
+            text: "Records deleted for this date: ' . $graduationDate . '",
+            autoclose: true,
+            autotimeout: 4000,
+            status: "success"
+        });
+      </script>';
+        }
+
+
+        ?>
         <div id="content">
 
             <nav class="navbar navbar-expand-lg ">
@@ -62,9 +86,7 @@ if (strlen($_SESSION['alogin']) == 0) {
                         <span></span>
                         <span></span>
                     </button>
-                    <button class="btn btn-dark d-inline-block d-lg-none ml-auto" type="button" data-toggle="collapse"
-                        data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
+                    <button class="cutomBtn btn-dark d-inline-block d-lg-none ml-auto" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                         <i class="fas fa-align-justify"></i>
                     </button>
 
@@ -80,6 +102,14 @@ if (strlen($_SESSION['alogin']) == 0) {
                     parameters
                     such as index number and name. You can also delete student records from the database.
                 </p>
+
+            </div>
+            <div class="container d-flex justify-content-end mt-5">
+                <a href="graduates.php">
+                    <button class="cutomBtn    " data-bs-toggle="tooltip" data-bs-placement="top" title="refresh page">
+                        <i class="fas fa-sync-alt"></i> Refresh
+                    </button>
+                </a>
 
             </div>
 
@@ -112,7 +142,7 @@ if (strlen($_SESSION['alogin']) == 0) {
 
                                         $cnt = 1;
                                         while ($row = mysqli_fetch_array($sql)) {
-                                            ?>
+                                        ?>
                                             <tr>
                                                 <td>
                                                     <?php echo $cnt; ?>
@@ -133,15 +163,14 @@ if (strlen($_SESSION['alogin']) == 0) {
 
                                                     <div class="mt-1">
 
-                                                        <a href="graduates.php?id=<?php echo $row['studentRegno'] ?>&del=delete"
-                                                            onClick="return confirm('Are you sure you want to delete?')">
+                                                        <a href="graduates.php?id=<?php echo $row['studentRegno'] ?>&del=delete" onClick="return confirm('Are you sure you want to delete?')">
                                                             <button class=" deleteBtn"><i class="fa fa-trash"></i></button>
                                                         </a>
                                                     </div>
 
                                                 </td>
                                             </tr>
-                                            <?php
+                                        <?php
                                             $cnt++;
                                         } ?>
                                     </tbody>
@@ -149,7 +178,7 @@ if (strlen($_SESSION['alogin']) == 0) {
                             </div>
                         </div>
                     </div>
-                    <div class="warning-card">
+                    <div class="warning-card  mt-5">
                         <div class="card-header">Warning</div>
                         <div class="card-body">
                             <div class="col-7">
@@ -166,7 +195,7 @@ if (strlen($_SESSION['alogin']) == 0) {
                                         <select class="form-control mx-2" style="width:40%" name="dateToDelete">
                                             <?php
                                             // Assuming you have a database connection
-                                            
+
                                             // Query to fetch distinct years from the graduation table
                                             $query = "SELECT DISTINCT graduationDate FROM graduation";
                                             $result = mysqli_query($con, $query);
@@ -189,8 +218,7 @@ if (strlen($_SESSION['alogin']) == 0) {
                                         </select>
 
                                     </div>
-                                    <button class="action-button form-control" id="deleteRecords" type="submit"
-                                        name="deleteRecords">
+                                    <button class="action-button form-control" id="deleteRecords" type="submit" name="deleteRecords">
                                         DELETE
                                     </button>
                                 </form>
@@ -202,31 +230,24 @@ if (strlen($_SESSION['alogin']) == 0) {
             </div>
         </div>
     </div>
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
-        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
-        crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <!-- Popper.JS -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"
-        integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ"
-        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js" integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ" crossorigin="anonymous"></script>
     <!-- Bootstrap JS -->
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"
-        integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm"
-        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm" crossorigin="anonymous"></script>
 
     <script type="text/javascript">
-        $(document).ready(function () {
-            $('#sidebarCollapse').on('click', function () {
+        $(document).ready(function() {
+            $('#sidebarCollapse').on('click', function() {
                 $('#sidebar').toggleClass('active');
                 $(this).toggleClass('active');
             });
         });
     </script>
-    <script type="text/javascript" charset="utf8"
-        src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.js"></script>
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.js"></script>
     <script>
         // DataTable initialization script
-        $(document).ready(function () {
+        $(document).ready(function() {
             $('.table').DataTable();
         });
     </script>

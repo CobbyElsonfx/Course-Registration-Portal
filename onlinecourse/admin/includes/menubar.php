@@ -16,7 +16,7 @@
                             <a href="student-registration.php">Registration</a>
                         </li>
                         <li>
-                            <a href="programme.php">Programme</a>
+                            <a href="programme.php">New Programme</a>
                         </li>
                         <li>
                             <a href="course.php">New Course</a>

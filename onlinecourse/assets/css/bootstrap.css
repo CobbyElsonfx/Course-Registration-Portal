@@ -245,8 +245,8 @@ th {
   .navbar {
     display: none;
   }
-  .btn > .caret,
-  .dropup > .btn > .caret {
+  .cutomBtn > .caret,
+  .dropup > .cutomBtn > .caret {
     border-top-color: #000 !important;
   }
   .label {
@@ -2964,7 +2964,7 @@ select[multiple].form-group-lg .form-control {
     padding-top: 6px;
   }
 }
-.btn {
+.cutomBtn {
   display: inline-block;
   padding: 6px 12px;
   margin-bottom: 0;
@@ -3010,7 +3010,7 @@ select[multiple].form-group-lg .form-control {
 }
 .btn.disabled,
 .btn[disabled],
-fieldset[disabled] .btn {
+fieldset[disabled] .cutomBtn {
   pointer-events: none;
   cursor: not-allowed;
   filter: alpha(opacity=65);
@@ -3063,48 +3063,48 @@ fieldset[disabled] .btn-default.active {
   color: #fff;
   background-color: #333;
 }
-.btn-primary {
+.    {
   color: #fff;
   background-color: #337ab7;
   border-color: #2e6da4;
 }
-.btn-primary:hover,
-.btn-primary:focus,
-.btn-primary.focus,
-.btn-primary:active,
-.btn-primary.active,
-.open > .dropdown-toggle.btn-primary {
+.   :hover,
+.   :focus,
+.   .focus,
+.   :active,
+.   .active,
+.open > .dropdown-toggle.    {
   color: #fff;
   background-color: #286090;
   border-color: #204d74;
 }
-.btn-primary:active,
-.btn-primary.active,
-.open > .dropdown-toggle.btn-primary {
+.   :active,
+.   .active,
+.open > .dropdown-toggle.    {
   background-image: none;
 }
-.btn-primary.disabled,
-.btn-primary[disabled],
-fieldset[disabled] .btn-primary,
-.btn-primary.disabled:hover,
-.btn-primary[disabled]:hover,
-fieldset[disabled] .btn-primary:hover,
-.btn-primary.disabled:focus,
-.btn-primary[disabled]:focus,
-fieldset[disabled] .btn-primary:focus,
-.btn-primary.disabled.focus,
-.btn-primary[disabled].focus,
-fieldset[disabled] .btn-primary.focus,
-.btn-primary.disabled:active,
-.btn-primary[disabled]:active,
-fieldset[disabled] .btn-primary:active,
-.btn-primary.disabled.active,
-.btn-primary[disabled].active,
-fieldset[disabled] .btn-primary.active {
+.   .disabled,
+.   [disabled],
+fieldset[disabled] .   ,
+.   .disabled:hover,
+.   [disabled]:hover,
+fieldset[disabled] .   :hover,
+.   .disabled:focus,
+.   [disabled]:focus,
+fieldset[disabled] .   :focus,
+.   .disabled.focus,
+.   [disabled].focus,
+fieldset[disabled] .   .focus,
+.   .disabled:active,
+.   [disabled]:active,
+fieldset[disabled] .   :active,
+.   .disabled.active,
+.   [disabled].active,
+fieldset[disabled] .   .active {
   background-color: #337ab7;
   border-color: #2e6da4;
 }
-.btn-primary .badge {
+.    .badge {
   color: #337ab7;
   background-color: #fff;
 }
@@ -3322,21 +3322,21 @@ fieldset[disabled] .btn-link:focus {
   text-decoration: none;
 }
 .btn-lg,
-.btn-group-lg > .btn {
+.btn-group-lg > .cutomBtn {
   padding: 10px 16px;
   font-size: 18px;
   line-height: 1.3333333;
   border-radius: 6px;
 }
 .btn-sm,
-.btn-group-sm > .btn {
+.btn-group-sm > .cutomBtn {
   padding: 5px 10px;
   font-size: 12px;
   line-height: 1.5;
   border-radius: 3px;
 }
 .btn-xs,
-.btn-group-xs > .btn {
+.btn-group-xs > .cutomBtn {
   padding: 1px 5px;
   font-size: 12px;
   line-height: 1.5;
@@ -3539,7 +3539,7 @@ tbody.collapse.in {
   vertical-align: middle;
 }
 .btn-group > .btn,
-.btn-group-vertical > .btn {
+.btn-group-vertical > .cutomBtn {
   position: relative;
   float: left;
 }
@@ -3553,8 +3553,8 @@ tbody.collapse.in {
 .btn-group-vertical > .btn.active {
   z-index: 2;
 }
-.btn-group .btn + .btn,
-.btn-group .btn + .btn-group,
+.btn-group .cutomBtn + .btn,
+.btn-group .cutomBtn + .btn-group,
 .btn-group .btn-group + .btn,
 .btn-group .btn-group + .btn-group {
   margin-left: -1px;
@@ -3589,7 +3589,7 @@ tbody.collapse.in {
 .btn-group > .btn-group {
   float: left;
 }
-.btn-group > .btn-group:not(:first-child):not(:last-child) > .btn {
+.btn-group > .btn-group:not(:first-child):not(:last-child) > .cutomBtn {
   border-radius: 0;
 }
 .btn-group > .btn-group:first-child:not(:last-child) > .btn:last-child,
@@ -3605,7 +3605,7 @@ tbody.collapse.in {
 .btn-group.open .dropdown-toggle {
   outline: 0;
 }
-.btn-group > .btn + .dropdown-toggle {
+.btn-group > .cutomBtn + .dropdown-toggle {
   padding-right: 8px;
   padding-left: 8px;
 }
@@ -3621,7 +3621,7 @@ tbody.collapse.in {
   -webkit-box-shadow: none;
           box-shadow: none;
 }
-.btn .caret {
+.cutomBtn .caret {
   margin-left: 0;
 }
 .btn-lg .caret {
@@ -3633,17 +3633,17 @@ tbody.collapse.in {
 }
 .btn-group-vertical > .btn,
 .btn-group-vertical > .btn-group,
-.btn-group-vertical > .btn-group > .btn {
+.btn-group-vertical > .btn-group > .cutomBtn {
   display: block;
   float: none;
   width: 100%;
   max-width: 100%;
 }
-.btn-group-vertical > .btn-group > .btn {
+.btn-group-vertical > .btn-group > .cutomBtn {
   float: none;
 }
-.btn-group-vertical > .btn + .btn,
-.btn-group-vertical > .btn + .btn-group,
+.btn-group-vertical > .cutomBtn + .btn,
+.btn-group-vertical > .cutomBtn + .btn-group,
 .btn-group-vertical > .btn-group + .btn,
 .btn-group-vertical > .btn-group + .btn-group {
   margin-top: -1px;
@@ -3662,7 +3662,7 @@ tbody.collapse.in {
   border-top-right-radius: 0;
   border-bottom-left-radius: 4px;
 }
-.btn-group-vertical > .btn-group:not(:first-child):not(:last-child) > .btn {
+.btn-group-vertical > .btn-group:not(:first-child):not(:last-child) > .cutomBtn {
   border-radius: 0;
 }
 .btn-group-vertical > .btn-group:first-child:not(:last-child) > .btn:last-child,
@@ -3686,16 +3686,16 @@ tbody.collapse.in {
   float: none;
   width: 1%;
 }
-.btn-group-justified > .btn-group .btn {
+.btn-group-justified > .btn-group .cutomBtn {
   width: 100%;
 }
 .btn-group-justified > .btn-group .dropdown-menu {
   left: auto;
 }
-[data-toggle="buttons"] > .btn input[type="radio"],
-[data-toggle="buttons"] > .btn-group > .btn input[type="radio"],
-[data-toggle="buttons"] > .btn input[type="checkbox"],
-[data-toggle="buttons"] > .btn-group > .btn input[type="checkbox"] {
+[data-toggle="buttons"] > .cutomBtn input[type="radio"],
+[data-toggle="buttons"] > .btn-group > .cutomBtn input[type="radio"],
+[data-toggle="buttons"] > .cutomBtn input[type="checkbox"],
+[data-toggle="buttons"] > .btn-group > .cutomBtn input[type="checkbox"] {
   position: absolute;
   clip: rect(0, 0, 0, 0);
   pointer-events: none;
@@ -3719,7 +3719,7 @@ tbody.collapse.in {
 }
 .input-group-lg > .form-control,
 .input-group-lg > .input-group-addon,
-.input-group-lg > .input-group-btn > .btn {
+.input-group-lg > .input-group-cutomBtn > .cutomBtn {
   height: 46px;
   padding: 10px 16px;
   font-size: 18px;
@@ -3728,21 +3728,21 @@ tbody.collapse.in {
 }
 select.input-group-lg > .form-control,
 select.input-group-lg > .input-group-addon,
-select.input-group-lg > .input-group-btn > .btn {
+select.input-group-lg > .input-group-cutomBtn > .cutomBtn {
   height: 46px;
   line-height: 46px;
 }
 textarea.input-group-lg > .form-control,
 textarea.input-group-lg > .input-group-addon,
-textarea.input-group-lg > .input-group-btn > .btn,
+textarea.input-group-lg > .input-group-cutomBtn > .btn,
 select[multiple].input-group-lg > .form-control,
 select[multiple].input-group-lg > .input-group-addon,
-select[multiple].input-group-lg > .input-group-btn > .btn {
+select[multiple].input-group-lg > .input-group-cutomBtn > .cutomBtn {
   height: auto;
 }
 .input-group-sm > .form-control,
 .input-group-sm > .input-group-addon,
-.input-group-sm > .input-group-btn > .btn {
+.input-group-sm > .input-group-cutomBtn > .cutomBtn {
   height: 30px;
   padding: 5px 10px;
   font-size: 12px;
@@ -3751,16 +3751,16 @@ select[multiple].input-group-lg > .input-group-btn > .btn {
 }
 select.input-group-sm > .form-control,
 select.input-group-sm > .input-group-addon,
-select.input-group-sm > .input-group-btn > .btn {
+select.input-group-sm > .input-group-cutomBtn > .cutomBtn {
   height: 30px;
   line-height: 30px;
 }
 textarea.input-group-sm > .form-control,
 textarea.input-group-sm > .input-group-addon,
-textarea.input-group-sm > .input-group-btn > .btn,
+textarea.input-group-sm > .input-group-cutomBtn > .btn,
 select[multiple].input-group-sm > .form-control,
 select[multiple].input-group-sm > .input-group-addon,
-select[multiple].input-group-sm > .input-group-btn > .btn {
+select[multiple].input-group-sm > .input-group-cutomBtn > .cutomBtn {
   height: auto;
 }
 .input-group-addon,
@@ -3774,7 +3774,7 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
   border-radius: 0;
 }
 .input-group-addon,
-.input-group-btn {
+.input-group-cutomBtn {
   width: 1%;
   white-space: nowrap;
   vertical-align: middle;
@@ -3810,7 +3810,7 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
 .input-group-btn:first-child > .btn-group > .btn,
 .input-group-btn:first-child > .dropdown-toggle,
 .input-group-btn:last-child > .btn:not(:last-child):not(.dropdown-toggle),
-.input-group-btn:last-child > .btn-group:not(:last-child) > .btn {
+.input-group-btn:last-child > .btn-group:not(:last-child) > .cutomBtn {
   border-top-right-radius: 0;
   border-bottom-right-radius: 0;
 }
@@ -3823,27 +3823,27 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
 .input-group-btn:last-child > .btn-group > .btn,
 .input-group-btn:last-child > .dropdown-toggle,
 .input-group-btn:first-child > .btn:not(:first-child),
-.input-group-btn:first-child > .btn-group:not(:first-child) > .btn {
+.input-group-btn:first-child > .btn-group:not(:first-child) > .cutomBtn {
   border-top-left-radius: 0;
   border-bottom-left-radius: 0;
 }
 .input-group-addon:last-child {
   border-left: 0;
 }
-.input-group-btn {
+.input-group-cutomBtn {
   position: relative;
   font-size: 0;
   white-space: nowrap;
 }
-.input-group-btn > .btn {
+.input-group-cutomBtn > .cutomBtn {
   position: relative;
 }
-.input-group-btn > .btn + .btn {
+.input-group-cutomBtn > .cutomBtn + .cutomBtn {
   margin-left: -1px;
 }
-.input-group-btn > .btn:hover,
-.input-group-btn > .btn:focus,
-.input-group-btn > .btn:active {
+.input-group-cutomBtn > .btn:hover,
+.input-group-cutomBtn > .btn:focus,
+.input-group-cutomBtn > .btn:active {
   z-index: 2;
 }
 .input-group-btn:first-child > .btn,
@@ -4343,7 +4343,7 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
   border-bottom-right-radius: 0;
   border-bottom-left-radius: 0;
 }
-.navbar-btn {
+.navbar-cutomBtn {
   margin-top: 8px;
   margin-bottom: 8px;
 }
@@ -4746,7 +4746,7 @@ a.label:focus {
 .label:empty {
   display: none;
 }
-.btn .label {
+.cutomBtn .label {
   position: relative;
   top: -1px;
 }
@@ -4809,7 +4809,7 @@ a.label:focus {
 .badge:empty {
   display: none;
 }
-.btn .badge {
+.cutomBtn .badge {
   position: relative;
   top: -1px;
 }
@@ -5785,11 +5785,11 @@ button.close {
   text-align: right;
   border-top: 1px solid #e5e5e5;
 }
-.modal-footer .btn + .btn {
+.modal-footer .cutomBtn + .cutomBtn {
   margin-bottom: 0;
   margin-left: 5px;
 }
-.modal-footer .btn-group .btn + .btn {
+.modal-footer .btn-group .cutomBtn + .cutomBtn {
   margin-left: -1px;
 }
 .modal-footer .btn-block + .btn-block {
@@ -6239,7 +6239,7 @@ button.close {
   text-align: center;
   text-shadow: 0 1px 2px rgba(0, 0, 0, .6);
 }
-.carousel-caption .btn {
+.carousel-caption .cutomBtn {
   text-shadow: none;
 }
 @media screen and (min-width: 768px) {

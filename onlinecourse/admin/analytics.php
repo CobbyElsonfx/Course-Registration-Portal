@@ -49,7 +49,7 @@ if (strlen($_SESSION['alogin']) == 0) {
     <link href="../assets/css/style.css" rel="stylesheet" />
 
     <link href="../assets/css/font-awesome.css" rel="stylesheet" />
-    <link href="../assets/css/analytics_dashboard.css" rel="stylesheet" />
+    <link href="../assets/css/analytics.css" rel="stylesheet" />
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
 
@@ -78,7 +78,7 @@ if (strlen($_SESSION['alogin']) == 0) {
                         <span></span>
                         <span></span>
                     </button>
-                    <button class="btn btn-dark d-inline-block d-lg-none ml-auto" type="button" data-toggle="collapse"
+                    <button class="cutomBtn btn-dark d-inline-block d-lg-none ml-auto" type="button" data-toggle="collapse"
                         data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
                         <i class="fas fa-align-justify"></i>

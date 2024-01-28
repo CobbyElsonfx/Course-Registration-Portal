@@ -123,7 +123,7 @@ if (strlen($_SESSION['alogin']) == 0) {
                         <span></span>
                         <span></span>
                     </button>
-                    <button class="btn btn-dark d-inline-block d-lg-none ml-auto" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <button class="cutomBtn btn-dark d-inline-block d-lg-none ml-auto" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                         <i class="fas fa-align-justify"></i>
                     </button>
                 </div>
@@ -208,7 +208,7 @@ if (strlen($_SESSION['alogin']) == 0) {
                   </div>
                 </div>
                 
-                  <button type="submit" name="submit" id="submit" class="btn btn-default mt-4">Add New Result</button>
+                  <button type="submit" name="submit" id="submit" class="cutomBtn btn-default mt-4">Add New Result</button>
                 </form>
 
                 <!-- Form for Excel file upload -->
@@ -230,9 +230,9 @@ if (strlen($_SESSION['alogin']) == 0) {
                       required />
                   </div>
                   <div class="d-flex justify-content-between">
-                  <button type="submit" name="upload" class="btn mt-5 btn-default">Upload File</button>
+                  <button type="submit" name="upload" class="cutomBtn mt-5 btn-default">Upload File</button>
                   <a href="./uploads/1702831760_657f2690aa30b.xlsx" download="excel_template">             
-                  <button type="button" class="btn mt-5 btn-default">Download Template</button>
+                  <button type="button" class="cutomBtn mt-5 btn-default">Download Template</button>
 </a>
 
                     

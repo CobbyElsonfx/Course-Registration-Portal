@@ -25,13 +25,16 @@ if (isset($_POST['submit'])) {
 
         // Redirect to the profile page
         header("location:http:my-profile.php");
+        exit(); // Add an exit to stop further execution
     } else {
         // Account is not cleared, show error message
-        $_SESSION['errmsg'] = "Invalid Reg no, Password, or student not cleared. Please contact the admin for clearance.";
+        $_SESSION['errmsg'] = "Incorrect registration number, password, or student not yet cleared. Kindly reach out to the administrator.";
         header("location:http:home.php");
+        exit(); // Add an exit to stop further execution
     }
 }
 ?>
+
 
 
 <!DOCTYPE html>
@@ -69,17 +72,17 @@ if (isset($_POST['submit'])) {
     </div>
     <header class="p-2 navbarHeader text-white">
         <div class="container d-flex flex-wrap align-items-center justify-content-center ">
-            <div class="">
+            <div class=" mt-2">
 
-                <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
-                    <li class="navLink px-3 py-2 d-flex ">
+                <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0 ">
+                    <li class="navLink px-3  d-flex flex-column align-items-center ">
                         <img class="navIcon" src="./assets/img/home.svg">
-                        <a href="./index.php">Home </a>
+                        <a href="./index.php" class="fs-5">Home </a>
                     </li>
 
-                    <li class="navLink px-3 py-2 d-flex">
+                    <li class="navLink px-3  d-flex flex-column  align-items-center">
                         <img class="navIcon" src="./assets/img/student.svg">
-                        <a href="./home.php">Student Login</a>
+                        <a href="./home.php"  class="fs-5">Student Login</a>
                     </li>
                 </ul>
 
@@ -94,10 +97,11 @@ if (isset($_POST['submit'])) {
                 </div>
                 <div class="col-md-6">
                     <h4 class="page-head-line">Please Enter Your details to Login </h4>
-                    <span style="color:red;">
+                    <small style="color:red;">
+                      
                         <?php echo htmlentities($_SESSION['errmsg']); ?>
                         <?php echo htmlentities($_SESSION['errmsg'] = ""); ?>
-                    </span>
+</small>
                     <form class="card" name="admin" method="post">
                         <div class="row">
                             <div class="col-md-11">
@@ -107,7 +111,7 @@ if (isset($_POST['submit'])) {
                                     <label>Enter Password : </label>
                                     <input type="password" name="password" class="form-control" />
                                     <hr />
-                                    <button type="submit" name="submit" class="btn btn-info"><span
+                                    <button type="submit" name="submit" class="cutomBtn btn-info"><span
                                             class="glyphicon glyphicon-user"></span>
                                         &nbsp;Log Me In </button>&nbsp;
                                 </div>
